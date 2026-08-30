@@ -24,7 +24,7 @@ export default function WorkCard({ study }: { study: CaseStudy }) {
         </div>
       </div>
 
-      <Thumb kind={study.visual} tag={study.status} />
+      <Thumb kind={study.visual} image={study.image} />
     </Link>
   );
 }

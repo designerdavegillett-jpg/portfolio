@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+<rect width="1600" height="900" fill="#F1EFE9"/>
+<rect x="1" y="1" width="1598" height="898" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
+<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; PRIORITY</text>
+<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
+<text x="48" y="440.0" font-family="Georgia, serif" font-size="46" fill="#141414">A takeoff in progress</text>
+<text x="48" y="480.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Room floor or walls measured out, square footage showing.</text><text x="48" y="514.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Waste percentage field visible if you can get it in frame.</text>
+<text x="48" y="852" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 900</text>
+</svg>

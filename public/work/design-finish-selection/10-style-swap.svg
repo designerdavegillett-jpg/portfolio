@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700">
+<rect width="1600" height="700" fill="#F1EFE9"/>
+<rect x="1" y="1" width="1598" height="698" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
+<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; PRIORITY</text>
+<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
+<text x="48" y="340.0" font-family="Georgia, serif" font-size="46" fill="#141414">One item, two styles</text>
+<text x="48" y="380.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">The same item under two saved styles, side by side.</text><text x="48" y="414.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Shows what a single click actually does.</text>
+<text x="48" y="652" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 700</text>
+</svg>

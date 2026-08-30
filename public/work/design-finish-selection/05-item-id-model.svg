@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+<rect width="1600" height="1000" fill="#F1EFE9"/>
+<rect x="1" y="1" width="1598" height="998" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
+<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; HIGHEST PRIORITY</text>
+<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
+<text x="48" y="490.0" font-family="Georgia, serif" font-size="46" fill="#141414">The item ID model</text>
+<text x="48" y="530.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Figma diagram, two states. Five bathroom locations on a plan.</text><text x="48" y="564.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Four point at TO-01, one at TO-02, each ID resolving to an item below.</text><text x="48" y="598.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Second state: TO-01 changed, four update, the fifth sits still.</text><text x="48" y="632.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Use toilets, not the hundred can lights. Clearer picture.</text>
+<text x="48" y="952" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 1000</text>
+</svg>

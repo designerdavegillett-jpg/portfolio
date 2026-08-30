@@ -3,19 +3,47 @@ export type ThumbKind = "canvas" | "system" | "dark" | "neutral";
 /**
  * Placeholder visuals. These are deliberately abstract — they hold the
  * layout's proportions and rhythm until real screenshots replace them.
- * Swap the <svg> for an <Image> when you have the assets; nothing else changes.
+ * Once a case study has a real screenshot, pass `image` and it takes over
+ * from the abstract `kind` SVG automatically.
  */
 export default function Thumb({
   kind = "neutral",
-  tag,
+  image,
+  priority = false,
 }: {
   kind?: ThumbKind;
-  tag?: string;
+  /** `width`/`height` are accepted on the data but intentionally not rendered. */
+  image?: { src: string; alt: string; width?: number; height?: number };
+  /**
+   * Set on the one image that is the page's largest above-the-fold element.
+   * It loads eagerly at high fetch priority instead of lazily, which is what
+   * Core Web Vitals measures as LCP. Never set it on more than one image
+   * per page — competing high-priority fetches make LCP worse, not better.
+   */
+  priority?: boolean;
 }) {
   return (
     <div className="thumb reveal" style={{ "--d": ".06s" } as React.CSSProperties}>
-      {tag ? <span className="tag">{tag}</span> : null}
-      <div className="inner">{VISUALS[kind]}</div>
+      <div className="inner">
+        {/* No width/height attributes on the img below, deliberately. The
+            .thumb box is already reserved by `aspect-ratio: 16/11`, so they
+            buy nothing against layout shift, and an intrinsic width on a
+            replaced element can feed the `auto` minimum of the card's `1fr`
+            track and widen the column past the gutter. Reserve the box in
+            CSS, never on the tag. */}
+        {image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={image.src}
+            alt={image.alt}
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : undefined}
+            decoding={priority ? "sync" : "async"}
+          />
+        ) : (
+          VISUALS[kind]
+        )}
+      </div>
     </div>
   );
 }
@@ -30,37 +58,37 @@ const svgProps = {
 const VISUALS: Record<ThumbKind, React.ReactElement> = {
   canvas: (
     <svg {...svgProps}>
-      <rect width="800" height="550" fill="#F2F0EB" />
-      <rect x="70" y="55" width="660" height="440" rx="10" fill="#fff" stroke="rgba(20,20,20,.08)" />
-      <rect x="70" y="55" width="660" height="34" rx="10" fill="#FBFAF8" />
-      <circle cx="90" cy="72" r="4" fill="#DCD8D1" />
-      <circle cx="104" cy="72" r="4" fill="#DCD8D1" />
-      <circle cx="118" cy="72" r="4" fill="#DCD8D1" />
-      <rect x="70" y="89" width="150" height="406" fill="#FBFAF8" />
-      <g fill="#E4E0D9">
+      <rect width="800" height="550" fill="#E8E8ED" />
+      <rect x="70" y="55" width="660" height="440" rx="10" fill="#fff" stroke="rgba(29,29,31,.08)" />
+      <rect x="70" y="55" width="660" height="34" rx="10" fill="#F5F5F7" />
+      <circle cx="90" cy="72" r="4" fill="#D2D2D7" />
+      <circle cx="104" cy="72" r="4" fill="#D2D2D7" />
+      <circle cx="118" cy="72" r="4" fill="#D2D2D7" />
+      <rect x="70" y="89" width="150" height="406" fill="#F5F5F7" />
+      <g fill="#D2D2D7">
         <rect x="88" y="110" width="110" height="8" rx="4" />
         <rect x="88" y="130" width="86" height="8" rx="4" />
         <rect x="88" y="150" width="98" height="8" rx="4" />
         <rect x="88" y="170" width="72" height="8" rx="4" />
       </g>
-      <rect x="88" y="205" width="114" height="70" rx="6" fill="#E9E5DE" />
-      <rect x="88" y="285" width="114" height="70" rx="6" fill="#E9E5DE" />
-      <rect x="250" y="120" width="320" height="200" rx="8" fill="#EDEAE3" stroke="rgba(20,20,20,.06)" />
+      <rect x="88" y="205" width="114" height="70" rx="6" fill="#E5E5EA" />
+      <rect x="88" y="285" width="114" height="70" rx="6" fill="#E5E5EA" />
+      <rect x="250" y="120" width="320" height="200" rx="8" fill="#E5E5EA" stroke="rgba(29,29,31,.06)" />
       <rect x="270" y="140" width="130" height="90" rx="4" fill="#2B5F5A" opacity=".18" />
       <rect x="418" y="140" width="130" height="90" rx="4" fill="#2B5F5A" opacity=".1" />
-      <g fill="#DAD5CD">
+      <g fill="#C7C7CC">
         <rect x="270" y="248" width="180" height="7" rx="3.5" />
         <rect x="270" y="264" width="130" height="7" rx="3.5" />
         <rect x="270" y="280" width="210" height="7" rx="3.5" />
       </g>
-      <rect x="250" y="340" width="320" height="130" rx="8" fill="#F5F3EE" stroke="rgba(20,20,20,.05)" />
-      <g fill="#E4E0D9">
+      <rect x="250" y="340" width="320" height="130" rx="8" fill="#F2F2F5" stroke="rgba(29,29,31,.05)" />
+      <g fill="#D2D2D7">
         <rect x="270" y="360" width="80" height="60" rx="4" />
         <rect x="360" y="360" width="80" height="60" rx="4" />
         <rect x="450" y="360" width="80" height="60" rx="4" />
       </g>
-      <rect x="600" y="120" width="112" height="350" rx="8" fill="#FBFAF8" stroke="rgba(20,20,20,.06)" />
-      <g fill="#E4E0D9">
+      <rect x="600" y="120" width="112" height="350" rx="8" fill="#F5F5F7" stroke="rgba(29,29,31,.06)" />
+      <g fill="#D2D2D7">
         <rect x="616" y="140" width="70" height="7" rx="3.5" />
         <rect x="616" y="158" width="80" height="7" rx="3.5" />
         <rect x="616" y="188" width="80" height="26" rx="4" />
@@ -72,13 +100,13 @@ const VISUALS: Record<ThumbKind, React.ReactElement> = {
 
   system: (
     <svg {...svgProps}>
-      <rect width="800" height="550" fill="#EFEDE7" />
-      <g stroke="rgba(20,20,20,.10)" strokeWidth="1" fill="none">
+      <rect width="800" height="550" fill="#E8E8ED" />
+      <g stroke="rgba(29,29,31,.10)" strokeWidth="1" fill="none">
         <path d="M400 275 L400 130 M400 275 L545 195 M400 275 L545 355 M400 275 L400 420 M400 275 L255 355 M400 275 L255 195" />
         <path d="M400 130 L545 195 L545 355 L400 420 L255 355 L255 195 Z" />
         <path d="M400 130 L640 90 M545 195 L700 250 M545 355 L680 430 M255 195 L120 130 M255 355 L110 400" />
       </g>
-      <g fill="#FBFAF8" stroke="rgba(20,20,20,.12)">
+      <g fill="#F5F5F7" stroke="rgba(29,29,31,.12)">
         <circle cx="400" cy="130" r="26" />
         <circle cx="545" cy="195" r="26" />
         <circle cx="545" cy="355" r="26" />
@@ -93,15 +121,15 @@ const VISUALS: Record<ThumbKind, React.ReactElement> = {
         <circle cx="120" cy="130" r="13" />
         <circle cx="110" cy="400" r="13" />
       </g>
-      <circle cx="400" cy="275" r="42" fill="#141414" />
+      <circle cx="400" cy="275" r="42" fill="#1D1D1F" />
     </svg>
   ),
 
   dark: (
     <svg {...svgProps}>
-      <rect width="800" height="550" fill="#17201F" />
-      <rect x="90" y="70" width="620" height="410" rx="12" fill="#1E2A28" stroke="rgba(255,255,255,.08)" />
-      <rect x="90" y="70" width="620" height="36" rx="12" fill="#233230" />
+      <rect width="800" height="550" fill="#1C1C1E" />
+      <rect x="90" y="70" width="620" height="410" rx="12" fill="#2C2C2E" stroke="rgba(255,255,255,.08)" />
+      <rect x="90" y="70" width="620" height="36" rx="12" fill="#3A3A3C" />
       <circle cx="112" cy="88" r="4" fill="rgba(255,255,255,.2)" />
       <circle cx="126" cy="88" r="4" fill="rgba(255,255,255,.2)" />
       <g fill="rgba(255,255,255,.12)">
@@ -132,16 +160,16 @@ const VISUALS: Record<ThumbKind, React.ReactElement> = {
 
   neutral: (
     <svg {...svgProps}>
-      <rect width="800" height="550" fill="#F2F0EB" />
-      <rect x="110" y="90" width="580" height="370" rx="10" fill="#FBFAF8" stroke="rgba(20,20,20,.07)" />
-      <g fill="#E7E3DC">
+      <rect width="800" height="550" fill="#E8E8ED" />
+      <rect x="110" y="90" width="580" height="370" rx="10" fill="#F5F5F7" stroke="rgba(29,29,31,.07)" />
+      <g fill="#D2D2D7">
         <rect x="150" y="130" width="220" height="10" rx="5" />
         <rect x="150" y="152" width="160" height="10" rx="5" />
       </g>
-      <rect x="150" y="196" width="250" height="150" rx="8" fill="#EDEAE3" />
-      <rect x="420" y="196" width="230" height="70" rx="8" fill="#EDEAE3" />
+      <rect x="150" y="196" width="250" height="150" rx="8" fill="#E5E5EA" />
+      <rect x="420" y="196" width="230" height="70" rx="8" fill="#E5E5EA" />
       <rect x="420" y="276" width="230" height="70" rx="8" fill="#2B5F5A" opacity=".14" />
-      <g fill="#E7E3DC">
+      <g fill="#D2D2D7">
         <rect x="150" y="380" width="330" height="9" rx="4.5" />
         <rect x="150" y="400" width="260" height="9" rx="4.5" />
       </g>

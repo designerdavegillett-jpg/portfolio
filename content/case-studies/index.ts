@@ -10,23 +10,15 @@ export type { CaseStudy, SelectedItem };
  * workstream — edit your own file, and only reorder here.
  */
 export const caseStudies: CaseStudy[] = [
+  ...ownTheScriptStudies,
   ...efficientlyStudies,
   ...passportStudies,
-  ...ownTheScriptStudies,
 ];
 
 /** Rows under "Also" on the home page. Drop a row once its case study is live. */
 export const selectedWork: SelectedItem[] = [
   {
-    name: "Passport Unlimited",
-    note: "benefits platform reaching 500,000+ employees across 80+ enterprise clients.",
-  },
-  {
     name: "Soro Software",
     note: "retail CRM adopted across Seattle-area locations; the company was acquired.",
-  },
-  {
-    name: "Own the Script",
-    note: "a compliance video tool built solo — design, code, and the decisions in between.",
   },
 ];

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" width="1600" height="800">
+<rect width="1600" height="800" fill="#F1EFE9"/>
+<rect x="1" y="1" width="1598" height="798" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
+<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; PRIORITY</text>
+<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
+<text x="48" y="390.0" font-family="Georgia, serif" font-size="46" fill="#141414">Half pixel, before and after</text>
+<text x="48" y="430.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Figma, zoomed. Left: element at a fractional position, halfway inside a pixel,</text><text x="48" y="464.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">guide thickened by zoom. Right: element on the boundary, guide at one pixel.</text><text x="48" y="498.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Cheapest high impact image in the case study.</text>
+<text x="48" y="752" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 800</text>
+</svg>

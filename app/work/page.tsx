@@ -21,7 +21,7 @@ export default function WorkPage() {
 
       <section className="section" style={{ marginTop: "5rem" }}>
         <div className="rail">
-          <div className="label reveal">All Work</div>
+          <h2 className="label reveal">All Work</h2>
         </div>
         <div className="cards">
           {caseStudies.map((study) => (

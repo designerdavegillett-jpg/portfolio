@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter_Tight } from "next/font/google";
+import { Fraunces, Inter_Tight, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
+import SiteBanner from "@/components/SiteBanner";
 import MotionLayer from "@/components/MotionLayer";
 import LocalTime from "@/components/LocalTime";
 import Link from "next/link";
@@ -14,6 +15,11 @@ const fraunces = Fraunces({
   variable: "--font-display",
   display: "swap",
 });
+
+/* Résumé face. The résumé page is the one surface that has to match the PDF a
+   recruiter downloads, so it keeps Geist rather than the site body face. */
+const geist = Geist({ subsets: ["latin"], variable: "--font-resume", display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-resume-mono", display: "swap" });
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -57,8 +63,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${interTight.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${interTight.variable} ${geist.variable} ${geistMono.variable}`}>
       <body>
+        <SiteBanner />
         <SiteHeader />
         <MotionLayer />
 
@@ -72,6 +79,9 @@ export default function RootLayout({
             </Link>
             <Link href="/about" className="meta">
               About
+            </Link>
+            <Link href="/resume" className="meta">
+              Résumé
             </Link>
             <a href="mailto:designerdavegillett@gmail.com" className="meta">
               Email

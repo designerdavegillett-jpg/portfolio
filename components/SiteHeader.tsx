@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 const links = [
   { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
+  { href: "/resume", label: "Résumé" },
 ];
 
 export default function SiteHeader() {
@@ -36,7 +37,11 @@ export default function SiteHeader() {
 
       <div className="header-right">
         <a href="mailto:designerdavegillett@gmail.com">Email</a>
-        <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+        <a
+          href="https://www.linkedin.com/in/david-gillett-847507135/"
+          target="_blank"
+          rel="noreferrer"
+        >
           LinkedIn
         </a>
       </div>

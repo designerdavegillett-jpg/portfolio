@@ -1,20 +1,55 @@
 import { caseStudies, selectedWork } from "@/content/case-studies";
 import WorkCard from "@/components/WorkCard";
-import Spine from "@/components/Spine";
+import ScrollCue from "@/components/ScrollCue";
 import { splitWords } from "@/lib/type";
 
 const HERO =
-  "Dave Gillett spent sixteen years designing the systems people work inside — *eight modules*, twenty-six releases, and one honest lesson about the limits of adding more.";
+  "I've spent sixteen years designing the systems people work inside — building teams from the ground up, most recently shipping *twenty-six releases* across eight modules, and now using AI to move faster without moving anyone out of the room.";
+
+/* The identity of the site, in the form a search engine can resolve. This is
+   what ties "Dave Gillett" the string to a person with a role and a body of
+   work, and it is the anchor every case study's author field points back to. */
+const PERSON_JSONLD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://nifli.design/#person",
+      name: "Dave Gillett",
+      jobTitle: "Senior Product Designer",
+      url: "https://nifli.design",
+      email: "mailto:designerdavegillett@gmail.com",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Seattle",
+        addressRegion: "WA",
+        addressCountry: "US",
+      },
+      knowsAbout: [
+        "Product Design",
+        "User Experience Design",
+        "Design Systems",
+        "Interaction Design",
+        "Information Architecture",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nifli.design/#website",
+      url: "https://nifli.design",
+      name: "Dave Gillett",
+      inLanguage: "en-US",
+      publisher: { "@id": "https://nifli.design/#person" },
+    },
+  ],
+};
 
 export default function Home() {
   return (
     <>
-      <Spine
-        items={[
-          { id: "top", name: "Intro" },
-          { id: "work", name: "Work" },
-          { id: "more", name: "Selected" },
-        ]}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSONLD).replace(/</g, "\\u003c") }}
       />
 
       {/* HERO */}
@@ -26,15 +61,13 @@ export default function Home() {
             <span className="label">Product · UX · Design Systems</span>
           </div>
         </div>
-        <div className="scroll-cue reveal" style={{ "--d": "1.2s" } as React.CSSProperties}>
-          Scroll <i />
-        </div>
+        <ScrollCue />
       </div>
 
       {/* WORK */}
       <section className="section" id="work">
         <div className="rail">
-          <div className="label reveal">Selected Work</div>
+          <h2 className="label reveal">Selected Work</h2>
         </div>
         <div className="cards">
           {caseStudies.map((study) => (
@@ -46,7 +79,7 @@ export default function Home() {
       {/* ALSO */}
       <section className="section" id="more">
         <div className="rail">
-          <div className="label reveal">Also</div>
+          <h2 className="label reveal">Also</h2>
         </div>
         <div style={{ paddingBottom: "5rem" }}>
           <div className="lines">
