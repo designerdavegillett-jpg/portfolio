@@ -13,7 +13,13 @@ export default function Thumb({
 }: {
   kind?: ThumbKind;
   /** `width`/`height` are accepted on the data but intentionally not rendered. */
-  image?: { src: string; alt: string; width?: number; height?: number };
+  image?: {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+    transparent?: boolean;
+  };
   /**
    * Set on the one image that is the page's largest above-the-fold element.
    * It loads eagerly at high fetch priority instead of lazily, which is what
@@ -23,7 +29,11 @@ export default function Thumb({
   priority?: boolean;
 }) {
   return (
-    <div className="thumb reveal" style={{ "--d": ".06s" } as React.CSSProperties}>
+    <div
+      className="thumb reveal"
+      data-transparent={image?.transparent ? "true" : undefined}
+      style={{ "--d": ".06s" } as React.CSSProperties}
+    >
       <div className="inner">
         {/* No width/height attributes on the img below, deliberately. The
             .thumb box is already reserved by `aspect-ratio: 16/11`, so they

@@ -30,6 +30,7 @@ export const efficientlyStudies: CaseStudy[] = [
       alt: "Three Efficiently screens overlapping: the plans canvas with a room highlighted on a floor plan, the design book laying out primary bathroom selections, and the item schedule listing locations with approval statuses.",
       width: 1920,
       height: 1320,
+      transparent: true,
     },
     summary:
       "A house gets built out of thousands of small decisions and almost none of them have one owner. I designed the first two stages of a platform meant to hold all of them in one place: a plans canvas for measuring and placing finishes, an item schedule that carries the approval workflow, a design book for presenting selections, and a portal where the homeowner says yes. One item record underneath all of it, so a decision made anywhere is visible from everywhere.",

@@ -22,12 +22,15 @@ export const ownTheScriptStudies: CaseStudy[] = [
     status: "Shipped",
     visual: "dark",
     image: {
-      src: "/work/own-the-script/main.jpg",
+      src: "/work/own-the-script/main.webp",
       alt: "Three screens from Own the Script: the home feed with a weekly streak strip and video library, the script builder with a compliance review prompt, and the capture screen with the teleprompter running over the camera.",
-      /* Dave's artwork, used as supplied. Not rendered as attributes on the
-         tag - see the note in components/Thumb.tsx. */
-      width: 1920,
-      height: 1358,
+      /* Dave's artwork. Supplied as a 1920px transparent PNG at 2.0 MB;
+         re-encoded to WebP at 1600px, which covers the largest place it renders
+         (832 CSS px on the case study page) at 2x. Not rendered as attributes on
+         the tag - see the note in components/Thumb.tsx. */
+      width: 1600,
+      height: 1132,
+      transparent: true,
     },
     summary:
       "A mortgage loan officer making a short video is a licensed advertiser, and almost nothing built for them treats it that way. I designed and directed an iOS app that lets one write a compliant script, read it off a teleprompter that follows their voice, burn animated captions and a regulatory disclosure card into the video on the phone, and publish it to three platforms in one tap. Behind it sits a web console where a lender writes its own compliance rulebook and the phone enforces it. Ten weeks, one designer, no engineers. AI agents wrote every line of the code and I wrote every line of the direction.",

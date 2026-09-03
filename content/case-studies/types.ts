@@ -55,6 +55,12 @@ export type CaseStudy = {
     /** Intrinsic pixel dimensions. Same CLS reason as Figure above. */
     width?: number;
     height?: number;
+    /**
+     * The file has a transparent background, usually a device render with a
+     * soft shadow. Drops the grey plate and the inset hairline, and fits the
+     * image inside the box rather than cropping it, so the shadow survives.
+     */
+    transparent?: boolean;
   };
   sections: Section[];
 };

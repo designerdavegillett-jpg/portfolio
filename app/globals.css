@@ -916,13 +916,26 @@ strong {
   }
 }
 
-/* Transparent PNGs: no plate, no outline */
-.thumb:has(img[src$="three-surfaces.png"]) {
+/* ============================================================
+   TRANSPARENT ARTWORK
+   Device renders with a soft shadow arrive on a clear background.
+   They want no grey plate behind them, no inset hairline around
+   them, and to be fitted rather than cropped, or `cover` cuts the
+   shadow off. Driven by `transparent: true` on the image data
+   rather than by matching filenames in CSS.
+   ============================================================ */
+.thumb[data-transparent="true"] {
   background: transparent;
 }
-.thumb:has(img[src$="three-surfaces.png"])::after {
+.thumb[data-transparent="true"]::after {
   display: none;
 }
+.thumb[data-transparent="true"] .inner img {
+  object-fit: contain;
+}
+
+/* Figures use the same idea, keyed off the file for now because a figure
+   carries no flag of its own yet. */
 .figure img[src$="three-surfaces.png"],
 .figure img[src$="design-book.png"] {
   border: none;
