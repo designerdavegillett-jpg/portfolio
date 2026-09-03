@@ -51,7 +51,19 @@ export default function RailIndex({ items, label }: { items: Item[]; label?: str
          intersecting the band. Picking "most visible" instead makes the marker
          jump back and forth between two sections of similar height. */
       const current = items.find((it) => (seen.get(it.id) ?? 0) > 0);
-      if (current) setActive(current.id);
+      if (current) {
+        setActive(current.id);
+        return;
+      }
+      /* Nothing in the band at all. Above the first section this is the normal
+         state, because the whole case study header sits above it, and leaving
+         the marker where it was meant scrolling back to the top kept the last
+         section lit. Fall back to the first item once the first section has
+         dropped below the band. */
+      const first = document.getElementById(items[0].id);
+      if (first && first.getBoundingClientRect().top > window.innerHeight * 0.38) {
+        setActive(items[0].id);
+      }
     };
 
     const observer = new IntersectionObserver(

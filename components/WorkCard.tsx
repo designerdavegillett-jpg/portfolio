@@ -8,7 +8,7 @@ export default function WorkCard({ study }: { study: CaseStudy }) {
     <Link className="card" href={`/work/${study.slug}`}>
       <div className="card-text">
         <div className="card-head reveal">
-          <h3 className="display d-lg">
+          <h3 className="display d-md">
             {emphasize(study.headline ?? study.title)}
             <span className="arrow">→</span>
           </h3>

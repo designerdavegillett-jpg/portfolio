@@ -22,7 +22,7 @@ export const efficientlyStudies: CaseStudy[] = [
     slug: "design-finish-selection",
     title: "Design & Finish Selection",
     headline:
-      "Who chooses, who approves, and *who's holding the truth* when a house gets built.",
+      "Efficiently: A single-source-of-truth SaaS platform for residential construction.",
     status: "Shipped",
     visual: "canvas",
     image: {

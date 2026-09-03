@@ -18,7 +18,7 @@ export const ownTheScriptStudies: CaseStudy[] = [
     slug: "own-the-script",
     title: "Own the Script",
     headline:
-      "A regulated advertisement, recorded on a phone, with *the disclosure burned into the file*.",
+      "Own the Script: A short-form video app that carries its own compliance layer, concept to App Store.",
     status: "Shipped",
     visual: "dark",
     image: {

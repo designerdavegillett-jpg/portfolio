@@ -6,7 +6,7 @@ export const passportStudies: CaseStudy[] = [
     slug: "passport-unlimited-mobile",
     title: "Passport Unlimited, Mobile App",
     headline:
-      "Passport Unlimited: a barely-used savings app rebuilt around *what's actually nearby*.",
+      "Passport Unlimited: An underused enterprise benefits app brought in-house, rebuilt, and finally measurable.",
     status: "Shipped",
     visual: "neutral",
     summary:

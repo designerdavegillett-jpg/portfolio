@@ -485,6 +485,12 @@ strong {
   justify-content: space-between;
   min-height: 23rem;
 }
+/* Card headlines are descriptive sentences now, not short fragments, so they
+   wrap. Balance evens the rag instead of leaving an orphan word on the last
+   line. */
+.card-head h3 {
+  text-wrap: balance;
+}
 .card-head .arrow {
   display: inline-block;
   margin-left: 0.4rem;
@@ -524,6 +530,11 @@ strong {
   background: var(--paper-sunk);
   aspect-ratio: 16 / 11;
   position: relative;
+  /* The card is a stretch grid, so without this a tall text column overrides
+     aspect-ratio and makes the thumb grow, and object-fit: cover then crops the
+     screenshot harder on whichever card has the longest headline. Pin it to the
+     top and every card crops identically. */
+  align-self: start;
 }
 .thumb .inner {
   position: absolute;

@@ -133,15 +133,14 @@ export default async function CaseStudyPage({
           ← Work
         </Link>
 
-        {/* The project name. Without this the page never states what it is
-            called anywhere in the body, which costs the entity its strongest
-            on-page signal and makes the h1 read as a headline about nothing. */}
-        <p className="label" style={{ marginTop: "2.4rem" }}>
-          {study.title}
-        </p>
-
-        <h1 className="display d-xl" style={{ maxWidth: "42rem", marginTop: ".7rem" }}>
-          {splitWords(study.headline ?? study.title)}
+        {/* The project name is the h1. `headline` is a card device (its own type
+            comment calls it "Card headline") and every headline now opens with
+            the project name, so running it here printed the name twice in a row:
+            once as a label, once at the head of the h1 under it. The name alone
+            is also the stronger on-page signal, and the summary directly below
+            does the explaining the headline used to do. */}
+        <h1 className="display d-xl" style={{ maxWidth: "42rem", marginTop: "var(--s6)" }}>
+          {splitWords(study.title)}
         </h1>
 
         <div
