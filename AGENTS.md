@@ -72,7 +72,9 @@ and voice rules below are NOT lifted and still bind.
   1.36rem) with line-height and tracking tuned per step. Do not add a size outside the scale; add a
   step if you genuinely need one.
 - **Space scale.** `--s1` through `--s8` (0.4rem up by 1.5 each). Use these for structural spacing
-  rather than raw rem, so vertical rhythm stays a system.
+  rather than raw rem, so vertical rhythm stays a system. The s4 to s5 step is 1.481 rather than
+  1.5, because 1.35 x 1.5 is 2.025 and Dave chose round numbers (2 / 3 / 4.5 / 6.75) over exact
+  ratio (2.025 / 3.038 / 4.556 / 6.834). Deliberate. Do not "fix" it.
 - **Measures.** `--measure` (34rem) is the prose default, `--measure-wide` (44rem) the opened-up one.
 - **Section layouts.** A case study section takes an optional `layout` of `"default" | "wide" |
   "full" | "two-col"`, and an optional `figuresFirst: true` to lead with its images. Default stays
