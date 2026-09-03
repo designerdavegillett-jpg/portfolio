@@ -6,6 +6,7 @@ import SiteBanner from "@/components/SiteBanner";
 import MotionLayer from "@/components/MotionLayer";
 import LocalTime from "@/components/LocalTime";
 import Link from "next/link";
+import { SITE_URL } from "@/lib/site";
 
 /* Display face. Fraunces is variable — no `weight`, so the whole axis is
    available and `font-optical-sizing: auto` handles the rest. */
@@ -34,7 +35,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   /* Makes every relative URL below resolve against the live domain — including
      the auto-detected app/opengraph-image.png. */
-  metadataBase: new URL("https://nifli.design"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Dave Gillett — Senior Product Designer",
     template: "%s — Dave Gillett",

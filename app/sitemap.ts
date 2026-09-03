@@ -2,8 +2,9 @@ export const dynamic = "force-static";
 
 import type { MetadataRoute } from "next";
 import { caseStudies } from "@/content/case-studies";
+import { SITE_URL } from "@/lib/site";
 
-const BASE = "https://nifli.design";
+const BASE = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   /* Build date is the honest answer for pages whose content is generated from

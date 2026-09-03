@@ -1,6 +1,6 @@
 # Dave Gillett — Portfolio
 
-Next.js 16 · React 19 · Tailwind v4 · deployed to **nifli.design**
+Next.js 16 · React 19 · Tailwind v4 · deployed to **portfolio.nifli.design**
 
 ```bash
 npm run dev     # http://localhost:3000
@@ -67,7 +67,7 @@ Swap the `<svg>` for `<Image>` when real screenshots exist — nothing else chan
 
 ## Metadata
 
-`metadataBase` in `app/layout.tsx` is set to `https://nifli.design`. Change it there if
+`metadataBase` in `app/layout.tsx` is set to `https://portfolio.nifli.design`. Change it there if
 the domain moves; `robots.ts` and `sitemap.ts` have the same URL hardcoded.
 
 `app/opengraph-image.png` is a static file that Next picks up automatically for both

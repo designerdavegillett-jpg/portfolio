@@ -2,6 +2,7 @@ import { caseStudies, selectedWork } from "@/content/case-studies";
 import WorkCard from "@/components/WorkCard";
 import ScrollCue from "@/components/ScrollCue";
 import { splitWords } from "@/lib/type";
+import { SITE_URL } from "@/lib/site";
 
 const HERO =
   "I've spent sixteen years designing the systems people work inside — building teams from the ground up, most recently shipping *twenty-six releases* across eight modules, and now using AI to move faster without moving anyone out of the room.";
@@ -14,10 +15,10 @@ const PERSON_JSONLD = {
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://nifli.design/#person",
+      "@id": `${SITE_URL}/#person`,
       name: "Dave Gillett",
       jobTitle: "Senior Product Designer",
-      url: "https://nifli.design",
+      url: SITE_URL,
       email: "mailto:designerdavegillett@gmail.com",
       address: {
         "@type": "PostalAddress",
@@ -35,11 +36,11 @@ const PERSON_JSONLD = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://nifli.design/#website",
-      url: "https://nifli.design",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
       name: "Dave Gillett",
       inLanguage: "en-US",
-      publisher: { "@id": "https://nifli.design/#person" },
+      publisher: { "@id": `${SITE_URL}/#person` },
     },
   ],
 };

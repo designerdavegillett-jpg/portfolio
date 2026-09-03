@@ -826,3 +826,15 @@ strong {
     filter: none !important;
   }
 }
+
+/* Transparent PNGs: no plate, no outline */
+.thumb:has(img[src$="three-surfaces.png"]) {
+  background: transparent;
+}
+.thumb:has(img[src$="three-surfaces.png"])::after {
+  display: none;
+}
+.figure img[src$="three-surfaces.png"],
+.figure img[src$="design-book.png"] {
+  border: none;
+}

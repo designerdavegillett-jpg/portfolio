@@ -74,7 +74,7 @@ Three case studies build: `design-finish-selection` (Efficiently), `own-the-scri
 `passport-unlimited-mobile`. Cross-chat state lives in the claude.ai project doc
 `claude/UNIFIED-PROJECT-STATE.md`. It is the only state doc; edit it rather than starting another.
 
-Known gap before any production deploy to nifli.design: the live Astro site serves `/resume` and
+Known gap before any production deploy to portfolio.nifli.design: the live Astro site serves `/resume` and
 `/dave-gillett-resume.pdf`, and neither exists in this repo. Deploying to production without them
 turns both into 404s. See `claude/nifli-nextjs-portfolio-deploy.md` in the project.
 

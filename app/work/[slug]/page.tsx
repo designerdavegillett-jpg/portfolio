@@ -5,6 +5,7 @@ import Thumb from "@/components/Thumb";
 import Spine from "@/components/Spine";
 import { splitWords } from "@/lib/type";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Serialise structured data for a <script> tag. A "<" anywhere in a case
@@ -81,7 +82,7 @@ export default async function CaseStudyPage({
     "@graph": [
       {
         "@type": "Article",
-        "@id": `https://nifli.design/work/${study.slug}#article`,
+        "@id": `${SITE_URL}/work/${study.slug}#article`,
         headline: study.title,
         description: study.seoDescription ?? study.summary,
         about: study.tags,
@@ -89,31 +90,31 @@ export default async function CaseStudyPage({
         inLanguage: "en-US",
         ...(study.updated ? { dateModified: study.updated } : {}),
         ...(study.image
-          ? { image: [`https://nifli.design${study.image.src}`] }
+          ? { image: [`${SITE_URL}${study.image.src}`] }
           : {}),
         author: {
           "@type": "Person",
           name: "Dave Gillett",
           jobTitle: "Senior Product Designer",
-          url: "https://nifli.design",
+          url: SITE_URL,
         },
         publisher: {
           "@type": "Person",
           name: "Dave Gillett",
-          url: "https://nifli.design",
+          url: SITE_URL,
         },
-        mainEntityOfPage: `https://nifli.design/work/${study.slug}`,
+        mainEntityOfPage: `${SITE_URL}/work/${study.slug}`,
       },
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://nifli.design" },
-          { "@type": "ListItem", position: 2, name: "Work", item: "https://nifli.design/work" },
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Work", item: `${SITE_URL}/work` },
           {
             "@type": "ListItem",
             position: 3,
             name: study.title,
-            item: `https://nifli.design/work/${study.slug}`,
+            item: `${SITE_URL}/work/${study.slug}`,
           },
         ],
       },
