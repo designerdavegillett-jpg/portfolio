@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 /**
- * The "Scroll" hint in the hero. Visible only at the very top of the page —
+ * The "Scroll" hint in the hero. Visible only at the very top of the page:
  * fades out as soon as the user scrolls, and only reappears once they're
  * back at the top (or the page reloads).
  */
@@ -12,7 +12,7 @@ export default function ScrollCue() {
 
   useEffect(() => {
     // Always show on mount, even if the browser restored a scrolled-down
-    // position from before a refresh — only react to scrolling that
+    // position from before a refresh. Only react to scrolling that
     // happens from here on.
     const onScroll = () => setAtTop(window.scrollY <= 4);
     window.addEventListener("scroll", onScroll, { passive: true });

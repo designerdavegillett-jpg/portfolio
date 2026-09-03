@@ -20,5 +20,5 @@ export default function LocalTime() {
     return () => clearInterval(id);
   }, []);
 
-  return <span suppressHydrationWarning>{time ?? "—"}</span>;
+  return <span suppressHydrationWarning>{time ?? "··"}</span>;
 }

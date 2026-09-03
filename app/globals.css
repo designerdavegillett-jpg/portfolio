@@ -29,6 +29,21 @@ html {
   --header-h: 4rem;
   --banner-h: 2.4rem;
 
+  /* SPACE — one ratio (1.5) all the way up, so vertical rhythm is a scale
+     rather than a pile of one-off values. Use these, not raw rem. */
+  --s1: 0.4rem;
+  --s2: 0.6rem;
+  --s3: 0.9rem;
+  --s4: 1.35rem;
+  --s5: 2rem;
+  --s6: 3rem;
+  --s7: 4.5rem;
+  --s8: 6.75rem;
+
+  /* MEASURE — line lengths, named by the job rather than the number */
+  --measure: 34rem;
+  --measure-wide: 44rem;
+
   /* motion */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --dur: 0.95s;
@@ -78,25 +93,35 @@ svg {
 /* ============================================================
    TYPE SCALE — all in root units, so it rides the engine
    ============================================================ */
+/* One ratio, 1.25, from d-sm up through d-xl. Line-height tightens as size
+   grows and tracking opens as size shrinks, so every step reads at the same
+   optical density instead of each one being tuned by hand. */
 .display {
   font-family: var(--display);
   font-weight: 340;
-  letter-spacing: -0.022em;
-  line-height: 1.08;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   font-optical-sizing: auto;
 }
 .d-xl {
-  font-size: 2.65rem;
-  line-height: 1.14;
+  font-size: 2.656rem;
+  line-height: 1.06;
+  letter-spacing: -0.026em;
 }
 .d-lg {
-  font-size: 2.1rem;
+  font-size: 2.125rem;
+  line-height: 1.12;
+  letter-spacing: -0.022em;
 }
 .d-md {
-  font-size: 1.45rem;
+  font-size: 1.7rem;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
 }
 .d-sm {
-  font-size: 1.1rem;
+  font-size: 1.36rem;
+  line-height: 1.28;
+  letter-spacing: -0.014em;
 }
 
 .label {
@@ -263,56 +288,70 @@ strong {
 }
 
 /* ============================================================
-   SPINE — peripheral, non-interrupting control layer
+   CASE STUDY BODY
+   One rail for the whole document instead of a rail column repeated
+   per section. Sections stack in the content column and each one
+   picks its own width via data-layout.
    ============================================================ */
-.spine {
-  position: fixed;
-  right: 1.6rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 55;
+.cs-body {
+  display: grid;
+  grid-template-columns: var(--rail) 1fr;
+  padding: var(--s7) var(--gutter) 0;
+  align-items: start;
+}
+.cs-sections {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
-  align-items: flex-end;
+  min-width: 0;
 }
-.spine a {
+.cs-section {
+  padding: var(--s6) 0;
+  border-top: 1px solid var(--hairline);
+  scroll-margin-top: calc(var(--s5) + var(--banner-h) + var(--header-h));
+}
+.cs-section:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.cs-h {
+  margin-bottom: var(--s4);
+}
+
+/* Width variants. Default holds the prose measure; the others open up. */
+.cs-section .prose p {
+  max-width: var(--measure);
+}
+.cs-section[data-layout="wide"] .prose p {
+  max-width: var(--measure-wide);
+}
+.cs-section[data-layout="full"] .prose p {
+  max-width: none;
+}
+.cs-section[data-layout="two-col"] .prose {
+  columns: 2;
+  column-gap: var(--s6);
+}
+.cs-section[data-layout="two-col"] .prose p {
+  max-width: none;
+  break-inside: avoid;
+}
+.cs-section[data-layout="two-col"] .prose p + p {
+  margin-top: var(--s4);
+}
+.cs-section[data-layout="wide"] .figure,
+.cs-section[data-layout="full"] .figure,
+.cs-section[data-layout="two-col"] .figure {
+  max-width: none;
+}
+/* Figures ahead of the copy, for a section that should lead with an image. */
+.cs-section[data-figures="lead"] .prose {
   display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--muted);
-  font-size: 0.66rem;
+  flex-direction: column;
 }
-.spine .tick {
-  width: 1.1rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.45;
-  transition:
-    width 0.5s var(--ease),
-    opacity 0.4s ease;
-}
-.spine .name {
-  opacity: 0;
-  transform: translateX(0.4rem);
-  transition:
-    opacity 0.4s ease,
-    transform 0.5s var(--ease);
-  white-space: nowrap;
+.cs-section[data-figures="lead"] .figures {
   order: -1;
-}
-.spine a:hover .name,
-.spine a[data-on="true"] .name {
-  opacity: 1;
-  transform: none;
-}
-.spine a:hover,
-.spine a[data-on="true"] {
-  color: var(--ink);
-}
-.spine a[data-on="true"] .tick {
-  width: 2.1rem;
-  opacity: 1;
+  margin-top: 0;
+  margin-bottom: var(--s5);
 }
 
 /* ============================================================
@@ -324,20 +363,60 @@ strong {
   padding: 0 var(--gutter);
   scroll-margin-top: calc(4.5rem + var(--banner-h));
 }
+/* The rail used to be height:0 / pointer-events:none, holding a single label
+   and spending 14rem to do it. It is now a real sticky column that can carry a
+   section index. */
 .rail {
   position: sticky;
   top: calc(5.2rem + var(--banner-h));
   align-self: start;
-  height: 0;
-  pointer-events: none;
+  padding-right: var(--s4);
 }
 .rail .label {
+  display: block;
   background: var(--paper);
-  padding-right: 0.6rem;
+}
+
+/* Section index. Replaces the old floating right-edge Spine, which navigated
+   the same sections from the opposite side of the screen. */
+.rail-index {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--s3);
+  border-left: 1px solid var(--hairline);
+}
+.rail-index a {
+  position: relative;
+  padding: 0.3rem 0 0.3rem var(--s3);
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: var(--muted);
+  transition: color 0.35s ease;
+}
+.rail-index a::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--ink);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s var(--ease);
+}
+.rail-index a:hover {
+  color: var(--ink-soft);
+}
+.rail-index a[data-on="true"] {
+  color: var(--ink);
+}
+.rail-index a[data-on="true"]::before {
+  transform: scaleY(1);
 }
 
 .page {
-  padding: calc(var(--header-h) + var(--banner-h) + 3rem) var(--gutter) 0;
+  padding: calc(var(--header-h) + var(--banner-h) + var(--s6)) var(--gutter) 0;
 }
 
 /* HERO */
@@ -352,7 +431,7 @@ strong {
   max-width: 56rem;
 }
 .hero-foot {
-  margin-top: 3rem;
+  margin-top: var(--s6);
   display: flex;
   gap: 2.5rem;
   align-items: baseline;
@@ -391,13 +470,13 @@ strong {
 .cards {
   display: flex;
   flex-direction: column;
-  gap: 7rem;
-  padding-bottom: 7rem;
+  gap: var(--s8);
+  padding-bottom: var(--s8);
 }
 .card {
   display: grid;
   grid-template-columns: 0.62fr 1fr;
-  gap: 2.6rem;
+  gap: var(--s6);
   align-items: stretch;
 }
 .card-text {
@@ -420,7 +499,7 @@ strong {
   color: var(--ink);
 }
 .card-body {
-  margin-top: 2rem;
+  margin-top: var(--s5);
 }
 .card-body p {
   color: var(--ink-soft);
@@ -428,9 +507,9 @@ strong {
 }
 .card-facts {
   display: flex;
-  gap: 1.6rem;
-  margin-top: 1.1rem;
-  padding-top: 0.8rem;
+  gap: var(--s4);
+  margin-top: var(--s4);
+  padding-top: var(--s3);
   border-top: 1px solid var(--hairline);
   flex-wrap: wrap;
 }
@@ -523,14 +602,14 @@ strong {
   max-width: 34rem;
 }
 .prose p + p {
-  margin-top: 1rem;
+  margin-top: var(--s4);
 }
 
 /* FIGURES — case study imagery, rendered after a section's copy */
 .figures {
   display: grid;
-  gap: 1.8rem;
-  margin-top: 1.8rem;
+  gap: var(--s5);
+  margin-top: var(--s5);
 }
 .figure {
   margin: 0;
@@ -553,19 +632,10 @@ strong {
   max-width: 34rem;
 }
 
-.split {
-  display: grid;
-  grid-template-columns: var(--rail) 1fr;
-  gap: 2rem;
-  padding: 2.6rem 0;
-  border-top: 1px solid var(--hairline);
-  scroll-margin-top: calc(2.5rem + var(--banner-h));
-}
-
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 12rem;
-  gap: 3rem;
+  gap: var(--s6);
 }
 .sidelist h4 {
   font-size: 0.7rem;
@@ -593,13 +663,13 @@ strong {
 
 /* FOOTER */
 .site-footer {
-  padding: 4rem var(--gutter) 3rem;
+  padding: var(--s7) var(--gutter) var(--s6);
   border-top: 1px solid var(--hairline);
   display: grid;
   grid-template-columns: var(--rail) 1fr auto;
-  gap: 2rem;
+  gap: var(--s5);
   align-items: start;
-  margin-top: 4rem;
+  margin-top: var(--s7);
 }
 
 /* ============================================================
@@ -631,9 +701,20 @@ strong {
     font-size: 0.72rem;
   }
   .section,
-  .split {
+  .cs-body {
     grid-template-columns: 1fr;
     scroll-margin-top: calc(3.4rem + var(--banner-h));
+  }
+  .cs-body {
+    padding-top: var(--s6);
+  }
+  /* The sticky index has nowhere to stick once the rail is a full-width row,
+     and a bare section list above the copy is noise. Headings carry it here. */
+  .rail-index {
+    display: none;
+  }
+  .cs-section[data-layout="two-col"] .prose {
+    columns: 1;
   }
   .rail {
     position: static;
@@ -655,9 +736,6 @@ strong {
   .about-grid,
   .site-footer {
     grid-template-columns: 1fr;
-  }
-  .spine {
-    display: none;
   }
   .d-xl {
     font-size: 2.1rem;
@@ -801,7 +879,7 @@ strong {
   .site-header,
   .site-banner,
   .site-footer,
-  .spine,
+  .rail-index,
   .rsm-actions {
     display: none !important;
   }

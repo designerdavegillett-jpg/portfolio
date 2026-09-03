@@ -56,12 +56,30 @@ export type CaseStudy = {
     width?: number;
     height?: number;
   };
-  sections: {
-    heading: string;
-    body: string;
-    /** Optional images, rendered after the body copy. */
-    figures?: Figure[];
-  }[];
+  sections: Section[];
+};
+
+/**
+ * How wide a section runs. Every section used to render identically at the
+ * 34rem prose measure, which flattened work that isn't the same shape.
+ *
+ * - "default"  prose measure, 34rem. The reading default; use it for most copy.
+ * - "wide"     44rem. For a section carrying a large figure alongside its copy.
+ * - "full"     the whole content column. For full-bleed imagery.
+ * - "two-col"  body flows in two columns. Good for a list-like section such as
+ *              a scorecard, bad for a narrative one.
+ */
+export type SectionLayout = "default" | "wide" | "full" | "two-col";
+
+export type Section = {
+  heading: string;
+  body: string;
+  /** Width variant. Defaults to "default". */
+  layout?: SectionLayout;
+  /** Optional images. Rendered after the body copy unless `figuresFirst`. */
+  figures?: Figure[];
+  /** Put the figures above the copy, for a section that should lead with an image. */
+  figuresFirst?: boolean;
 };
 
 /** Short rows under "Also" on the home page. Add an href once a page exists. */

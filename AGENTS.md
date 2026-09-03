@@ -34,8 +34,13 @@ Three chats run in parallel, one per body of work.
 | Own the Script | `content/case-studies/own-the-script.ts` |
 
 Do not edit another lane's file. Shared and needing coordination: `content/case-studies/index.ts`,
-`content/case-studies/types.ts`, and everything in `app/`, `components/`, `lib/`. The design and
-motion system is finished and locked — chats add content, not layout systems.
+`content/case-studies/types.ts`, and everything in `app/`, `components/`, `lib/`.
+
+**The design lock is lifted (2026-09-02).** The earlier rule said the design and motion system was
+finished and locked, and that chats add content rather than layout systems. Dave has explicitly
+retired that: structural redesign is now permitted at will, including the sizing engine, the type
+scale, the rail/section grid, the motion primitives, and the component structure. The content rules
+and voice rules below are NOT lifted and still bind.
 
 ## Hard rules for anything that goes on the site
 
@@ -63,12 +68,24 @@ motion system is finished and locked — chats add content, not layout systems.
 
 - Headline strings use `*asterisks*` for italic runs (`lib/type.tsx`).
 - Reveal animation is opt-in with `className="reveal"`, optional `style={{ "--d": ".12s" }}`.
+- **Type scale.** `d-xl` / `d-lg` / `d-md` / `d-sm` sit on one 1.25 ratio (2.656 / 2.125 / 1.7 /
+  1.36rem) with line-height and tracking tuned per step. Do not add a size outside the scale; add a
+  step if you genuinely need one.
+- **Space scale.** `--s1` through `--s8` (0.4rem up by 1.5 each). Use these for structural spacing
+  rather than raw rem, so vertical rhythm stays a system.
+- **Measures.** `--measure` (34rem) is the prose default, `--measure-wide` (44rem) the opened-up one.
+- **Section layouts.** A case study section takes an optional `layout` of `"default" | "wide" |
+  "full" | "two-col"`, and an optional `figuresFirst: true` to lead with its images. Default stays
+  the 34rem measure. `two-col` collapses to one column under 900px.
+- **The rail.** `components/RailIndex.tsx` is the sticky section index on case studies. It replaced
+  `Spine.tsx` (deleted 2026-09-02), which navigated the same sections from a floating strip at the
+  right edge while the left rail sat empty at `height: 0`.
 - Section images: add `figures: [{ src, alt, caption?, size? }]` next to `heading` and `body`. Files
   live in `public/work/<slug>/`. `size: "text"` holds an image to the prose measure.
 - Verify with `npx tsc --noEmit` before committing. Live target is Nifli.design, static export to
   Cloudflare.
 
-## Current status, 2026-08-28
+## Current status, 2026-09-02
 
 Three case studies build: `design-finish-selection` (Efficiently), `own-the-script`,
 `passport-unlimited-mobile`. Cross-chat state lives in the claude.ai project doc

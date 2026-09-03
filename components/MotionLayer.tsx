@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
  * The whole motion system, in one place.
  *
  * Server components opt in by adding className="reveal" and, optionally,
- * style={{ "--d": ".12s" }} for a stagger delay. Nothing else is needed —
+ * style={{ "--d": ".12s" }} for a stagger delay. Nothing else is needed:
  * no wrapper divs, no per-component client boundaries.
  */
 export default function MotionLayer() {

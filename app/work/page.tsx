@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected product design work — interaction models, design systems, and the judgment calls behind them.",
+    "Selected product design work: interaction models, design systems, and the judgment calls behind them.",
   alternates: { canonical: "/work" },
 };
 

@@ -1,7 +1,7 @@
 export type ThumbKind = "canvas" | "system" | "dark" | "neutral";
 
 /**
- * Placeholder visuals. These are deliberately abstract — they hold the
+ * Placeholder visuals. These are deliberately abstract: they hold the
  * layout's proportions and rhythm until real screenshots replace them.
  * Once a case study has a real screenshot, pass `image` and it takes over
  * from the abstract `kind` SVG automatically.
@@ -18,7 +18,7 @@ export default function Thumb({
    * Set on the one image that is the page's largest above-the-fold element.
    * It loads eagerly at high fetch priority instead of lazily, which is what
    * Core Web Vitals measures as LCP. Never set it on more than one image
-   * per page — competing high-priority fetches make LCP worse, not better.
+   * per page, because competing high-priority fetches make LCP worse, not better.
    */
   priority?: boolean;
 }) {

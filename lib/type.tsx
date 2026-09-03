@@ -2,7 +2,7 @@ import { Fragment, type ReactNode } from "react";
 
 /**
  * Splits a headline into per-word spans so MotionLayer can stagger them.
- * Wrap any run in *asterisks* to set it in italic — the display face has a
+ * Wrap any run in *asterisks* to set it in italic. The display face has a
  * real italic and it carries most of the editorial voice.
  *
  * Runs on the server, so markup is deterministic and there is no hydration

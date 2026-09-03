@@ -2,7 +2,7 @@ import { caseStudies } from "@/content/case-studies";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Thumb from "@/components/Thumb";
-import Spine from "@/components/Spine";
+import RailIndex from "@/components/RailIndex";
 import { splitWords } from "@/lib/type";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
@@ -44,7 +44,7 @@ export async function generateMetadata({
     alternates: { canonical: `/work/${study.slug}` },
     openGraph: {
       type: "article",
-      title: `${study.title} — Dave Gillett`,
+      title: `${study.title} · Dave Gillett`,
       description,
       url: `/work/${study.slug}`,
       /* Falls back to the site-wide app/opengraph-image.png when a study has
@@ -53,7 +53,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${study.title} — Dave Gillett`,
+      title: `${study.title} · Dave Gillett`,
       description,
       ...(image ? { images: [image] } : {}),
     },
@@ -128,13 +128,6 @@ export default async function CaseStudyPage({
         dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }}
       />
 
-      <Spine
-        items={study.sections.map((section) => ({
-          id: headingId(section.heading),
-          name: section.heading,
-        }))}
-      />
-
       <div className="page">
         <Link href="/work" className="label underline-link">
           ← Work
@@ -175,55 +168,76 @@ export default async function CaseStudyPage({
         </div>
       </div>
 
-      <div style={{ padding: "5rem var(--gutter) 0" }}>
-        {study.sections.map((section) => (
-          <div className="split" id={headingId(section.heading)} key={section.heading}>
-            {/* A real h2, not a styled div. `.label` sets font-size and weight
-                explicitly, so class beats the UA default and this renders
-                pixel-identically to what it replaced. */}
-            <h2 className="label reveal">{section.heading}</h2>
-            <div className="prose reveal" style={{ "--d": ".08s" } as React.CSSProperties}>
-              {section.body.split("\n\n").map((para, i) => (
-                <p key={i}>{para}</p>
+      {/* One rail for the whole document, carrying the section index, rather
+          than a rail column repeated empty beside every section. */}
+      <div className="cs-body">
+        <aside className="rail">
+          <RailIndex
+            label="Contents"
+            items={study.sections.map((section) => ({
+              id: headingId(section.heading),
+              name: section.heading,
+            }))}
+          />
+        </aside>
+
+        <div className="cs-sections">
+          {study.sections.map((section) => (
+            <section
+              className="cs-section"
+              id={headingId(section.heading)}
+              data-layout={section.layout ?? "default"}
+              data-figures={section.figuresFirst ? "lead" : undefined}
+              key={section.heading}
+            >
+              {/* A real heading at a real size. This used to be a `.label`,
+                  which made every section title the same weight as a caption
+                  and left the page without internal hierarchy. */}
+              <h2 className="display d-sm cs-h reveal">{section.heading}</h2>
+
+              <div className="prose reveal" style={{ "--d": ".08s" } as React.CSSProperties}>
+                {section.body.split("\n\n").map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+
+                {section.figures && section.figures.length > 0 && (
+                  <div className="figures">
+                    {section.figures.map((fig) => (
+                      <figure
+                        key={fig.src}
+                        className={fig.size === "text" ? "figure text" : "figure"}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={fig.src}
+                          alt={fig.alt}
+                          width={fig.width}
+                          height={fig.height}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        {fig.caption && <figcaption>{fig.caption}</figcaption>}
+                      </figure>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </section>
+          ))}
+
+          <section className="cs-section">
+            <h2 className="display d-sm cs-h reveal">Tags</h2>
+            <div
+              className="reveal"
+              style={{ display: "flex", gap: "var(--s3)", flexWrap: "wrap" }}
+            >
+              {study.tags.map((tag) => (
+                <span key={tag} className="meta">
+                  {tag}
+                </span>
               ))}
-
-              {section.figures && section.figures.length > 0 && (
-                <div className="figures">
-                  {section.figures.map((fig) => (
-                    <figure
-                      key={fig.src}
-                      className={fig.size === "text" ? "figure text" : "figure"}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={fig.src}
-                        alt={fig.alt}
-                        width={fig.width}
-                        height={fig.height}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      {fig.caption && <figcaption>{fig.caption}</figcaption>}
-                    </figure>
-                  ))}
-                </div>
-              )}
             </div>
-          </div>
-        ))}
-
-        <div className="split">
-          <h2 className="label reveal">Tags</h2>
-          <div
-            className="reveal"
-            style={{ display: "flex", gap: ".9rem", flexWrap: "wrap" }}
-          >
-            {study.tags.map((tag) => (
-              <span key={tag} className="meta">
-                {tag}
-              </span>
-            ))}
-          </div>
+          </section>
         </div>
       </div>
     </>

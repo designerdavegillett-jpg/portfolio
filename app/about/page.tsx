@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Dave Gillett — Senior Product Designer in Seattle. Sixteen years designing the systems people work inside.",
+    "Dave Gillett, Senior Product Designer in Seattle. Sixteen years designing the systems people work inside.",
   alternates: { canonical: "/about" },
 };
 
@@ -14,7 +14,7 @@ export default function AboutPage() {
       <div className="page">
         <h1 className="display d-xl" style={{ maxWidth: "48rem" }}>
           {splitWords(
-            "I came to product design from street work and corporate marketing — obsessed with why people behave *predictably* in some contexts and surprise you in others.",
+            "I came to product design from street work and corporate marketing, obsessed with why people behave *predictably* in some contexts and surprise you in others.",
           )}
         </h1>
       </div>
@@ -28,7 +28,7 @@ export default function AboutPage() {
           <div className="prose">
             <p className="reveal">
               I&apos;m a Senior Product Designer in Seattle. Sixteen years designing the
-              systems people work inside — most recently a construction-tech platform
+              systems people work inside. Most recently a construction-tech platform
               where I owned UI and UX across eight modules and twenty-six-plus releases,
               directing a team of nine.
             </p>
@@ -38,7 +38,7 @@ export default function AboutPage() {
               locations before the company was acquired.
             </p>
             <p className="reveal" style={{ "--d": ".16s" } as React.CSSProperties}>
-              I&apos;m most useful where the problem is structural — where the interface is
+              I&apos;m most useful where the problem is structural: where the interface is
               fine but the model underneath it isn&apos;t, and someone has to decide what the
               product should stop doing.
             </p>
@@ -63,7 +63,7 @@ export default function AboutPage() {
             </ul>
             <h4>Recently</h4>
             <ul>
-              <li>Efficiently, 2020–2026</li>
+              <li>Efficiently, 2020-2026</li>
               <li>Passport Unlimited</li>
               <li>Soro Software</li>
             </ul>

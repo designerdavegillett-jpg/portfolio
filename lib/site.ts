@@ -1,8 +1,8 @@
 /**
  * One place the canonical origin is written down.
  *
- * It used to live in five files — metadataBase, robots, sitemap, and the JSON-LD
- * blocks on the home and case-study pages — and moving from nifli.design to
+ * It used to live in five files (metadataBase, robots, sitemap, and the JSON-LD
+ * blocks on the home and case-study pages) and moving from nifli.design to
  * portfolio.nifli.design meant finding fifteen string literals. Import this
  * instead; changing the domain is now a one-line edit.
  *

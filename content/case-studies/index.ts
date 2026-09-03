@@ -7,7 +7,7 @@ export type { CaseStudy, SelectedItem };
 
 /**
  * Display order for /work and the home page. Each source file is owned by one
- * workstream — edit your own file, and only reorder here.
+ * workstream: edit your own file, and only reorder here.
  */
 export const caseStudies: CaseStudy[] = [
   ...ownTheScriptStudies,

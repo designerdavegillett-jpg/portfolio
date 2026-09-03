@@ -8,7 +8,7 @@ import LocalTime from "@/components/LocalTime";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/site";
 
-/* Display face. Fraunces is variable — no `weight`, so the whole axis is
+/* Display face. Fraunces is variable, so no `weight`: the whole axis is
    available and `font-optical-sizing: auto` handles the rest. */
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -33,12 +33,12 @@ const DESCRIPTION =
   "Sixteen years designing the systems people work inside. Product design, UX, and design systems. Seattle, WA.";
 
 export const metadata: Metadata = {
-  /* Makes every relative URL below resolve against the live domain — including
+  /* Makes every relative URL below resolve against the live domain, including
      the auto-detected app/opengraph-image.png. */
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Dave Gillett — Senior Product Designer",
-    template: "%s — Dave Gillett",
+    default: "Dave Gillett, Senior Product Designer",
+    template: "%s · Dave Gillett",
   },
   description: DESCRIPTION,
   authors: [{ name: "Dave Gillett" }],
@@ -47,14 +47,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Dave Gillett",
-    title: "Dave Gillett — Senior Product Designer",
+    title: "Dave Gillett, Senior Product Designer",
     description: DESCRIPTION,
     url: "/",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dave Gillett — Senior Product Designer",
+    title: "Dave Gillett, Senior Product Designer",
     description: DESCRIPTION,
   },
   robots: { index: true, follow: true },
