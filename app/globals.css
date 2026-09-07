@@ -934,9 +934,6 @@ strong {
   object-fit: contain;
 }
 
-/* Figures use the same idea, keyed off the file for now because a figure
-   carries no flag of its own yet. */
-.figure img[src$="three-surfaces.png"],
-.figure img[src$="design-book.png"] {
+.figure[data-transparent="true"] img {
   border: none;
 }

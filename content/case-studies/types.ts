@@ -11,6 +11,11 @@ export type Figure = {
   /** "wide" (default) runs to the content column. "text" holds it to the prose measure. */
   size?: "text" | "wide";
   /**
+   * The file has a transparent background. Drops the hairline border, which
+   * otherwise draws a box around empty space. Same flag as the thumbnail's.
+   */
+  transparent?: boolean;
+  /**
    * Intrinsic pixel dimensions of the file. Optional, but set them: the browser
    * reserves the right box before the image arrives, which removes the layout
    * shift that Core Web Vitals measures as CLS. Get them with

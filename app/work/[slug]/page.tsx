@@ -205,6 +205,7 @@ export default async function CaseStudyPage({
                       <figure
                         key={fig.src}
                         className={fig.size === "text" ? "figure text" : "figure"}
+                        data-transparent={fig.transparent ? "true" : undefined}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img

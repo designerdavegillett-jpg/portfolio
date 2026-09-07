@@ -20,7 +20,7 @@ import type { CaseStudy } from "./types";
 export const efficientlyStudies: CaseStudy[] = [
   {
     slug: "design-finish-selection",
-    title: "Design & Finish Selection",
+    title: "Efficiently",
     headline:
       "Efficiently: A single-source-of-truth SaaS platform for residential construction.",
     status: "Shipped",
@@ -136,6 +136,15 @@ export const efficientlyStudies: CaseStudy[] = [
         heading: "Inside the Design Book",
         body: "Two page sizes, two orientations. 11x17 and 11x8.5, portrait or landscape, and that's the entire menu.\n\nThat came out of research, not taste. We collected the books designers were already making. The sample had all sorts of sizes in it, but the bulk landed on those two, and the reason was mundane and completely decisive: those are the sizes an office can print itself. Anything else means sending a file out and waiting on it. Constraining the canvas to what somebody could hold in their hands an hour from now killed off a whole category of layout problems before anyone had to hit one.\n\nThe item box is where the actual design is. It's a placeholder with four addressable zones around it: above, below, left, right. Pick something from the catalog and it drops onto the page bound to the catalog record, and the zones around it can surface any field on that record, each formatted on its own terms. Save the arrangement as a style and any item in the book can wear it with one click.\n\nThe default is the part I'd defend hardest. Nothing arrives naked and waiting for you to format it. An item lands already correct, and everything past that is available rather than required.\n\nThe quadrant model is mine, concept and implementation both. It comes out of magazine work early in my career, where you learn fast how little of a well-set spread is talent. Mostly it's alignment. Put guardrails on alignment and a non-designer gets further than they have any right to, and the designers speed up too, because they stop doing arithmetic with their eyes. Every interior designer we talked to was doing this by hand, and rebuilding the alignment by hand every time a selection changed.\n\nPermissions run on the same separation. Any element locks and unlocks with a click, and a firm can lock the elements inside a template so its standards travel with the file. A locked book isn't a frozen book, though: the layout is a view of the items, so you can freeze the view and keep changing what it's looking at. That's what lets a firm hand a junior a book they can fill and can't wreck.",
         figures: [
+          {
+            src: "/work/design-finish-selection/design-book.webp",
+            alt: "A design book spread in the editor, laying out selections for a primary bathroom across a two page layout.",
+            caption:
+              "The design book itself. Every diagram below it is an explanation of something happening on this screen.",
+            width: 1600,
+            height: 1100,
+            transparent: true,
+          },
           {
             src: "/work/design-finish-selection/09-quadrant-item-box.svg",
             alt: "An item box on the canvas with four zones around it holding the item name, SKU, and size and color, each formatted differently.",
