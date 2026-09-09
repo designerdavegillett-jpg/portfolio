@@ -45,9 +45,12 @@ and voice rules below are NOT lifted and still bind.
 ## Hard rules for anything that goes on the site
 
 - **Never invent a metric.** Efficiently instrumented nothing. Measure scope and complexity instead.
-- **Check shipped versus built.** Own the Script **is shipped** (Dave confirmed 2026-08-24); the
-  older "zero users, never say shipped" rule is retired, but the body copy in
-  `own-the-script.ts` still contradicts this in its Honest Scorecard section and needs reconciling.
+- **Check shipped versus built.** Own the Script is **in App Store review**, not shipped (Dave
+  confirmed 2026-09-09). The 2026-08-24 note calling it shipped was wrong and the headline that said
+  "concept to App Store" has been corrected to "concept to App Store review in ten weeks". Do not
+  reintroduce either. Real loan officers outside Dave ARE using it on TestFlight, which retires the
+  old "no loan officer outside me has used this product" line; that line is gone. No count or
+  feedback has been supplied, so do not write one.
   The Efficiently AI selection prototype never shipped; permitted verbs there are designed, built,
   prototyped.
 - **Describe the structure, never the people.** No former colleague identifiable. Never name the
@@ -84,18 +87,54 @@ and voice rules below are NOT lifted and still bind.
   right edge while the left rail sat empty at `height: 0`.
 - Section images: add `figures: [{ src, alt, caption?, size? }]` next to `heading` and `body`. Files
   live in `public/work/<slug>/`. `size: "text"` holds an image to the prose measure.
+- **Case study shape (set 2026-09-02).** Every case study follows problem, solution, process, result.
+  Headings are named for their specific content and fall in that order; they are not literally
+  called "Problem" and "Solution". Target 1,800 to 2,500 words. Efficiently sits at 2,906 and
+  Passport at 1,471, both accepted deliberately: Passport was not padded to reach the floor because
+  the facts to fill it do not exist.
+- **No outlines on imagery (2026-09-07).** The inset hairline on `.thumb` and the 1px border on
+  `.figure img` were both removed at Dave's request. Do not reintroduce a frame around images.
+- **`transparent: true`** on a thumbnail or a figure drops the grey plate and switches the thumbnail
+  to `object-fit: contain`, for artwork with a knocked-out background and a soft shadow. This
+  replaced three filename-matching CSS hacks; do not add another `img[src$="..."]` rule.
+- **Clips.** A figure with `clip: "/work/<slug>/x.mp4"` renders `components/Clip.tsx` instead of an
+  image, using `src` as the poster. For UI recordings use h264, not GIF or animated WebP: the
+  Passport bottom nav was 1,988 KB as a GIF and 329 KB as h264 at twice the resolution. Clip decides
+  whether to show controls from what the element is actually doing, never from whether `play()`
+  resolved, because that promise never settles in a background tab.
+- **Image pipeline.** Ship WebP at 1600px wide, quality 82 to 86. That covers the largest place a
+  figure renders (832 CSS px) at 2x. Lossy WebP shifts a flat fill by about 1/255, so a background
+  meant to match `--paper` will read 246,245,248 against 245,245,247. That is invisible; going
+  lossless to fix it costs 5x the bytes and is not worth it.
 - Verify with `npx tsc --noEmit` before committing. Live target is Nifli.design, static export to
   Cloudflare.
 
-## Current status, 2026-09-02
+## Current status, 2026-09-09
 
-Three case studies build: `design-finish-selection` (Efficiently), `own-the-script`,
-`passport-unlimited-mobile`. Cross-chat state lives in the claude.ai project doc
-`claude/UNIFIED-PROJECT-STATE.md`. It is the only state doc; edit it rather than starting another.
+| Case study | Sections | Words | Figures | On the arc |
+|---|---|---|---|---|
+| Efficiently (`design-finish-selection`) | 11 | 2,906 | 20 | yes |
+| Passport (`passport-unlimited-mobile`) | 9 | 1,471 | 13 | yes |
+| Own the Script (`own-the-script`) | 7 | 3,362 | 8 | yes |
 
-Known gap before any production deploy to portfolio.nifli.design: the live Astro site serves `/resume` and
-`/dave-gillett-resume.pdf`, and neither exists in this repo. Deploying to production without them
-turns both into 404s. See `claude/nifli-nextjs-portfolio-deploy.md` in the project.
+**Own the Script was restructured on 2026-09-09.** It went from 18 sections and 8,545 words to 7
+sections and 3,362 words on the problem/solution/process/result arc, keeping all 8 figures. The cut
+material was build log detail and is intentionally gone; the previous version is in git history.
+Both former blockers are cleared: the status is corrected to App Store review with TestFlight users,
+and the four largest PNGs were converted to WebP at 1600px q84 (1,836 KiB down to 176 KiB).
+
+It sits at 3,362 words against the 1,800 to 2,500 target and above Efficiently's 2,906. That is not
+yet accepted, unlike the other two overruns; Dave has been told and a further pass is offered.
+
+Also open: the Passport hero renders at 1664 device px on retina but its source only supplies about
+730, so it is soft. Dave tried an AI upscale on 2026-09-07; it rewrote the interface text into
+nonsense ("Hawaiian Airlines" became "Marvaltan dutdoes") and was rejected. The fix is a real 2x
+export from the original design file, not an upscale.
+
+The earlier deploy blocker is cleared: `/resume` and `public/Dave-Gillett-Resume.pdf` both exist.
+
+Cross-chat state lives in the claude.ai project doc `claude/UNIFIED-PROJECT-STATE.md`. It is the
+only state doc; edit it rather than starting another.
 
 **Never run git through the Claude device bridge.** It creates a `.git/index.lock` it cannot remove
 and wedges the repo. Dave runs git and wrangler in his own Terminal.
