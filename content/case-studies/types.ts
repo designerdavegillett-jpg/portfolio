@@ -16,6 +16,12 @@ export type Figure = {
    */
   transparent?: boolean;
   /**
+   * Path to a short silent clip, e.g. "/work/<slug>/bottom-nav.mp4". When set,
+   * `src` is used as the poster frame and the figure renders a looping video
+   * instead of an image. Autoplay is suppressed under reduced motion.
+   */
+  clip?: string;
+  /**
    * Intrinsic pixel dimensions of the file. Optional, but set them: the browser
    * reserves the right box before the image arrives, which removes the layout
    * shift that Core Web Vitals measures as CLS. Get them with

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Thumb from "@/components/Thumb";
 import RailIndex from "@/components/RailIndex";
+import Clip from "@/components/Clip";
 import { splitWords } from "@/lib/type";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
@@ -207,15 +208,19 @@ export default async function CaseStudyPage({
                         className={fig.size === "text" ? "figure text" : "figure"}
                         data-transparent={fig.transparent ? "true" : undefined}
                       >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={fig.src}
-                          alt={fig.alt}
-                          width={fig.width}
-                          height={fig.height}
-                          loading="lazy"
-                          decoding="async"
-                        />
+                        {fig.clip ? (
+                          <Clip src={fig.clip} poster={fig.src} alt={fig.alt} />
+                        ) : (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={fig.src}
+                            alt={fig.alt}
+                            width={fig.width}
+                            height={fig.height}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        )}
                         {fig.caption && <figcaption>{fig.caption}</figcaption>}
                       </figure>
                     ))}
