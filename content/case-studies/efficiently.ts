@@ -71,11 +71,6 @@ export const efficientlyStudies: CaseStudy[] = [
         body: "Before anybody drew a screen we wrote down what a person is trying to get done in these two stages. Not features, tasks. Read the drawings. Measure areas to pull quantities out of them. Place finish elements and notate distances between them. Then curate and select items plus alternatives, talk to the people who approve, and review, replace, present, around again, because that loop is the job. Almost nothing gets chosen once.\n\nThat list settled arguments for six years. Whenever a feature debate stalled we went back and asked which of those it served.\n\nWhat came out of it was three working areas, plus the catalog that feeds them and the portal where the homeowner says yes. The plans page, where you measure and place. The item schedule, where you operate. The design book, where you persuade.\n\nSchedules are already how construction handles finishes, and every party on a job can read one without being taught, so we built with that instead of around it.\n\nThe real work wasn't building any one of the three. It was making all three the same thing underneath. The item is the atomic unit and every surface is a view of the same record, never a copy. Put an item on a design book page and it appears in the schedule. Tag it on the plans and that physical location is bound to the selection. Approve it, reject it, ask for a change, and it reads that way everywhere it appears.",
         figures: [
           {
-            src: "/work/design-finish-selection/02-three-surfaces.svg",
-            alt: "The plans page, the item schedule and the design book, showing the same project.",
-            caption: "Measure, operate, persuade. One project seen three ways.",
-          },
-          {
             src: "/work/design-finish-selection/08-propagation.svg",
             alt: "The same item shown in two surfaces, both carrying the same approval status.",
             caption: "Approve it once. It reads that way everywhere it appears.",
@@ -90,10 +85,6 @@ export const efficientlyStudies: CaseStudy[] = [
             src: "/work/design-finish-selection/05-item-id-model.svg",
             alt: "Five bathroom locations, four assigned to item ID TO-01 and one to TO-02, with the item each ID resolves to.",
             caption: "Change what TO-01 points at and four bathrooms change. The fifth was never listening.",
-          },
-          {
-            src: "/work/design-finish-selection/06-id-assignment.svg",
-            alt: "The interface for assigning one item ID across several locations.",
           },
         ],
       },
@@ -120,11 +111,6 @@ export const efficientlyStudies: CaseStudy[] = [
         heading: "Measuring Before Choosing",
         body: "Upload the architectural set and scale it so measurements come out true. Then hide most of it. A three story house arrives with a stack of sheets and today you need three of them, so you turn the rest off. Small feature, and it's the difference between a page you can think on and a filing cabinet.\n\nOnce it's scaled you can take off quantities. Draw the floor of a room and you get its square footage. Draw the walls and you get theirs. That measured region is a finish area, and an area carries a number, so when you assign a material to it you get a real quantity out the other side.\n\nA location is the other kind of thing: an object that sits somewhere. A refrigerator, a bed, a toilet, a light. It has no area, it has a place.\n\nAreas and locations are the two ways a finish exists in a house. Separating them early meant the quantity math and the placement logic never had to fight each other, which is the sort of decision nobody thanks you for and everybody would have suffered from.",
         figures: [
-          {
-            src: "/work/design-finish-selection/03-takeoff.svg",
-            alt: "A room measured on the plans canvas with its square footage displayed.",
-            caption: "A takeoff. Draw the surface, get the quantity, add waste.",
-          },
           {
             src: "/work/design-finish-selection/04-area-vs-location.svg",
             alt: "A drawing showing a measured floor area alongside placed point locations for fixtures.",
@@ -174,11 +160,6 @@ export const efficientlyStudies: CaseStudy[] = [
         body: "One thing about the canvas bothered me for a long time, and it's small enough that explaining it feels like a confession.\n\nA canvas puts elements on a pixel grid. The whole point is that when you nudge something one pixel, the next thing lines up to that exact intersection without anybody guessing. The first implementation didn't enforce it. An element could sit at x.7, and the guides couldn't save you because the thing you were aligning to wasn't on the grid either. Zoom in far enough and you could watch an element sitting halfway inside a pixel.\n\nTwo fixes. Grid lines belong on the boundary where pixels meet, not through the middle of them, so an element can sit cleanly on either side of a line. And the guides had been scaling with the zoom, getting fatter the further you magnified, which made precision worse exactly when you were reaching for it. A guide should be one pixel wide however far in you go.\n\nSame category, different surface: the measurement crosshair on the plans page has to stay visible over every value from paper white to solid black, so it's a one pixel black cross with a one pixel white outline, thin enough to still point at something precisely.\n\nNobody puts any of that on a roadmap. It's also the difference between a designer trusting the tool with client work and quietly going back to doing it by hand.",
         figures: [
           {
-            src: "/work/design-finish-selection/13-half-pixel.svg",
-            alt: "A zoomed comparison of an element at a fractional pixel position beside the same element snapped to the pixel boundary.",
-            caption: "Left, an element sitting halfway inside a pixel with a guide thickened by zoom. Right, what it should have been.",
-          },
-          {
             src: "/work/design-finish-selection/14-crosshair.svg",
             alt: "The measurement crosshair magnified over a light area and a dark area of a drawing.",
             caption: "One pixel black, one pixel white outline. Findable on paper white and on solid black.",
@@ -195,28 +176,11 @@ export const efficientlyStudies: CaseStudy[] = [
             caption: "My card grid, and the boring rows that were correct. I argued for the wrong one.",
             size: "text",
           },
-          {
-            src: "/work/design-finish-selection/15-book-vs-table.svg",
-            alt: "A design book spread beside the item schedule table showing the same selections.",
-            caption: "Persuasion on the left, operations on the right. Each one always informs the other.",
-          },
         ],
       },
       {
         heading: "The Homeowner's Front Door",
         body: "The homeowner gets their own entrance, and it looks nothing like the rest of the application.\n\nThey sign in and land on their house. If an architect has provided plans they get the floor plan and navigate it. If there are no plans they get a list of rooms. Either way they go into a room and see what's been proposed for it.\n\nNot as a schedule. As cards, large ones, with the item photographed in the color that was actually selected. Open one and there's more detail, any alternatives the designer put forward, and somewhere to say something. People building a luxury house expect a surface that feels like one, so it's white, spacious and quiet.\n\nIf they'd rather have one of the alternatives, choosing it doesn't swap the item. It files a change request back to whoever holds selection authority. That's deliberate. The alternative might be discontinued, or on back order long enough to stall a trade, or wrong for a reason the designer knows and the homeowner has no way to know. The system shouldn't quietly settle something a person is better placed to settle.\n\nNotification is a daily summary, never one message per event. A designer working through a room can touch twenty items in an afternoon. Twenty emails isn't attentiveness, it's noise, and the fastest way to teach somebody to ignore your product is to email them twenty times about it.\n\nThe thing I'd point at, and I didn't notice it for years: this surface runs on a simpler structure than the rest of the platform. No item IDs. No sub-levels underneath the room. Just rooms and the things in them, which is how a person actually thinks about a house. It's also the easiest part of the product to use. I've come to think those two facts are the same fact.",
-        figures: [
-          {
-            src: "/work/design-finish-selection/17-portal-vs-platform.svg",
-            alt: "The client portal beside the professional platform interface, showing the same project.",
-            caption: "Same product, same project, two doors. The simpler structure is the one a person can walk into.",
-          },
-          {
-            src: "/work/design-finish-selection/18-portal-item.svg",
-            alt: "An item opened in the client portal showing detail, alternatives and a place to comment.",
-            caption: "Choosing an alternative files a change request. It does not quietly swap the item.",
-          },
-        ],
       },
 
       /* ---------- RESULT ---------- */
