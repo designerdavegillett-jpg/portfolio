@@ -1,9 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700">
-<rect width="1600" height="700" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1598" height="698" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; PRIORITY</text>
-<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="340.0" font-family="Georgia, serif" font-size="46" fill="#141414">One item, two styles</text>
-<text x="48" y="380.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">The same item under two saved styles, side by side.</text><text x="48" y="414.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Shows what a single click actually does.</text>
-<text x="48" y="652" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 700</text>
+<svg width="1600" height="692" viewBox="0 0 1600 692" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="692" fill="#F5F5F7"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">One item, unlimited styles</tspan></text>
+<path d="M80 170C80 164.477 84.4772 160 90 160H768C773.523 160 778 164.477 778 170V543C778 548.523 773.523 553 768 553H90C84.4771 553 80 548.523 80 543V170Z" fill="white"/>
+<path d="M90 160.5H768C773.247 160.5 777.5 164.753 777.5 170V543C777.5 548.247 773.247 552.5 768 552.5H90C84.7533 552.5 80.5 548.247 80.5 543V170C80.5 164.753 84.7533 160.5 90 160.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="108" y="204.409">STYLE A &#xb7; IMAGE LEFT</tspan></text>
+<rect x="108" y="227" width="180" height="300" rx="6" fill="#E8E8ED"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="26" font-weight="500"><tspan x="308" y="251.955">Wall sconce</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="308" y="284.409">WS-4410-BB</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="308" y="315.409">Brushed brass &#xb7; 24 in</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="308" y="346.409">Qty 6</tspan></text>
+<path d="M832 161H1510C1514.97 161 1519 165.029 1519 170V543C1519 547.971 1514.97 552 1510 552H832C827.029 552 823 547.971 823 543V170C823 165.029 827.029 161 832 161Z" fill="white" stroke="#2B5F5A" stroke-width="2"/>
+<text fill="#2B5F5A" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="850" y="204.409">STYLE B &#xb7; IMAGE TOP</tspan></text>
+<rect x="850" y="227" width="642" height="150" rx="6" fill="#E8E8ED"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="22" font-weight="500" letter-spacing="1.4px"><tspan x="850" y="412.5">WALL SCONCE</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="850" y="450.409">Brushed brass &#xb7; 24 in</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="1056" y="450.409">Qty 6</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="20"><tspan x="850" y="488.73">WS-4410-BB</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="80" y="607.409">Save the arrangement as a style and any item in the book can wear it with one click.</tspan></text>
 </svg>

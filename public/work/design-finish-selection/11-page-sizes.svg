@@ -1,9 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
-<rect width="1200" height="900" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1198" height="898" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; MEDIUM</text>
-<line x1="48" y1="82" x2="1152" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="440.0" font-family="Georgia, serif" font-size="46" fill="#141414">The page size choice</text>
-<text x="48" y="480.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">New book dialog. Two sizes, two orientations, nothing else.</text><text x="48" y="514.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Proves the constraint was real and not a story told afterwards.</text>
-<text x="48" y="852" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1200 &#215; 900</text>
+<svg width="1600" height="734" viewBox="0 0 1600 734" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="734" fill="#F5F5F7"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">The page size choice</tspan></text>
+<path d="M80 170C80 164.477 84.4772 160 90 160H1510C1515.52 160 1520 164.477 1520 170V644C1520 649.523 1515.52 654 1510 654H90C84.4771 654 80 649.523 80 644V170Z" fill="white"/>
+<path d="M90 160.5H1510C1515.25 160.5 1519.5 164.753 1519.5 170V644C1519.5 649.247 1515.25 653.5 1510 653.5H90C84.7533 653.5 80.5 649.247 80.5 644V170C80.5 164.753 84.7533 160.5 90 160.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="28" font-weight="500"><tspan x="118" y="221.182">New book</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="118" y="272.409">PAGE SIZE</tspan></text>
+<rect x="221.75" y="392.25" width="108" height="140.5" rx="1.75" fill="#F5F5F7" stroke="#2B5F5A" stroke-width="2.5"/>
+<text fill="#2B5F5A" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="207.645" y="566.409">Letter &#xb7; portrait</tspan></text>
+<rect x="554.5" y="424.25" width="141.5" height="109" rx="2.25" fill="#F5F5F7" stroke="#86868B" stroke-width="1.5"/>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="544.5" y="566.409">Letter &#xb7; landscape</tspan></text>
+<rect x="904" y="313.75" width="141.5" height="219.5" rx="2.25" fill="#F5F5F7" stroke="#86868B" stroke-width="1.5"/>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="900.708" y="566.409">Tabloid &#xb7; portrait</tspan></text>
+<rect x="1214.5" y="391.75" width="219.5" height="141.5" rx="2.25" fill="#F5F5F7" stroke="#86868B" stroke-width="1.5"/>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="1237.56" y="566.409">Tabloid &#xb7; landscape</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="118" y="615.409">The entire menu. Both sizes print in a designer&#39;s own office.</tspan></text>
 </svg>

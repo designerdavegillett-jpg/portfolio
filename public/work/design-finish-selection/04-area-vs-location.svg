@@ -1,9 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
-<rect width="1600" height="900" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1598" height="898" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; PRIORITY</text>
-<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="440.0" font-family="Georgia, serif" font-size="46" fill="#141414">Areas and locations together</text>
-<text x="48" y="480.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">One drawing showing a measured area (floor, walls) next to placed point</text><text x="48" y="514.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">locations (fridge, bed, toilet). Settles the distinction in one look.</text>
-<text x="48" y="852" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 900</text>
+<svg width="1600" height="697" viewBox="0 0 1600 697" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="697" fill="#F5F5F7"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">Areas and locations</tspan></text>
+<path d="M80 170C80 164.477 84.4772 160 90 160H766C771.523 160 776 164.477 776 170V584C776 589.523 771.523 594 766 594H90C84.4772 594 80 589.523 80 584V170Z" fill="white"/>
+<path d="M90 160.5H766C771.247 160.5 775.5 164.753 775.5 170V584C775.5 589.247 771.247 593.5 766 593.5H90C84.7533 593.5 80.5 589.247 80.5 584V170C80.5 164.753 84.7533 160.5 90 160.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="110" y="204.409">AREA</tspan></text>
+<path d="M110 227H410V387H570V527H110V227Z" fill="#E8E8ED" stroke="#2B5F5A" stroke-width="2.5"/>
+<text fill="#2B5F5A" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="34"><tspan x="180" y="380.291">184 sq ft</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="180" y="411.409">+ 10% waste = 203</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="110" y="563.409">Carries a quantity. Draw the surface, get the number, add waste.</tspan></text>
+<path d="M824 170C824 164.477 828.477 160 834 160H1510C1515.52 160 1520 164.477 1520 170V607C1520 612.523 1515.52 617 1510 617H834C828.477 617 824 612.523 824 607V170Z" fill="white"/>
+<path d="M834 160.5H1510C1515.25 160.5 1519.5 164.753 1519.5 170V607C1519.5 612.247 1515.25 616.5 1510 616.5H834C828.753 616.5 824.5 612.247 824.5 607V170C824.5 164.753 828.753 160.5 834 160.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="854" y="204.409">LOCATIONS</tspan></text>
+<path d="M854 227H1154V387H1314V527H854V227Z" stroke="#1D1D1F" stroke-opacity="0.1" stroke-width="2"/>
+<circle cx="902" cy="283" r="8" fill="#2B5F5A"/>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="16" font-weight="500"><tspan x="916" y="289.318">TO-01</tspan></text>
+<circle cx="1076" cy="288" r="8" fill="#2B5F5A"/>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="16" font-weight="500"><tspan x="1090" y="294.318">SK-01</tspan></text>
+<circle cx="994" cy="447" r="8" fill="#2B5F5A"/>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="16" font-weight="500"><tspan x="1008" y="453.318">LT-04</tspan></text>
+<circle cx="1204" cy="457" r="8" fill="#2B5F5A"/>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="16" font-weight="500"><tspan x="1218" y="463.318">LT-04</tspan></text>
+<circle cx="902" cy="376" r="8" fill="#2B5F5A"/>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="16" font-weight="500"><tspan x="916" y="382.318">MR-02</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="854" y="563.409">Carries a place. Almost everything downstream depends on keeping </tspan><tspan x="854" y="586.409">these apart.</tspan></text>
 </svg>

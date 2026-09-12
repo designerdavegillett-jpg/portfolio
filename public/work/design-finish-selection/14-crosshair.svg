@@ -1,9 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700">
-<rect width="1600" height="700" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1598" height="698" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; PRIORITY</text>
-<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="340.0" font-family="Georgia, serif" font-size="46" fill="#141414">The measurement crosshair</text>
-<text x="48" y="380.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Magnified, over a light area and a dark area.</text><text x="48" y="414.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">One pixel black cross, one pixel white outline, readable on both.</text>
-<text x="48" y="652" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 700</text>
+<svg width="1600" height="700" viewBox="0 0 1600 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="700" fill="#F5F5F7"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">The measurement crosshair</tspan></text>
+<path d="M80 170C80 164.477 84.4772 160 90 160H762C767.523 160 772 164.477 772 170V551C772 556.523 767.523 561 762 561H90C84.4771 561 80 556.523 80 551V170Z" fill="white"/>
+<path d="M90 160.5H762C767.247 160.5 771.5 164.753 771.5 170V551C771.5 556.247 767.247 560.5 762 560.5H90C84.7533 560.5 80.5 556.247 80.5 551V170C80.5 164.753 84.7533 160.5 90 160.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="110" y="206.409">ZOOMED IN MEASURE CURSOR ON WHITE</tspan></text>
+<rect x="328" y="334" width="196" height="30" fill="#F5F5F7"/>
+<rect x="411" y="251" width="30" height="196" fill="#F5F5F7"/>
+<rect x="336" y="342" width="180" height="14" fill="#1D1D1F"/>
+<rect x="419" y="259" width="14" height="180" fill="#1D1D1F"/>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="110" y="505.409">The black core carries it. The white outline does nothing here, and </tspan><tspan x="110" y="528.409">costs nothing.</tspan></text>
+<path d="M828 170C828 164.477 832.477 160 838 160H1510C1515.52 160 1520 164.477 1520 170V551C1520 556.523 1515.52 561 1510 561H838C832.477 561 828 556.523 828 551V170Z" fill="#1D1D1F"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="858" y="206.409">ZOOMED IN MEASURE CURSOR ON BLACK</tspan></text>
+<rect x="1076" y="334" width="196" height="30" fill="#F5F5F7"/>
+<rect x="1159" y="251" width="30" height="196" fill="#F5F5F7"/>
+<rect x="1084" y="342" width="180" height="14" fill="#1D1D1F"/>
+<rect x="1167" y="259" width="14" height="180" fill="#1D1D1F"/>
+<text fill="white" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="858" y="505.409">The core disappears. The one-pixel white outline is the only reason </tspan><tspan x="858" y="528.409">the crosshair is still findable.</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="80" y="615.409">One pixel black, one pixel white outline. Find-able on paper white and on solid black.</tspan></text>
 </svg>

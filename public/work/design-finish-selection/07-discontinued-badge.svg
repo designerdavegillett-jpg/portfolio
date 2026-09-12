@@ -1,9 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
-<rect width="1200" height="900" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1198" height="898" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; PRIORITY</text>
-<line x1="48" y1="82" x2="1152" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="440.0" font-family="Georgia, serif" font-size="46" fill="#141414">The discontinued badge</text>
-<text x="48" y="480.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">An item on a book page with the status badge over its image.</text><text x="48" y="514.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Small, specific, and the moment a principle becomes visible.</text><text x="48" y="548.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">If you make one image in this section, make this one.</text>
-<text x="48" y="852" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1200 &#215; 900</text>
+<svg width="1600" height="663" viewBox="0 0 1600 663" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="663" fill="#F5F5F7"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">The discontinued badge</tspan></text>
+<path d="M80 170C80 164.477 84.4772 160 90 160H1510C1515.52 160 1520 164.477 1520 170V573C1520 578.523 1515.52 583 1510 583H90C84.4771 583 80 578.523 80 573V170Z" fill="white"/>
+<path d="M90 160.5H1510C1515.25 160.5 1519.5 164.753 1519.5 170V573C1519.5 578.247 1515.25 582.5 1510 582.5H90C84.7533 582.5 80.5 578.247 80.5 573V170C80.5 164.753 84.7533 160.5 90 160.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="118" y="212.409">PRIMARY BATH &#xb7; PAGE 3</tspan></text>
+<rect x="118" y="241" width="436" height="190" rx="8" fill="#E8E8ED"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="21" font-weight="500"><tspan x="118" y="463.136">Wall sconce</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="118" y="497.545">Brushed brass &#xb7; 24 in</tspan></text>
+<g clip-path="url(#badge)">
+<rect x="582" y="241" width="436" height="190" rx="8" fill="#E8E8ED"/>
+<rect x="582" y="313" width="436" height="46" fill="#1D1D1F"/>
+<text fill="#F5F5F7" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="17" font-weight="500" letter-spacing="1.4px"><tspan x="598" y="342.682">DISCONTINUED</tspan></text>
+</g>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="21" font-weight="500"><tspan x="582" y="463.136">Vanity light</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="582" y="497.545">Matte black &#xb7; 30 in</tspan></text>
+<rect x="1046" y="241" width="436" height="190" rx="8" fill="#E8E8ED"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="21" font-weight="500"><tspan x="1046" y="463.136">Mirror</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1046" y="497.545">Round &#xb7; 32 in</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="118" y="544.409">The selection stays where it is, visibly dead. Someone still has to decide what to do about it.</tspan></text>
+<defs><clipPath id="badge"><rect x="582" y="241" width="436" height="190" rx="8" fill="white"/></clipPath></defs>
 </svg>

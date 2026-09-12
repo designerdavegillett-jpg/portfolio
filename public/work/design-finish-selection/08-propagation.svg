@@ -1,9 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 760" width="1600" height="760">
-<rect width="1600" height="760" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1598" height="758" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; PRIORITY</text>
-<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="370.0" font-family="Georgia, serif" font-size="46" fill="#141414">State travelling</text>
-<text x="48" y="410.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Same item in two surfaces carrying the same status.</text><text x="48" y="444.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">A before and after pair works: approve in one place, show it changed in the other.</text>
-<text x="48" y="712" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 760</text>
+<svg width="1600" height="655" viewBox="0 0 1600 655" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="655" fill="#F5F5F7"/>
+<path d="M460 368.5C515 368.5 515 221 557 221" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M568 220.5L557 214V227L568 220.5Z" fill="#2B5F5A"/>
+<path d="M460 368.5C515 368.5 515 514 557 514" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M460 368.5C515 368.5 515 368.5 557 368.5" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M568 367.5L557 361V374L568 367.5Z" fill="#2B5F5A"/>
+<path d="M568 514.5L557 508V521L568 514.5Z" fill="#2B5F5A"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">State travelling</tspan></text>
+<g clip-path="url(#c0)">
+<path d="M80 170C80 164.477 84.4772 160 90 160H450C455.523 160 460 164.477 460 170V565C460 570.523 455.523 575 450 575H90C84.4772 575 80 570.523 80 565V170Z" fill="white"/>
+<rect x="106" y="186" width="328" height="242" rx="6" fill="#E8E8ED"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="23" font-weight="500"><tspan x="106" y="464.364">Wall sconce, brushed brass</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="106" y="501.545">Approved 14 March</tspan></text>
+<rect x="106" y="520" width="99" height="29" rx="14.5" fill="#2B5F5A"/>
+<text fill="#F5F5F7" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="16" font-weight="500"><tspan x="118" y="540.318">Approved</tspan></text>
+<g clip-path="url(#c2)">
+<path d="M570 170C570 164.477 574.477 160 580 160H1510C1515.52 160 1520 164.477 1520 170V271C1520 276.523 1515.52 281 1510 281H580C574.477 281 570 276.523 570 271V170Z" fill="white"/>
+<path d="M570 170C570 164.477 574.477 160 580 160H1510C1515.52 160 1520 164.477 1520 170V271C1520 276.523 1515.52 281 1510 281H580C574.477 281 570 276.523 570 271V170Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="596" y="200.409">ITEM SCHEDULE</tspan></text>
+<rect x="596" y="219" width="40" height="40" rx="6" fill="#E8E8ED"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="21"><tspan x="654" y="246.636">Wall sconce, brushed brass</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="1327" y="245.909">Qty 6</tspan></text>
+<rect x="1395" y="224.5" width="99" height="29" rx="14.5" fill="#2B5F5A"/>
+<text fill="#F5F5F7" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="16" font-weight="500"><tspan x="1407" y="244.818">Approved</tspan></text>
+<path d="M570 317C570 311.477 574.477 307 580 307H1510C1515.52 307 1520 311.477 1520 317V418C1520 423.523 1515.52 428 1510 428H580C574.477 428 570 423.523 570 418V317Z" fill="white"/>
+<path d="M570 317C570 311.477 574.477 307 580 307H1510C1515.52 307 1520 311.477 1520 317V418C1520 423.523 1515.52 428 1510 428H580C574.477 428 570 423.523 570 418V317Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="596" y="347.409">DESIGN BOOK</tspan></text>
+<rect x="596" y="366" width="40" height="40" rx="6" fill="#E8E8ED"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="21"><tspan x="654" y="393.636">Primary bath, page 3</tspan></text>
+<rect x="1395" y="371.5" width="99" height="29" rx="14.5" fill="#2B5F5A"/>
+<text fill="#F5F5F7" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="16" font-weight="500"><tspan x="1407" y="391.818">Approved</tspan></text>
+<path d="M570 464C570 458.477 574.477 454 580 454H1510C1515.52 454 1520 458.477 1520 464V565C1520 570.523 1515.52 575 1510 575H580C574.477 575 570 570.523 570 565V464Z" fill="white"/>
+<path d="M570 464C570 458.477 574.477 454 580 454H1510C1515.52 454 1520 458.477 1520 464V565C1520 570.523 1515.52 575 1510 575H580C574.477 575 570 570.523 570 565V464Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="596" y="494.409">OWNER PORTAL</tspan></text>
+<rect x="596" y="513" width="40" height="40" rx="6" fill="#E8E8ED"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="21"><tspan x="654" y="540.636">Primary bath</tspan></text>
+<rect x="1395" y="518.5" width="99" height="29" rx="14.5" fill="#2B5F5A"/>
+<text fill="#F5F5F7" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="16" font-weight="500"><tspan x="1407" y="538.818">Approved</tspan></text>
+</g>
+</g>
+<defs>
+<clipPath id="c0"><rect width="1440" height="415" fill="white" transform="translate(80 160)"/></clipPath>
+<clipPath id="c2"><rect width="950" height="415" fill="white" transform="translate(570 160)"/></clipPath>
+</defs>
 </svg>

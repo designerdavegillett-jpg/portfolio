@@ -1,9 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
-<rect width="1600" height="1000" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1598" height="998" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; HIGHEST PRIORITY</text>
-<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="490.0" font-family="Georgia, serif" font-size="46" fill="#141414">The item box quadrant model</text>
-<text x="48" y="530.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Item box selected, four zones visible and populated.</text><text x="48" y="564.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Name, SKU, size and color, each formatted differently.</text><text x="48" y="598.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">The single most important product screenshot on the page. It is the invention.</text>
-<text x="48" y="952" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 1000</text>
+<svg width="1600" height="879" viewBox="0 0 1600 879" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="879" fill="#F5F5F7"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">The item box quadrant model</tspan></text>
+<rect x="650.5" y="160.5" width="299" height="119" rx="7.5" stroke="#86868B" stroke-dasharray="6 6"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="15" font-weight="500" letter-spacing="1.5px"><tspan x="721.5" y="209.955">SIZE AND COLOUR</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="21"><tspan x="702.5" y="239.636">24&#34; &#xb7; Brushed brass</tspan></text>
+<rect x="300.5" y="300.5" width="329" height="299" rx="7.5" stroke="#86868B" stroke-dasharray="6 6"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="15" font-weight="500" letter-spacing="1.5px"><tspan x="420.5" y="427.955">QUANTITY</tspan></text>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="40"><tspan x="453" y="476.46">6</tspan></text>
+<rect x="650" y="300" width="300" height="300" rx="8" fill="#E8E8ED"/>
+<rect x="970.5" y="300.5" width="329" height="299" rx="7.5" stroke="#86868B" stroke-dasharray="6 6"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="15" font-weight="500" letter-spacing="1.5px"><tspan x="1118" y="438.955">SKU</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="22" font-weight="500"><tspan x="1066" y="470">WS-4410-BB</tspan></text>
+<rect x="650.5" y="620.5" width="299" height="119" rx="7.5" stroke="#86868B" stroke-dasharray="6 6"/>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="15" font-weight="500" letter-spacing="1.5px"><tspan x="751.5" y="668.955">ITEM NAME</tspan></text>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="22" font-weight="500"><tspan x="655.5" y="700">Wall sconce, brushed brass</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="80" y="794.409">Four addressable zones around the image. Every field on the record, formatted on its own terms.</tspan></text>
 </svg>

@@ -1,9 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760">
-<rect width="1200" height="760" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1198" height="758" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; MEDIUM</text>
-<line x1="48" y1="82" x2="1152" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="370.0" font-family="Georgia, serif" font-size="46" fill="#141414">Lock and request to edit</text>
-<text x="48" y="410.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Either the lock affordance on a selected element, or the request flow</text><text x="48" y="444.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">as three steps: request, notify, approve.</text><text x="48" y="478.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">A three row table of admin / editor / viewer also works.</text>
-<text x="48" y="712" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1200 &#215; 760</text>
+<svg width="1600" height="470" viewBox="0 0 1600 470" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="470" fill="#F5F5F7"/>
+<path d="M513.333 275H570.333" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M581.333 275L570.333 268.5V281.5L581.333 275Z" fill="#2B5F5A"/>
+<path d="M1016.67 275H1073.67" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M1084.67 275L1073.67 268.5V281.5L1084.67 275Z" fill="#2B5F5A"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">Lock and request to edit</tspan></text>
+<path d="M80 170C80 164.477 84.4772 160 90 160H503.333C508.856 160 513.333 164.477 513.333 170V380C513.333 385.523 508.856 390 503.333 390H90C84.4772 390 80 385.523 80 380V170Z" fill="white"/>
+<path d="M90 160.5H503.333C508.58 160.5 512.833 164.753 512.833 170V380C512.833 385.247 508.58 389.5 503.333 389.5H90C84.7533 389.5 80.5 385.247 80.5 380V170C80.5 164.753 84.7533 160.5 90 160.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#2B5F5A" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="26"><tspan x="106" y="211.399">1</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18" font-weight="500" letter-spacing="1.6px"><tspan x="130" y="208.545">JUNIOR</tspan></text>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="24" font-weight="500"><tspan x="106" y="251.227">Requests to edit</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="106" y="284.545">The layout is locked. They can fill it, not </tspan><tspan x="106" y="306.545">break it.</tspan></text>
+<path d="M583.333 170C583.333 164.477 587.811 160 593.333 160H1006.67C1012.19 160 1016.67 164.477 1016.67 170V380C1016.67 385.523 1012.19 390 1006.67 390H593.333C587.811 390 583.333 385.523 583.333 380V170Z" fill="white"/>
+<path d="M593.333 160.5H1006.67C1011.91 160.5 1016.17 164.753 1016.17 170V380C1016.17 385.247 1011.91 389.5 1006.67 389.5H593.333C588.087 389.5 583.833 385.247 583.833 380V170C583.833 164.753 588.087 160.5 593.333 160.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#2B5F5A" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="26"><tspan x="609.333" y="211.399">2</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18" font-weight="500" letter-spacing="1.6px"><tspan x="637.333" y="208.545">SENIOR</tspan></text>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="24" font-weight="500"><tspan x="609.333" y="251.227">Is notified</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="609.333" y="284.545">One notification, naming the page and the </tspan><tspan x="609.333" y="306.545">person.</tspan></text>
+<path d="M1086.67 170C1086.67 164.477 1091.14 160 1096.67 160H1510C1515.52 160 1520 164.477 1520 170V380C1520 385.523 1515.52 390 1510 390H1096.67C1091.14 390 1086.67 385.523 1086.67 380V170Z" fill="white"/>
+<path d="M1096.67 160.5H1510C1515.25 160.5 1519.5 164.753 1519.5 170V380C1519.5 385.247 1515.25 389.5 1510 389.5H1096.67C1091.42 389.5 1087.17 385.247 1087.17 380V170C1087.17 164.753 1091.42 160.5 1096.67 160.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#2B5F5A" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="26"><tspan x="1112.67" y="211.399">3</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18" font-weight="500" letter-spacing="1.6px"><tspan x="1138.67" y="208.545">SENIOR</tspan></text>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="24" font-weight="500"><tspan x="1112.67" y="251.227">Approves in one click</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1112.67" y="284.545">Edit rights open on that page only.</tspan></text>
 </svg>

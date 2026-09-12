@@ -1,9 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
-<rect width="1600" height="1000" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1598" height="998" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; HIGHEST PRIORITY</text>
-<line x1="48" y1="82" x2="1552" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="490.0" font-family="Georgia, serif" font-size="46" fill="#141414">The item ID model</text>
-<text x="48" y="530.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Figma diagram, two states. Five bathroom locations on a plan.</text><text x="48" y="564.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Four point at TO-01, one at TO-02, each ID resolving to an item below.</text><text x="48" y="598.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Second state: TO-01 changed, four update, the fifth sits still.</text><text x="48" y="632.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Use toilets, not the hundred can lights. Clearer picture.</text>
-<text x="48" y="952" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1600 &#215; 1000</text>
+<svg width="1600" height="907" viewBox="0 0 1600 907" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#c0)">
+<rect width="1600" height="906.5" fill="#F5F5F7"/>
+<path d="M500 445H667" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M678 445L667 438.5V451.5L678 445Z" fill="#2B5F5A"/>
+<path d="M500 755H667" stroke="#86868B" stroke-width="2"/>
+<path d="M678 755L667 748.5V761.5L678 755Z" fill="#86868B"/>
+<path d="M900 445C983.5 445 983.5 259 1067 259" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M1078 259L1067 252.5V265.5L1078 259Z" fill="#2B5F5A"/>
+<path d="M900 445C983.5 445 983.5 383 1067 383" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M1078 383L1067 376.5V389.5L1078 383Z" fill="#2B5F5A"/>
+<path d="M900 445C983.5 445 983.5 507 1067 507" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M1078 507L1067 500.5V513.5L1078 507Z" fill="#2B5F5A"/>
+<path d="M900 445C983.5 445 983.5 631 1067 631" stroke="#2B5F5A" stroke-width="2.5"/>
+<path d="M1078 631L1067 624.5V637.5L1078 631Z" fill="#2B5F5A"/>
+<path d="M900 755H1067" stroke="#86868B" stroke-width="2"/>
+<path d="M1078 755L1067 748.5V761.5L1078 755Z" fill="#86868B"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">The item ID model</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" letter-spacing="1.7px"><tspan x="80" y="178.409">THE ITEM</tspan></text>
+<path d="M80 383.5C80 377.977 84.4772 373.5 90 373.5H490C495.523 373.5 500 377.977 500 383.5V506.5C500 512.023 495.523 516.5 490 516.5H90C84.4772 516.5 80 512.023 80 506.5V383.5Z" fill="white"/>
+<path d="M90 374H490C495.247 374 499.5 378.253 499.5 383.5V506.5C499.5 511.747 495.247 516 490 516H90C84.7533 516 80.5 511.747 80.5 506.5V383.5C80.5 378.253 84.7533 374 90 374Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="26"><tspan x="112" y="424.455">Two-piece elongated</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="112" y="455.773">Comfort height</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="112" y="485.773">1.28 gpf &#xb7; white</tspan></text>
+<path d="M80 693.5C80 687.977 84.4772 683.5 90 683.5H490C495.523 683.5 500 687.977 500 693.5V816.5C500 822.023 495.523 826.5 490 826.5H90C84.4772 826.5 80 822.023 80 816.5V693.5Z" fill="white"/>
+<path d="M90 684H490C495.247 684 499.5 688.253 499.5 693.5V816.5C499.5 821.747 495.247 826 490 826H90C84.7533 826 80.5 821.747 80.5 816.5V693.5C80.5 688.253 84.7533 684 90 684Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="26"><tspan x="112" y="734.455">One-piece compact</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="112" y="765.773">Standard height</tspan></text>
+<text fill="#424245" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="112" y="795.773">1.6 gpf &#xb7; white</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" letter-spacing="1.7px"><tspan x="680" y="178.409">ITEM ID</tspan></text>
+<path d="M680 398.5C680 392.977 684.477 388.5 690 388.5H890C895.523 388.5 900 392.977 900 398.5V491.5C900 497.023 895.523 501.5 890 501.5H690C684.477 501.5 680 497.023 680 491.5V398.5Z" fill="#2B5F5A"/>
+<text fill="#F5F5F7" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="40"><tspan x="731.5" y="447.46">TO-01</tspan></text>
+<text opacity="0.75" fill="#F5F5F7" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="743" y="477.045">4 locations</tspan></text>
+<path d="M690 699H890C895.247 699 899.5 703.253 899.5 708.5V801.5C899.5 806.747 895.247 811 890 811H690C684.753 811 680.5 806.747 680.5 801.5V708.5C680.5 703.253 684.753 699 690 699Z" fill="white" stroke="#86868B"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Fraunces, Georgia, serif" font-size="40"><tspan x="728.5" y="757.46">TO-02</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="749.5" y="787.045">1 location</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" letter-spacing="1.7px"><tspan x="1080" y="178.409">LOCATIONS</tspan></text>
+<path d="M1080 215C1080 209.477 1084.48 205 1090 205H1470C1475.52 205 1480 209.477 1480 215V303C1480 308.523 1475.52 313 1470 313H1090C1084.48 313 1080 308.523 1080 303V215Z" fill="white"/>
+<path d="M1090 205.5H1470C1475.25 205.5 1479.5 209.753 1479.5 215V303C1479.5 308.247 1475.25 312.5 1470 312.5H1090C1084.75 312.5 1080.5 308.247 1080.5 303V215C1080.5 209.753 1084.75 205.5 1090 205.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="27"><tspan x="1112" y="255.318">Primary Bath</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="1112" y="284.409">Level 2</tspan></text>
+<path d="M1080 339C1080 333.477 1084.48 329 1090 329H1470C1475.52 329 1480 333.477 1480 339V427C1480 432.523 1475.52 437 1470 437H1090C1084.48 437 1080 432.523 1080 427V339Z" fill="white"/>
+<path d="M1090 329.5H1470C1475.25 329.5 1479.5 333.753 1479.5 339V427C1479.5 432.247 1475.25 436.5 1470 436.5H1090C1084.75 436.5 1080.5 432.247 1080.5 427V339C1080.5 333.753 1084.75 329.5 1090 329.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="27"><tspan x="1112" y="379.318">Guest Bath</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="1112" y="408.409">Level 2</tspan></text>
+<path d="M1080 463C1080 457.477 1084.48 453 1090 453H1470C1475.52 453 1480 457.477 1480 463V551C1480 556.523 1475.52 561 1470 561H1090C1084.48 561 1080 556.523 1080 551V463Z" fill="white"/>
+<path d="M1090 453.5H1470C1475.25 453.5 1479.5 457.753 1479.5 463V551C1479.5 556.247 1475.25 560.5 1470 560.5H1090C1084.75 560.5 1080.5 556.247 1080.5 551V463C1080.5 457.753 1084.75 453.5 1090 453.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="27"><tspan x="1112" y="503.318">Powder Room</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="1112" y="532.409">Level 1</tspan></text>
+<path d="M1080 587C1080 581.477 1084.48 577 1090 577H1470C1475.52 577 1480 581.477 1480 587V675C1480 680.523 1475.52 685 1470 685H1090C1084.48 685 1080 680.523 1080 675V587Z" fill="white"/>
+<path d="M1090 577.5H1470C1475.25 577.5 1479.5 581.753 1479.5 587V675C1479.5 680.247 1475.25 684.5 1470 684.5H1090C1084.75 684.5 1080.5 680.247 1080.5 675V587C1080.5 581.753 1084.75 577.5 1090 577.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="27"><tspan x="1112" y="627.318">Jack and Jill Bath</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="1112" y="656.409">Level 2</tspan></text>
+<path d="M1080 711C1080 705.477 1084.48 701 1090 701H1470C1475.52 701 1480 705.477 1480 711V799C1480 804.523 1475.52 809 1470 809H1090C1084.48 809 1080 804.523 1080 799V711Z" fill="white"/>
+<path d="M1090 701.5H1470C1475.25 701.5 1479.5 705.753 1479.5 711V799C1479.5 804.247 1475.25 808.5 1470 808.5H1090C1084.75 808.5 1080.5 804.247 1080.5 799V711C1080.5 705.753 1084.75 701.5 1090 701.5Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#1D1D1F" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="27"><tspan x="1112" y="751.318">Pool Bath</tspan></text>
+<text fill="#86868B" style="white-space: pre" xml:space="preserve" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="1112" y="780.409">Level 1</tspan></text>
+</g>
+<defs><clipPath id="c0"><rect width="1600" height="906.5" fill="white"/></clipPath></defs>
 </svg>

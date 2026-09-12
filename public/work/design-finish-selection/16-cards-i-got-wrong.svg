@@ -1,9 +1,84 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760">
-<rect width="1200" height="760" fill="#F1EFE9"/>
-<rect x="1" y="1" width="1198" height="758" fill="none" stroke="#2B5F5A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="10 8"/>
-<text x="48" y="62" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2.5" fill="#2B5F5A">PLACEHOLDER &#183; WORTH IT</text>
-<line x1="48" y1="82" x2="1152" y2="82" stroke="#2B5F5A" stroke-opacity=".25" stroke-width="1"/>
-<text x="48" y="370.0" font-family="Georgia, serif" font-size="46" fill="#141414">The card grid I was wrong about</text>
-<text x="48" y="410.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">The manufacturer card grid next to the list it should have been.</text><text x="48" y="444.0" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#807A72">Showing your own wrong answer is rare and it buys credibility.</text>
-<text x="48" y="712" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" fill="#807A72" opacity=".8">1200 &#215; 760</text>
+<svg width="1600" height="954" viewBox="0 0 1600 954" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="954" fill="#F5F5F7"/>
+<text fill="#1D1D1F" font-family="Fraunces, Georgia, serif" font-size="36"><tspan x="80" y="115.014">The card grid I was wrong about</tspan></text>
+<g clip-path="url(#c0)">
+<path d="M80 170C80 164.477 84.4772 160 90 160H766C771.523 160 776 164.477 776 170V805C776 810.523 771.523 815 766 815H90C84.4772 815 80 810.523 80 805V170Z" fill="white"/>
+<path d="M80 170C80 164.477 84.4772 160 90 160H766C771.523 160 776 164.477 776 170V805C776 810.523 771.523 815 766 815H90C84.4772 815 80 810.523 80 805V170Z" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="108" y="204.409">WHAT I ARGUED FOR</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="342" y="204.409">6 visible</tspan></text>
+<g clip-path="url(#c2)">
+<rect x="108" y="229" width="204" height="204" rx="8" fill="#F5F5F7"/>
+<rect x="108" y="229" width="204" height="204" rx="8" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<rect x="122" y="243" width="176" height="144" rx="5" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18" font-weight="500"><tspan x="122" y="414.545">Northfield</tspan></text>
+<rect x="326" y="229" width="204" height="204" rx="8" fill="#F5F5F7"/>
+<rect x="326" y="229" width="204" height="204" rx="8" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<rect x="340" y="243" width="176" height="144" rx="5" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18" font-weight="500"><tspan x="340" y="414.545">Ashgrove</tspan></text>
+<rect x="544" y="229" width="204" height="204" rx="8" fill="#F5F5F7"/>
+<rect x="544" y="229" width="204" height="204" rx="8" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<rect x="558" y="243" width="176" height="144" rx="5" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18" font-weight="500"><tspan x="558" y="414.545">Brixton Works</tspan></text>
+<rect x="108" y="447" width="204" height="204" rx="8" fill="#F5F5F7"/>
+<rect x="108" y="447" width="204" height="204" rx="8" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<rect x="122" y="461" width="176" height="144" rx="5" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18" font-weight="500"><tspan x="122" y="632.545">Halden</tspan></text>
+<rect x="326" y="447" width="204" height="204" rx="8" fill="#F5F5F7"/>
+<rect x="326" y="447" width="204" height="204" rx="8" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<rect x="340" y="461" width="176" height="144" rx="5" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18" font-weight="500"><tspan x="340" y="632.545">Marlowe</tspan></text>
+<rect x="544" y="447" width="204" height="204" rx="8" fill="#F5F5F7"/>
+<rect x="544" y="447" width="204" height="204" rx="8" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<rect x="558" y="461" width="176" height="144" rx="5" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18" font-weight="500"><tspan x="558" y="632.545">Quarry and Co</tspan></text>
+<rect x="108" y="665" width="204" height="204" rx="8" fill="#F5F5F7"/>
+<rect x="108" y="665" width="204" height="204" rx="8" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<rect x="122" y="679" width="176" height="144" rx="5" fill="#E8E8ED"/>
+<rect x="326" y="665" width="204" height="204" rx="8" fill="#F5F5F7"/>
+<rect x="326" y="665" width="204" height="204" rx="8" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<rect x="340" y="679" width="176" height="144" rx="5" fill="#E8E8ED"/>
+<rect x="544" y="665" width="204" height="204" rx="8" fill="#F5F5F7"/>
+<rect x="544" y="665" width="204" height="204" rx="8" stroke="#1D1D1F" stroke-opacity="0.1"/>
+<rect x="558" y="679" width="176" height="144" rx="5" fill="#E8E8ED"/>
+</g>
+<path d="M824 170C824 164.477 828.477 160 834 160H1510C1515.52 160 1520 164.477 1520 170V805C1520 810.523 1515.52 815 1510 815H834C828.477 815 824 810.523 824 805V170Z" fill="white"/>
+<path d="M824 170C824 164.477 828.477 160 834 160H1510C1515.52 160 1520 164.477 1520 170V805C1520 810.523 1515.52 815 1510 815H834C828.477 815 824 810.523 824 805V170Z" stroke="#2B5F5A" stroke-width="2"/>
+<text fill="#2B5F5A" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="1.7px"><tspan x="852" y="204.409">WHAT SHIPPED</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="1026" y="204.409">10 visible, same height</tspan></text>
+<rect x="852" y="238" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="256.273">Northfield</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1429" y="255.545">8 items</tspan></text>
+<rect x="852" y="292" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="310.273">Ashgrove</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1423" y="309.545">11 items</tspan></text>
+<rect x="852" y="346" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="364.273">Brixton Works</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1420" y="363.545">14 items</tspan></text>
+<rect x="852" y="400" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="418.273">Halden</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1422" y="417.545">17 items</tspan></text>
+<rect x="852" y="454" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="472.273">Marlowe</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1418" y="471.545">20 items</tspan></text>
+<rect x="852" y="508" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="526.273">Quarry and Co</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1418" y="525.545">23 items</tspan></text>
+<rect x="852" y="562" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="580.273">Ellerby</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1418" y="579.545">26 items</tspan></text>
+<rect x="852" y="616" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="634.273">Saltmarsh</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1418" y="633.545">29 items</tspan></text>
+<rect x="852" y="670" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="688.273">Pennfield</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1418" y="687.545">32 items</tspan></text>
+<rect x="852" y="724" width="30" height="22" rx="4" fill="#E8E8ED"/>
+<text fill="#1D1D1F" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="20"><tspan x="898" y="742.273">Rowan Hill</tspan></text>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="18"><tspan x="1418" y="741.545">35 items</tspan></text>
+</g>
+<text fill="#86868B" font-family="Inter Tight, Inter, system-ui, sans-serif" font-size="19"><tspan x="80" y="869.409">My card grid, and the boring rows that were correct. I argued for the wrong one.</tspan></text>
+<defs>
+<clipPath id="c0"><rect width="1440" height="655" fill="white" transform="translate(80 160)"/></clipPath>
+<clipPath id="c2"><rect width="640" height="560" fill="white" transform="translate(108 229)"/></clipPath>
+</defs>
 </svg>

@@ -26,10 +26,10 @@ export const efficientlyStudies: CaseStudy[] = [
     status: "Shipped",
     visual: "canvas",
     image: {
-      src: "/work/design-finish-selection/three-surfaces.png",
+      src: "/work/design-finish-selection/three-surfaces.webp",
       alt: "Three Efficiently screens overlapping: the plans canvas with a room highlighted on a floor plan, the design book laying out primary bathroom selections, and the item schedule listing locations with approval statuses.",
-      width: 1920,
-      height: 1320,
+      width: 1600,
+      height: 1100,
       transparent: true,
     },
     summary:
