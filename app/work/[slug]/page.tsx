@@ -8,6 +8,7 @@ import { splitWords } from "@/lib/type";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import CaptureAnatomy from "@/components/CaptureAnatomy";
+import ComplianceStates from "@/components/ComplianceStates";
 
 /**
  * Serialise structured data for a <script> tag. A "<" anywhere in a case
@@ -202,6 +203,7 @@ export default async function CaseStudyPage({
                 ))}
 
                 {section.interactive === "capture-anatomy" && <CaptureAnatomy />}
+                {section.interactive === "compliance-states" && <ComplianceStates />}
                 {section.figures && section.figures.length > 0 && (
                   <div className="figures">
                     {section.figures.map((fig) => (

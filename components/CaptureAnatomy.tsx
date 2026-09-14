@@ -86,9 +86,29 @@ const STYLES = `.capture-anatomy{--paper:#f5f5f7; --paper-sunk:#e8e8ed; --ink:#1
   @media (max-width:980px){.capture-anatomy .lead{display:none}
 }
 
-  @media (max-width:820px){.capture-anatomy .figure{grid-template-columns:1fr}
-.capture-anatomy .co h2{font-size:1rem}
-
+  @media (max-width:820px){
+/* No room for a list beside the drawing. The title leads, the drawing carries
+   its own tappable markers, and the card answers underneath. */
+.capture-anatomy .figure{grid-template-columns:1fr;gap:16px}
+.capture-anatomy .col{display:contents}
+.capture-anatomy .lede{order:-1;font-size:1.2rem;margin:0}
+.capture-anatomy .phone{order:0;width:100%;max-width:340px;margin-inline:auto}
+.capture-anatomy .callouts{display:none}
+.capture-anatomy .detail{order:1;margin-top:0;padding:16px 18px}
+.capture-anatomy .detail .dsc{font-size:14px}
+/* Markers are the only tap target here: the invisible part hitboxes overlap and
+   sit in the wrong places once the drawing is phone-sized. A transparent stroke
+   widens each one to a real thumb target without changing how it looks. */
+.capture-anatomy .hitbox{display:none}
+.capture-anatomy .pin{display:block;pointer-events:auto;cursor:pointer}
+.capture-anatomy .pin circle{r:17;fill:var(--card);stroke:transparent;stroke-width:30;paint-order:stroke fill;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.capture-anatomy .pin path{stroke:var(--ink);stroke-width:2.4;d:path("M-6 0h12M0 -6v12")}
+.capture-anatomy .part.active .pin circle{fill:var(--hi)}
+.capture-anatomy .part.active .pin path{stroke:#fff}
+.capture-anatomy .part[data-part="3"] > *:not(.pin){opacity:0}
+.capture-anatomy .part[data-part="3"] .pin{opacity:1}
+.capture-anatomy .part[data-part="3"].active > *{opacity:1}
+.capture-anatomy .figure.has-active .part:not(.active){opacity:.45}
   }
 
   @media (prefers-reduced-motion:reduce){.capture-anatomy *{transition:none!important}
@@ -138,7 +158,7 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
           <rect x="28" y="1000" width="150" height="4" rx="2" fill="var(--hi)"/>
           <text class="zl" x="28" y="1036" style="font-size:12px">Reserved by the platform - keep your face and any text above it</text>
         </g>
-        <g class="pin" transform="translate(164.3 712.5)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
+        <g class="pin" transform="translate(164.3 640)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
         <rect class="hitbox" x="300" y="360" width="60" height="180" data-hit="4"/>
       </g>
 
@@ -150,7 +170,7 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
         <mask id="ptmask" maskUnits="userSpaceOnUse" x="29" y="78" width="442" height="228"><rect x="29" y="78" width="442" height="228" fill="url(#ptfade)"/></mask>
         <g clip-path="url(#ptclip)" mask="url(#ptmask)"><g id="ptl"></g></g>
         <path class="ink" d="M47 78 H453 a18 18 0 0 1 18 18 V306 H29 V96 a18 18 0 0 1 18 -18 Z" style="stroke:transparent"/>
-        <g class="pin" transform="translate(246.5 188)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
+        <g class="pin" transform="translate(432 116)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
         <rect class="hitbox" x="29" y="78" width="442" height="228" data-hit="2"/>
       </g>
 
@@ -168,7 +188,7 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
         </g>
         <text class="lbl" x="246.5" y="352.8" style="fill:var(--mute);font-size:11px">Not hearing you - using estimated pace</text>
         <rect class="hl" x="97.2" y="335" width="298.6" height="27.6" rx="13.8"/>
-        <g class="pin" transform="translate(246.5 326.8)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
+        <g class="pin" transform="translate(432 348.8)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
         <rect class="hitbox" x="97.2" y="329" width="298.6" height="40" data-hit="3"/>
       </g>
 
@@ -198,7 +218,7 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
           <text class="lbl" x="26.3" y="73">Cancel</text>
         </g>
         <rect class="hl" x="417" y="451" width="63.2" height="364.2" rx="6"/>
-        <g class="pin" transform="translate(453.5 632)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
+        <g class="pin" transform="translate(370 632)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
         <rect class="hitbox" x="417" y="451" width="63.2" height="364.2" data-hit="5"/>
       </g>
 
@@ -208,7 +228,7 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
         <circle cx="220.6" cy="890.9" r="5" fill="var(--rec)"/>
         <text id="elapsed" x="234" y="897" style="font:700 16px var(--sans);fill:var(--ink);font-variant-numeric:tabular-nums">0:00</text>
         <rect class="hl" x="198" y="870.6" width="96.9" height="40.6" rx="20.3"/>
-        <g class="pin" transform="translate(246.5 890.9)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
+        <g class="pin" transform="translate(360 890.9)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
         <rect class="hitbox" x="190" y="864" width="112" height="54" data-hit="6"/>
       </g>
 
@@ -219,7 +239,7 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
                 id="sweep" stroke-dasharray="0 356.3" transform="rotate(-90 246.5 981.4)"/>
         <rect x="229.5" y="964.4" width="34" height="34" rx="8" fill="var(--rec)"/>
         <rect class="hl" x="180" y="924" width="133" height="115" rx="60"/>
-        <g class="pin" transform="translate(246.5 981.4)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
+        <g class="pin" transform="translate(360 981.4)"><circle r="14"/><path d="M-5 0h10M0 -5v10"/></g>
         <rect class="hitbox" x="180" y="924" width="133" height="115.4" data-hit="7"/>
       </g>
       </g>

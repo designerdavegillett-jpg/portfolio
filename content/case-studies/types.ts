@@ -100,7 +100,7 @@ export type Section = {
    * component in the case study page's registry, so content stays data and the
    * page keeps the only import.
    */
-  interactive?: "capture-anatomy";
+  interactive?: "capture-anatomy" | "compliance-states";
   /** Put the figures above the copy, for a section that should lead with an image. */
   figuresFirst?: boolean;
 };

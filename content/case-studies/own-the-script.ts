@@ -78,17 +78,8 @@ export const ownTheScriptStudies: CaseStudy[] = [
       },
       {
         heading: "What the Product Had to Guarantee",
+        interactive: "compliance-states",
         body: "The commitment from the research, that the disclosure lives inside the file rather than beside it, is only worth something if it cannot be switched off. So it is enforced in the renderer, not in the interface. Any caption specification arriving without a disclosure card gets one injected before the composition is built, and there is no code path that produces an export without it. \"Always include the disclosure\" is a promise. A renderer that will not emit a frame without one is a guarantee.\n\nThe scan in front of it is a 19 rule engine, and the design work was not writing the rules. It was deciding which of them a licensed professional is allowed to overrule.\n\nA live false positive on 30 July made that concrete. The caption \"Thinking about waiting for the perfect moment to refinance? Perfect rarely announces itself\" was hard blocked by the superlatives rule with no way through, and the Post button simply disabled. The rule blocks best, lowest, cheapest, number one, unbeatable, perfect. But \"the perfect moment\" is idiomatic and temporal. It is not a claim about the product, the rate or the terms, which is what the MAP Rule actually targets. The patch was easy. I took the design question underneath it instead.\n\nTier one is overridable with a logged acknowledgement: superlatives, free, urgency, comparative, qualify, prepay, counselor, and the trigger term rules. These are substantiation judgments, and a licensed loan officer can reasonably decide the claim is supportable in their context. The tool's job is to inform, not to make a legal determination.\n\nTier two is never overridable: guarantee, approval, credit-income, debt elimination, government affiliation, fair housing and RESPA referral. These are false representations about how lending works. No professional judgment makes them true, and fair lending exposure is not the loan officer's to waive.\n\nFour constraints keep that model real rather than decorative, and I set them by reading the live code before designing anything. The block is enforced on the server, because a client side post anyway button means anyone can bypass it with a crafted request and the audit trail becomes a lie. An override writes its own distinct audit event, so it is never counted as a clean publish. The acknowledgement is recorded rather than merely displayed, because we warned them is only a defence if it is evidenced. And it is per flag rather than one blanket checkbox, so the member has to look at each claim they are standing behind.\n\nGovernance sits on top of all of it. Override is a capability, not a default. A solo user may override, because they are their own compliance officer. A team member may override only if their organisation permits it, because a member quietly bypassing a company rule is exactly what the admin is paying to prevent.",
-        figures: [
-          {
-            src: "/work/own-the-script/compliance-gate.webp",
-            alt: "The audio compliance screen in three states side by side: passing clean, flagged for review with the risky phrases underlined, and hard blocked with no way through. Beside them, the post sheet with three platforms selected.",
-            width: 1600,
-            height: 828,
-            caption:
-              "The scan sits in front of the renderer, but it is not what makes the disclosure certain. The renderer is.",
-          },
-        ],
       },
       {
         heading: "A Prompter That Marks the Word You Are About to Say",
