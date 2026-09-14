@@ -34,6 +34,8 @@ export const passportStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/passport-unlimited-mobile/sketches.webp",
+            width: 1100,
+            height: 744,
             alt: "Notebook pages showing hand-drawn navigation options, screen flows and an account entry decision tree for the Passport app.",
             caption: "Where it started. Navigation options, flows, and the argument with myself about what the home screen was for.",
           },
@@ -51,18 +53,24 @@ export const passportStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/passport-unlimited-mobile/persona-thomas.webp",
+            width: 778,
+            height: 476,
             alt: "The Thomas Whipple persona card: 55, Kirkland, IT support, with his bio, wants and needs, technology use and frustrations.",
             transparent: true,
             size: "text",
           },
           {
             src: "/work/passport-unlimited-mobile/persona-emily.webp",
+            width: 778,
+            height: 476,
             alt: "The Emily Renault persona card: 33, Seattle, HR director with two children, with her bio, wants and needs, technology use and frustrations.",
             transparent: true,
             size: "text",
           },
           {
             src: "/work/passport-unlimited-mobile/persona-james.webp",
+            width: 778,
+            height: 476,
             alt: "The James Hosten persona card: 29, Bellevue, entrepreneur who travels most weeks, with his bio, wants and needs, technology use and frustrations.",
             caption: "Three members, one benefit, three completely different moments of needing it. The repeated frustrations are the ones that shaped the work.",
             transparent: true,
@@ -76,16 +84,22 @@ export const passportStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/passport-unlimited-mobile/app-ia.webp",
+            width: 1141,
+            height: 950,
             alt: "The app's information architecture: home, all offers, dine, shop and travel categories, map view, search and change location, all routing into vendor details and out to vendor website, social and contact.",
             caption: "Flat by design. Eight entry points, one destination, and a route out to the vendor from every one of them.",
           },
           {
             src: "/work/passport-unlimited-mobile/wireframes.webp",
+            width: 1024,
+            height: 748,
             alt: "Eight wireframe screens: sign in, home portal, search, location change, results list, filtered list with cuisine picker, vendor detail and offer redemption.",
             caption: "The whole app at wireframe stage, before any of it was styled.",
           },
           {
             src: "/work/passport-unlimited-mobile/screen-location.webp",
+            width: 375,
+            height: 812,
             alt: "The change location screen: a city, state or zip field, a use my location action, and a list of recent locations including San Diego, Las Vegas, Hawaii and Seattle.",
             caption: "Change location, with recents. This is the screen that answers the persona who is somewhere different most weeks.",
             size: "text",
@@ -100,6 +114,8 @@ export const passportStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/passport-unlimited-mobile/bottom-nav-poster.webp",
+            width: 450,
+            height: 974,
             clip: "/work/passport-unlimited-mobile/bottom-nav.mp4",
             alt: "The bottom navigation's centre button being tapped, opening a radial menu with All Offers, Dine, Shop and Travel arcing out above it.",
             caption: "Built, prototyped, tested, cut. Users wanted to browse, not to be shortcutted past the browsing.",
@@ -116,12 +132,16 @@ export const passportStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/passport-unlimited-mobile/brand-marks.webp",
+            width: 966,
+            height: 253,
             alt: "The Passport Corporate wordmark and the three category marks for dine, shop and travel, each shown over its circular construction grid.",
             caption: "One construction, three categories. Built to survive being shrunk to a map pin.",
             transparent: true,
           },
           {
             src: "/work/passport-unlimited-mobile/design-tokens.webp",
+            width: 966,
+            height: 671,
             alt: "The type and colour specimen: Lato in regular, bold and black, the three category colours with hex values, and a five step grey ramp.",
             caption: "Lato, three category colours, five greys.",
             size: "text",
@@ -136,16 +156,22 @@ export const passportStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/passport-unlimited-mobile/annotated-home-search.webp",
+            width: 1400,
+            height: 760,
             alt: "The home screen and the search and location screens, annotated with callouts for search, category filters, featured paid placements, newly added offers by vertical, and the main navigation.",
             caption: "Home and search, annotated. Featured placements are paid vendor promotion, which is the business model showing through the interface.",
           },
           {
             src: "/work/passport-unlimited-mobile/annotated-browse.webp",
+            width: 1400,
+            height: 538,
             alt: "Browsing as a list and as a map, annotated with callouts for live breadcrumbs, live filters, vendor info, vendor locations and the selected vendor.",
             caption: "The same filter state, two ways of reading it.",
           },
           {
             src: "/work/passport-unlimited-mobile/annotated-vendor.webp",
+            width: 1400,
+            height: 583,
             alt: "The vendor detail page with the offer and the actions available, beside the live filter and breadcrumb behaviour.",
             caption: "The vendor page. Everything above the fold is the space, the offer, and a way to act on it.",
           },

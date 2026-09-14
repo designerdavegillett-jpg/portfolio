@@ -231,7 +231,9 @@ export default async function CaseStudyPage({
           ))}
 
           <section className="cs-section">
-            <h2 className="display d-sm cs-h reveal">Tags</h2>
+            {/* A colophon, not a section: it is not in the rail index, so it should
+                not carry a section heading's size either. */}
+            <h2 className="label reveal">Tags</h2>
             <div
               className="reveal"
               style={{ display: "flex", gap: "var(--s3)", flexWrap: "wrap" }}

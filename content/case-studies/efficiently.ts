@@ -55,6 +55,8 @@ export const efficientlyStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/design-finish-selection/01-cascade.svg",
+            width: 1600,
+            height: 558,
             alt: "One decision branching into records, approvals, purchase orders, delivery and installation, with loops back to the start.",
             caption: "Every one of these is answerable. None of them lives in the same place as the others.",
           },
@@ -72,6 +74,8 @@ export const efficientlyStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/design-finish-selection/08-propagation.svg",
+            width: 1600,
+            height: 655,
             alt: "The same item shown in two surfaces, both carrying the same approval status.",
             caption: "Approve it once. It reads that way everywhere it appears.",
           },
@@ -83,6 +87,8 @@ export const efficientlyStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/design-finish-selection/05-item-id-model.svg",
+            width: 1600,
+            height: 907,
             alt: "Five bathroom locations, four assigned to item ID TO-01 and one to TO-02, with the item each ID resolves to.",
             caption: "Change what TO-01 points at and four bathrooms change. The fifth was never listening.",
           },
@@ -94,11 +100,15 @@ export const efficientlyStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/design-finish-selection/19-rejection-cost.svg",
+            width: 1600,
+            height: 743,
             alt: "Two paths from the same rejection: three steps during selection, six steps and three people after approval.",
             caption: "The same action, taken at two different moments. Timing is the whole difference between a loop and a change order.",
           },
           {
             src: "/work/design-finish-selection/07-discontinued-badge.svg",
+            width: 1600,
+            height: 663,
             alt: "An item on a design book page with a discontinued status badge over its image.",
             caption: "The selection stays where it is, visibly dead. Someone still has to decide what to do about it.",
             size: "text",
@@ -113,6 +123,8 @@ export const efficientlyStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/design-finish-selection/04-area-vs-location.svg",
+            width: 1600,
+            height: 697,
             alt: "A drawing showing a measured floor area alongside placed point locations for fixtures.",
             caption: "An area carries a number. A location carries a place. Almost everything downstream depends on keeping those apart.",
           },
@@ -133,22 +145,30 @@ export const efficientlyStudies: CaseStudy[] = [
           },
           {
             src: "/work/design-finish-selection/09-quadrant-item-box.svg",
+            width: 1600,
+            height: 879,
             alt: "An item box on the canvas with four zones around it holding the item name, SKU, and size and color, each formatted differently.",
             caption: "Four addressable zones around the image. Every field on the record, formatted on its own terms.",
           },
           {
             src: "/work/design-finish-selection/10-style-swap.svg",
+            width: 1600,
+            height: 692,
             alt: "The same catalog item rendered under two different saved styles.",
             caption: "Save the arrangement as a style and any item in the book can wear it with one click.",
           },
           {
             src: "/work/design-finish-selection/11-page-sizes.svg",
+            width: 1600,
+            height: 734,
             alt: "The new book dialog offering two page sizes in portrait and landscape.",
             caption: "The entire menu. Both sizes print in a designer's own office.",
             size: "text",
           },
           {
             src: "/work/design-finish-selection/12-permissions.svg",
+            width: 1600,
+            height: 470,
             alt: "The request to edit flow: a viewer requests access, the senior is notified, one click approves.",
             caption: "Locked layout, live content. A junior can fill the book and cannot wreck it.",
             size: "text",
@@ -160,7 +180,16 @@ export const efficientlyStudies: CaseStudy[] = [
         body: "One thing about the canvas bothered me for a long time, and it's small enough that explaining it feels like a confession.\n\nA canvas puts elements on a pixel grid. The whole point is that when you nudge something one pixel, the next thing lines up to that exact intersection without anybody guessing. The first implementation didn't enforce it. An element could sit at x.7, and the guides couldn't save you because the thing you were aligning to wasn't on the grid either. Zoom in far enough and you could watch an element sitting halfway inside a pixel.\n\nTwo fixes. Grid lines belong on the boundary where pixels meet, not through the middle of them, so an element can sit cleanly on either side of a line. And the guides had been scaling with the zoom, getting fatter the further you magnified, which made precision worse exactly when you were reaching for it. A guide should be one pixel wide however far in you go.\n\nSame category, different surface: the measurement crosshair on the plans page has to stay visible over every value from paper white to solid black, so it's a one pixel black cross with a one pixel white outline, thin enough to still point at something precisely.\n\nNobody puts any of that on a roadmap. It's also the difference between a designer trusting the tool with client work and quietly going back to doing it by hand.",
         figures: [
           {
+            src: "/work/design-finish-selection/13-half-pixel.svg",
+            alt: "A zoomed comparison of an element at a fractional pixel position beside the same element snapped to the pixel boundary.",
+            caption: "Left, an element sitting halfway inside a pixel with a guide thickened by zoom. Right, what it should have been.",
+            width: 1600,
+            height: 803,
+          },
+          {
             src: "/work/design-finish-selection/14-crosshair.svg",
+            width: 1600,
+            height: 700,
             alt: "The measurement crosshair magnified over a light area and a dark area of a drawing.",
             caption: "One pixel black, one pixel white outline. Findable on paper white and on solid black.",
           },
@@ -172,6 +201,8 @@ export const efficientlyStudies: CaseStudy[] = [
         figures: [
           {
             src: "/work/design-finish-selection/16-cards-i-got-wrong.svg",
+            width: 1600,
+            height: 954,
             alt: "The manufacturer card grid beside the list layout that replaced it.",
             caption: "My card grid, and the boring rows that were correct. I argued for the wrong one.",
             size: "text",
