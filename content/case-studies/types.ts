@@ -95,6 +95,12 @@ export type Section = {
   layout?: SectionLayout;
   /** Optional images. Rendered after the body copy unless `figuresFirst`. */
   figures?: Figure[];
+  /**
+   * Renders an interactive component after the figures. Each value maps to one
+   * component in the case study page's registry, so content stays data and the
+   * page keeps the only import.
+   */
+  interactive?: "capture-anatomy";
   /** Put the figures above the copy, for a section that should lead with an image. */
   figuresFirst?: boolean;
 };

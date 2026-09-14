@@ -49,8 +49,10 @@ html {
   --dur: 0.95s;
 
   /* type — set by next/font in layout.tsx */
-  --display: var(--font-display), Georgia, serif;
+  --display: var(--font-condensed), "Archivo", system-ui, sans-serif;
+  --serif: var(--font-display), Georgia, serif;
   --body: var(--font-body), system-ui, sans-serif;
+  --condensed: var(--font-condensed), "Archivo", system-ui, sans-serif;
 }
 
 * {
@@ -98,30 +100,31 @@ svg {
    optical density instead of each one being tuned by hand. */
 .display {
   font-family: var(--display);
-  font-weight: 340;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 72;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
 }
 .d-xl {
-  font-size: 2.656rem;
-  line-height: 1.06;
-  letter-spacing: -0.026em;
+  font-size: 2.9rem;
+  line-height: 0.98;
+  letter-spacing: -0.008em;
 }
 .d-lg {
-  font-size: 2.125rem;
-  line-height: 1.12;
-  letter-spacing: -0.022em;
+  font-size: 2.3rem;
+  line-height: 1.02;
+  letter-spacing: -0.006em;
 }
 .d-md {
-  font-size: 1.7rem;
-  line-height: 1.2;
-  letter-spacing: -0.018em;
+  font-size: 1.85rem;
+  line-height: 1.06;
+  letter-spacing: -0.004em;
 }
 .d-sm {
-  font-size: 1.36rem;
-  line-height: 1.28;
-  letter-spacing: -0.014em;
+  font-size: 1.45rem;
+  line-height: 1.12;
+  letter-spacing: 0;
 }
 
 .label {

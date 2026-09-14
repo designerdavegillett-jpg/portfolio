@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter_Tight, Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Inter_Tight, Archivo, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteBanner from "@/components/SiteBanner";
@@ -21,6 +21,15 @@ const fraunces = Fraunces({
    recruiter downloads, so it keeps Geist rather than the site body face. */
 const geist = Geist({ subsets: ["latin"], variable: "--font-resume", display: "swap" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-resume-mono", display: "swap" });
+
+/* Condensed display face for the interactive figures. Variable width axis, so
+   the capture anatomy can set wdth 70 without shipping a second file. */
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-condensed",
+  display: "swap",
+});
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -64,7 +73,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${interTight.variable} ${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${interTight.variable} ${archivo.variable} ${geist.variable} ${geistMono.variable}`}>
       <body>
         <SiteBanner />
         <SiteHeader />

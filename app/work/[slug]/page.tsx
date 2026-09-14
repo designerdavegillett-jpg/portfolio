@@ -7,6 +7,7 @@ import Clip from "@/components/Clip";
 import { splitWords } from "@/lib/type";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
+import CaptureAnatomy from "@/components/CaptureAnatomy";
 
 /**
  * Serialise structured data for a <script> tag. A "<" anywhere in a case
@@ -200,6 +201,7 @@ export default async function CaseStudyPage({
                   <p key={i}>{para}</p>
                 ))}
 
+                {section.interactive === "capture-anatomy" && <CaptureAnatomy />}
                 {section.figures && section.figures.length > 0 && (
                   <div className="figures">
                     {section.figures.map((fig) => (
