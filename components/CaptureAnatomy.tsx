@@ -325,7 +325,7 @@ export default function CaptureAnatomy() {
         }
         const phone=fig.querySelector('.phone') as HTMLElement, AR=533/1109;
         function sizePhone(){
-          if(getComputedStyle(fig).gridTemplateColumns.split(' ').length<2){phone.style.width='';return;}
+          if(innerWidth<=820||getComputedStyle(fig).gridTemplateColumns.split(' ').length<2){phone.style.width='';return;}
           const tallest=Math.max(...dscs.map((d)=>d.offsetHeight))+50;
           const target=list.offsetHeight+26+tallest;
           /* The list lost a row, so height alone under-sizes the drawing.
