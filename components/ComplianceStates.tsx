@@ -283,6 +283,9 @@ export default function ComplianceStates() {
       const other = document.querySelector(".capture-anatomy .phone") as HTMLElement | null;
       function syncSize() {
         if (!other) return;
+        /* Below 820 both figures hand sizing to their CSS (100% of the grid
+           cell, capped), which keeps the phone inside its column. */
+        if (innerWidth <= 820) { phone.style.width = ""; phone.style.maxWidth = ""; return; }
         const hgt = other.getBoundingClientRect().height;
         if (hgt > 0) { phone.style.width = Math.round(hgt * 552 / 1199) + "px"; phone.style.maxWidth = "none"; }
       }
