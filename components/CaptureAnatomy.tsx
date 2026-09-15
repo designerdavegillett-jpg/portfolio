@@ -25,7 +25,7 @@ const STYLES = `.capture-anatomy{--paper:#f5f5f7; --paper-sunk:#e8e8ed; --ink:#1
     --display:var(--font-condensed),"Archivo",system-ui,sans-serif;
     --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;}
 .capture-anatomy *{box-sizing:border-box}
-.capture-anatomy{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:var(--ink);font-family:var(--sans);margin-block:var(--s6,3rem)}
+.capture-anatomy{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:var(--ink);font-family:var(--sans);margin-block:0 var(--s6,3rem)}
 .capture-anatomy .figure{position:relative;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:auto minmax(320px,1fr);gap:40px clamp(32px,5vw,64px);align-items:start}
 .capture-anatomy .phone{position:relative;width:min(480px,42vw);display:block;justify-self:center}
 .capture-anatomy .phone svg{width:100%;height:auto;display:block;overflow:hidden;border-radius:6px;

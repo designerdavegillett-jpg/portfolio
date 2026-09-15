@@ -22,7 +22,7 @@ const STYLES = `.compliance-states{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#4242
     --display:var(--font-condensed),"Archivo",system-ui,sans-serif;}
 .compliance-states *{box-sizing:border-box}
 .compliance-states .phone, .compliance-states .phone *{-webkit-text-size-adjust:none;text-size-adjust:none}
-.compliance-states{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:var(--ink);font-family:var(--sans);margin-block:var(--s6,3rem)}
+.compliance-states{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:var(--ink);font-family:var(--sans);margin-block:0 var(--s6,3rem)}
 .compliance-states .figure{position:relative;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:auto minmax(320px,1fr);gap:40px clamp(32px,5vw,64px);align-items:start}
 
 /* ---------- the phone: Figma frame 1384:776, 552 wide, 1cqw = 5.52px in the design ---------- */

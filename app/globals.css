@@ -347,16 +347,6 @@ strong {
   max-width: none;
 }
 /* Figures ahead of the copy, for a section that should lead with an image. */
-.cs-section[data-figures="lead"] .prose {
-  display: flex;
-  flex-direction: column;
-}
-.cs-section[data-figures="lead"] .figures {
-  order: -1;
-  margin-top: 0;
-  margin-bottom: var(--s5);
-}
-
 /* ============================================================
    LAYOUT — sticky rail + content
    ============================================================ */
@@ -611,11 +601,11 @@ strong {
   margin-top: var(--s4);
 }
 
-/* FIGURES — case study imagery, rendered after a section's copy */
+/* FIGURES — case study imagery, rendered under the heading before the copy */
 .figures {
   display: grid;
   gap: var(--s5);
-  margin-top: var(--s5);
+  margin-bottom: var(--s5);
 }
 .figure {
   margin: 0;

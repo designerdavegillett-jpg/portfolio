@@ -189,7 +189,6 @@ export default async function CaseStudyPage({
               className="cs-section"
               id={headingId(section.heading)}
               data-layout={section.layout ?? "default"}
-              data-figures={section.figuresFirst ? "lead" : undefined}
               key={section.heading}
             >
               {/* A real heading at a real size. This used to be a `.label`,
@@ -198,10 +197,6 @@ export default async function CaseStudyPage({
               <h2 className="display d-sm cs-h reveal">{section.heading}</h2>
 
               <div className="prose reveal" style={{ "--d": ".08s" } as React.CSSProperties}>
-                {section.body.split("\n\n").map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-
                 {section.interactive === "capture-anatomy" && <CaptureAnatomy />}
                 {section.interactive === "compliance-states" && <ComplianceStates />}
                 {section.figures && section.figures.length > 0 && (
@@ -225,6 +220,11 @@ export default async function CaseStudyPage({
                             decoding="async"
                           />
                         )}
+
+                {section.body.split("\n\n").map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+
                         {fig.caption && <figcaption>{fig.caption}</figcaption>}
                       </figure>
                     ))}
