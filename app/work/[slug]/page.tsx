@@ -221,15 +221,15 @@ export default async function CaseStudyPage({
                           />
                         )}
 
-                {section.body.split("\n\n").map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-
                         {fig.caption && <figcaption>{fig.caption}</figcaption>}
                       </figure>
                     ))}
                   </div>
                 )}
+
+                {section.body.split("\n\n").map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
               </div>
             </section>
           ))}
