@@ -9,7 +9,7 @@ import { useEffect, useRef } from "react";
  * Selecting a state on the right swaps the badge, the guidance, the transcript
  * with its flagged phrases, and the action buttons, in place. The frame never
  * moves. At rest the states cycle on their own until the viewer touches
- * anything, then it is theirs.
+ * anything, then it is theirs. Selection is click or tap only, never hover.
  *
  * Same contract as CaptureAnatomy: markup and styles are injected as strings,
  * every selector is scoped under .compliance-states, and the behaviour lives in
@@ -258,8 +258,6 @@ export default function ComplianceStates() {
       items.forEach((li) => {
         const id = li.dataset.state as string;
         li.addEventListener("click", () => apply(id, true));
-        li.addEventListener("focusin", () => apply(id, true));
-        li.addEventListener("mouseenter", () => apply(id, true));
       });
       screen.addEventListener("pointerdown", () => apply(ORDER[(ORDER.indexOf(current) + 1) % 3], true));
 
