@@ -99,7 +99,7 @@ const STYLES = `.personas{--hair:rgba(29,29,31,.12);--mute:#86868b;--ink-2:#4242
 .personas .head .surf{margin:0;font-family:var(--display);font-variation-settings:"wdth" 72;font-weight:700;font-size:1.55rem;line-height:1.02;letter-spacing:0;text-transform:uppercase;color:var(--ink,#1d1d1f);text-wrap:balance;min-height:3.2em}
 .personas .head .nm{margin:14px 0 2px;font-size:15px;font-weight:600;color:var(--ink,#1d1d1f)}
 .personas .head .who{margin:0;font-size:12.5px;line-height:1.45;color:var(--mute)}
-.personas .rl.top{border-top:3px solid transparent;align-self:end}
+.personas .rl.top{border-top:3px solid transparent;align-self:start;padding-top:12px}
 .personas .tech{display:grid;gap:7px}
 .personas .tech div{display:grid;grid-template-columns:5.2rem 1fr;align-items:center;gap:8px;font-size:12px;color:var(--mute)}
 .personas .bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;height:6px}
