@@ -94,13 +94,11 @@ const STYLES = `.personas{--hair:rgba(29,29,31,.12);--mute:#86868b;--ink-2:#4242
 .personas .cell li{position:relative;padding-left:14px}
 .personas .cell li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--c)}
 .personas .cell li.shared::before{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink,#1d1d1f);top:.58em;width:6px;height:6px;left:-1px}
-.personas .head{padding:0 0 18px;border-top:4px solid var(--c);margin:0 -20px;padding-left:20px;padding-right:20px}
-.personas .head .cat{display:flex;align-items:center;gap:6px;margin:12px 0 14px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
-.personas .head .cat i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.personas .head{padding:22px 0 18px}
 .personas .head .surf{margin:0;font-family:var(--display);font-variation-settings:"wdth" 72;font-weight:700;font-size:1.55rem;line-height:1.02;letter-spacing:0;text-transform:uppercase;color:var(--ink,#1d1d1f);text-wrap:balance;min-height:3.2em}
 .personas .head .nm{margin:14px 0 2px;font-size:15px;font-weight:600;color:var(--ink,#1d1d1f)}
 .personas .head .who{margin:0;font-size:12.5px;line-height:1.45;color:var(--mute)}
-.personas .rl.top{border-top:4px solid transparent;align-self:start;padding-top:12px}
+.personas .rl.top{border-top:0;align-self:start;padding-top:22px}
 .personas .tech{display:grid;gap:7px}
 .personas .tech div{display:grid;grid-template-columns:5.2rem 1fr;align-items:center;gap:8px;font-size:12px;color:var(--mute)}
 .personas .bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;height:6px}
@@ -147,7 +145,6 @@ export default function PersonaCards() {
         {PERSONAS.map((p) => (
           <div className="col" key={p.name} style={{ "--c": p.colour } as React.CSSProperties}>
             <div className="head">
-              <div className="cat"><i aria-hidden="true" />{p.category}</div>
               <p className="surf">{p.surfaces}</p>
               <p className="nm">{p.name}</p>
               <p className="who">{p.who}</p>
