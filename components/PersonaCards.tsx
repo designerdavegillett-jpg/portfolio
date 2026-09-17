@@ -25,7 +25,7 @@ type Persona = {
 const PERSONAS: Persona[] = [
   {
     name: "Thomas",
-    colour: "#D9433A",
+    colour: "#2A8FD1",
     category: "Dine",
     surfaces: "Near home, on a weeknight",
     who: "55 · Kirkland · IT support · married, no kids",
@@ -41,7 +41,7 @@ const PERSONAS: Persona[] = [
   },
   {
     name: "Emily",
-    colour: "#E8862B",
+    colour: "#2A8FD1",
     category: "Shop",
     surfaces: "Somewhere that will tolerate a six year old",
     who: "33 · Seattle · HR director · married, two kids",
