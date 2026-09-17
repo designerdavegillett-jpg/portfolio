@@ -157,7 +157,6 @@ const STYLES = `.script-flow{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#424245; --
 .script-flow .sf-run{position:absolute;left:0;top:-1px;height:1px;width:0;background:var(--hi);pointer-events:none}
 .script-flow li.on .sf-run.go{animation:sf-run var(--dwell) linear forwards}
 @keyframes sf-run{from{width:0}to{width:100%}}
-.script-flow .sf-cap-note{margin:.65rem 0 0;font-size:.7rem;line-height:1.55;color:var(--mute);max-width:34rem}
 
 @media (max-width:640px){
 .script-flow .sf-stage{grid-template-columns:1fr;justify-items:center}
@@ -286,7 +285,6 @@ const MARKUP = `<figure style="margin:0">
     <li data-phase="1"><span class="sf-run"></span><button class="sf-so" type="button"><h2>Build the script</h2><small>Pick a topic, the draft writes itself, compliance flags a word before you ever say it.</small></button></li>
     <li data-phase="2"><span class="sf-run"></span><button class="sf-so" type="button"><h2>Record</h2><small>The prompter follows your voice. Grid, pace and cancel sit in the thumb's reach.</small></button></li>
   </ol>
-  <figcaption class="sf-cap-note">Left, the home screen as built. The script builder and the capture screen are proposed redesigns from the Figma file, not the shipped screens. The loop plays on its own until you touch it.</figcaption>
 </figure>`;
 
 export default function ScriptFlow() {
