@@ -301,7 +301,7 @@ export default function ScriptFlow() {
       const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
       const phones: HTMLElement[] = [...host.querySelectorAll<HTMLElement>(".sf-phone")];
       const steps: HTMLElement[] = [...host.querySelectorAll<HTMLElement>("#steps li")];
-      const DWELL = [3400, 4700, 5300];
+      const DWELL = [3400, 3700, 5300];
       let phase = -1, auto = !reduced, visible = false, timers: number[] = [], raf = 0, gen = 0;
 
       const at = (ms: number, fn: () => void) => { const g = gen; timers.push(window.setTimeout(() => { if (g === gen) fn(); }, reduced ? 0 : ms)); };
@@ -329,7 +329,7 @@ export default function ScriptFlow() {
         secs.textContent = "≈ 0s"; wordsOut.textContent = "0 words";
         at(350, () => tap(q('[data-tap="refi"]')));
         at(500, () => { press(refi); refi.classList.add("sel"); });
-        const T0 = 1000, PER = 34;
+        const T0 = 900, PER = 16;
         words.forEach((w, i) => at(T0 + i * PER, () => {
           w.classList.add("on");
           const n = i + 1; wordsOut.textContent = n + (n === 1 ? " word" : " words"); secs.textContent = "≈ " + Math.round(n * 0.64) + "s";
