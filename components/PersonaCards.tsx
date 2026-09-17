@@ -1,10 +1,12 @@
 /**
- * The three Passport personas, one at a time, with room to breathe.
+ * The three Passport personas, side by side.
  *
- * No portraits: each person leads with the line that matters to the product
- * (when the benefit has to surface), set large in the category colour's
- * company, with the dossier laid out beside it. The frustration that two of
- * them share is marked as shared, because that repetition is the section's point.
+ * The section's argument is that they were deliberately not the same person,
+ * and that two of them share one sentence. So the figure is a comparison, not
+ * three portraits: one row per dimension, one column per persona, and the
+ * repeated frustration is marked as repeated. Each column leads with the line
+ * that matters to the product (when the benefit has to surface), set in the
+ * persona's category colour, in place of a face.
  */
 
 type Persona = {
@@ -71,72 +73,93 @@ const PERSONAS: Persona[] = [
   },
 ];
 
+const ROWS: { key: string; label: string }[] = [
+  { key: "bio", label: "Life" },
+  { key: "wants", label: "Wants" },
+  { key: "frustrations", label: "Frustrations" },
+  { key: "tech", label: "Tech use" },
+  { key: "brands", label: "Brands" },
+];
+
 const STYLES = `.personas{--hair:rgba(29,29,31,.12);--mute:#86868b;--ink-2:#424245;
   --display:var(--font-condensed),"Archivo",system-ui,sans-serif;
   margin:0 0 var(--s6,3rem);font-family:var(--font-body),"Inter Tight",system-ui,sans-serif;color:var(--ink,#1d1d1f)}
-.personas .person{display:grid;grid-template-columns:minmax(200px,5fr) 8fr;column-gap:clamp(32px,5vw,72px);padding:44px 0 52px;border-top:1px solid var(--hair)}
-.personas .person:first-child{border-top:0;padding-top:8px}
-.personas .lead .cat{display:flex;align-items:center;gap:7px;margin:0 0 18px;font-size:11.5px;line-height:1;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--c)}
-.personas .lead .cat i{width:11px;height:11px;border-radius:50%;background:var(--c)}
-.personas .lead .surf{margin:0 0 26px;font-family:var(--display);font-variation-settings:"wdth" 72;font-weight:700;font-size:clamp(1.7rem,2.6vw,2.3rem);line-height:1;letter-spacing:0;text-transform:uppercase;color:var(--ink,#1d1d1f);text-wrap:balance;max-width:none}
-.personas .lead .nm{margin:0 0 4px;font-size:17px;line-height:1.3;font-weight:600;color:var(--ink,#1d1d1f);max-width:none}
-.personas .lead .who{margin:0;font-size:14px;line-height:1.5;color:var(--mute);max-width:none}
-.personas .body{display:grid;gap:30px;align-content:start}
-.personas .body h4{margin:0 0 10px;font-size:11.5px;line-height:1.3;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--mute)}
-.personas .body p{margin:0;font-size:15.5px;line-height:1.65;color:var(--ink-2);max-width:none}
-.personas .two{display:grid;grid-template-columns:1fr 1fr;gap:30px 36px}
-.personas .body ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;font-size:14.5px;line-height:1.55;color:var(--ink-2)}
-.personas .body li{position:relative;padding-left:16px}
-.personas .body li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--c)}
-.personas .body li.shared::before{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink,#1d1d1f);width:7px;height:7px;top:.56em;left:-1px}
-.personas .meta{display:grid;grid-template-columns:1fr 1fr;gap:30px 36px}
-.personas .tech{display:grid;gap:8px}
-.personas .tech div{display:grid;grid-template-columns:5.6rem 1fr;align-items:center;gap:10px;font-size:13px;color:var(--mute)}
-.personas .bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;height:6px;max-width:150px}
+.personas .grid{display:grid;grid-auto-flow:column;grid-template-rows:auto repeat(5,auto);grid-template-columns:5rem repeat(3,minmax(0,1fr));column-gap:clamp(12px,1.8vw,20px)}
+.personas .col{display:grid;grid-template-rows:subgrid;grid-row:1/-1;background:#fff;border:1px solid var(--hair);border-radius:12px;padding:0 20px 8px;overflow:hidden}
+.personas .col.labels{background:transparent;border:0;padding:0;border-radius:0}
+.personas .rl{grid-column:1;padding:14px 0 18px;font-size:11px;line-height:1.3;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);border-top:1px solid var(--hair)}
+.personas .cell{padding:14px 0 18px;border-top:1px solid var(--hair);font-size:13.5px;line-height:1.55;color:var(--ink-2)}
+.personas .cell p{margin:0;font-size:inherit;line-height:inherit;color:inherit;max-width:none}
+.personas .cell ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.personas .cell li{position:relative;padding-left:14px}
+.personas .cell li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--c)}
+.personas .cell li.shared::before{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink,#1d1d1f);top:.58em;width:6px;height:6px;left:-1px}
+.personas .head{padding:0 0 18px;border-top:4px solid var(--c);margin:0 -20px;padding-left:20px;padding-right:20px}
+.personas .head .cat{display:flex;align-items:center;gap:6px;margin:12px 0 14px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.personas .head .cat i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.personas .head .surf{margin:0;font-family:var(--display);font-variation-settings:"wdth" 72;font-weight:700;font-size:1.55rem;line-height:1.02;letter-spacing:0;text-transform:uppercase;color:var(--ink,#1d1d1f);text-wrap:balance;min-height:3.2em}
+.personas .head .nm{margin:14px 0 2px;font-size:15px;font-weight:600;color:var(--ink,#1d1d1f)}
+.personas .head .who{margin:0;font-size:12.5px;line-height:1.45;color:var(--mute)}
+.personas .rl.top{border-top:4px solid transparent;align-self:start;padding-top:12px}
+.personas .tech{display:grid;gap:7px}
+.personas .tech div{display:grid;grid-template-columns:5.2rem 1fr;align-items:center;gap:8px;font-size:12px;color:var(--mute)}
+.personas .bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;height:6px}
 .personas .bar i{background:rgba(29,29,31,.1);border-radius:1px}
 .personas .bar i.on{background:var(--c)}
-.personas .brands{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:14px;line-height:1.4;color:var(--ink-2)}
-.personas .key{margin:8px 0 0;padding-top:14px;border-top:1px solid var(--hair);font-size:12.5px;line-height:1.5;color:var(--mute);display:flex;align-items:center;gap:8px}
-.personas .key i{width:7px;height:7px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--ink,#1d1d1f);flex:none}
-@media (max-width:760px){
-  .personas .person{grid-template-columns:1fr;row-gap:26px;padding:32px 0 36px}
-  .personas .lead .surf{margin-bottom:18px}
-  .personas .two,.personas .meta{grid-template-columns:1fr}
+.personas .brands{display:flex;flex-wrap:wrap;gap:6px 10px;font-size:12.5px;color:var(--ink-2)}
+.personas .key{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--hair);font-size:12px;line-height:1.5;color:var(--mute);display:flex;align-items:center;gap:8px}
+.personas .key i{width:6px;height:6px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--ink,#1d1d1f);flex:none}
+@media (max-width:820px){
+  .personas .grid{display:block}
+  .personas .col{display:block;padding-bottom:20px}
+  .personas .col+.col{margin-top:16px}
+  .personas .col.labels{display:none}
+  .personas .cell::before{content:attr(data-label);display:block;margin-bottom:6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--mute)}
+  .personas .head .surf{min-height:0;font-size:1.4rem}
 }
 `;
+
+function Cell({ p, row }: { p: Persona; row: string }) {
+  if (row === "bio") return <p>{p.bio}</p>;
+  if (row === "wants") return <ul>{p.wants.map((w) => <li key={w}>{w}</li>)}</ul>;
+  if (row === "frustrations")
+    return <ul>{p.frustrations.map((f) => <li key={f.text} className={f.shared ? "shared" : undefined}>{f.text}</li>)}</ul>;
+  if (row === "tech")
+    return (
+      <div className="tech">
+        {p.tech.map(([k, n]) => (
+          <div key={k}><span>{k}</span><span className="bar" aria-label={`${n} of 5`}>{[0, 1, 2, 3, 4].map((i) => <i key={i} className={i < n ? "on" : ""} />)}</span></div>
+        ))}
+      </div>
+    );
+  return <div className="brands">{p.brands.map((b) => <span key={b}>{b}</span>)}</div>;
+}
 
 export default function PersonaCards() {
   return (
     <div className="personas">
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
-      {PERSONAS.map((p) => (
-        <article className="person" key={p.name} style={{ "--c": p.colour } as React.CSSProperties}>
-          <div className="lead">
-            <div className="cat"><i aria-hidden="true" />{p.category}</div>
-            <p className="surf">{p.surfaces}</p>
-            <p className="nm">{p.name}</p>
-            <p className="who">{p.who}</p>
-          </div>
-          <div className="body">
-            <div><h4>Life</h4><p>{p.bio}</p></div>
-            <div className="two">
-              <div><h4>Wants</h4><ul>{p.wants.map((w) => <li key={w}>{w}</li>)}</ul></div>
-              <div><h4>Frustrations</h4><ul>{p.frustrations.map((f) => <li key={f.text} className={f.shared ? "shared" : undefined}>{f.text}</li>)}</ul></div>
+      <div className="grid" role="table" aria-label="The three personas compared">
+        <div className="col labels" aria-hidden="true">
+          <div className="rl top">Surfaces</div>
+          {ROWS.map((r) => <div className="rl" key={r.key}>{r.label}</div>)}
+        </div>
+        {PERSONAS.map((p) => (
+          <div className="col" key={p.name} style={{ "--c": p.colour } as React.CSSProperties}>
+            <div className="head">
+              <div className="cat"><i aria-hidden="true" />{p.category}</div>
+              <p className="surf">{p.surfaces}</p>
+              <p className="nm">{p.name}</p>
+              <p className="who">{p.who}</p>
             </div>
-            <div className="meta">
-              <div>
-                <h4>Tech use</h4>
-                <div className="tech">
-                  {p.tech.map(([k, n]) => (
-                    <div key={k}><span>{k}</span><span className="bar" aria-label={`${n} of 5`}>{[0, 1, 2, 3, 4].map((i) => <i key={i} className={i < n ? "on" : ""} />)}</span></div>
-                  ))}
-                </div>
+            {ROWS.map((r) => (
+              <div className="cell" data-label={r.label} key={r.key}>
+                <Cell p={p} row={r.key} />
               </div>
-              <div><h4>Brands</h4><div className="brands">{p.brands.map((b) => <span key={b}>{b}</span>)}</div></div>
-            </div>
+            ))}
           </div>
-        </article>
-      ))}
+        ))}
+      </div>
       <p className="key"><i aria-hidden="true" />The same sentence, in two of the three.</p>
     </div>
   );
