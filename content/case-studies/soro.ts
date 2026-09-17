@@ -37,6 +37,7 @@ export const soroStudies: CaseStudy[] = [
             height: 651,
             alt: "An open sketchbook filled with pencil explorations of an S mark.",
             caption: "Pencil first. Pages of S marks before any of them went near a screen.",
+          transparent: true,
           },
           {
             src: "/work/soro/logo-sheet.webp",
@@ -90,6 +91,7 @@ export const soroStudies: CaseStudy[] = [
             height: 843,
             alt: "A sketchbook page of hand-drawn dashboard and list layouts.",
             caption: "The dashboard on paper before it was in code.",
+          transparent: true,
           },
         ],
       },
