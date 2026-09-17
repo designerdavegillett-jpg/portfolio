@@ -110,8 +110,8 @@ const STYLES = `.personas{--hair:rgba(29,29,31,.12);--mute:#86868b;--ink-2:#4242
 .personas .key i{width:6px;height:6px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--ink,#1d1d1f);flex:none}
 @media (max-width:820px){
   .personas .grid{display:block}
-  .personas .labels{display:none}
   .personas .col{display:block;padding-bottom:28px}
+  .personas .col.labels{display:none}
   .personas .cell::before{content:attr(data-label);display:block;margin-bottom:6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--mute)}
   .personas .head .surf{min-height:0;font-size:1.4rem}
 }
