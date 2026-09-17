@@ -14,16 +14,11 @@ export const caseStudies: CaseStudy[] = [
   ...ownTheScriptStudies,
   ...efficientlyStudies,
   ...passportStudies,
-  /* DRAFT: Soro renders at /work/soro but stays off the home page and /work
-     index until Dave signs off. See content/case-studies/soro.ts. */
+  ...soroStudies,
 ];
 
-export const draftStudies: CaseStudy[] = [...soroStudies];
+/** Studies that resolve by URL but are not listed. Empty while nothing is in draft. */
+export const draftStudies: CaseStudy[] = [];
 
 /** Rows under "Also" on the home page. Drop a row once its case study is live. */
-export const selectedWork: SelectedItem[] = [
-  {
-    name: "Soro Software",
-    note: "retail CRM adopted across Seattle-area locations; the company was acquired.",
-  },
-];
+export const selectedWork: SelectedItem[] = [];

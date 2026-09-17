@@ -78,6 +78,7 @@ export default function Home() {
       </section>
 
       {/* ALSO */}
+      {selectedWork.length > 0 && (
       <section className="section" id="more">
         <div className="rail">
           <h2 className="label reveal">Also</h2>
@@ -106,6 +107,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
     </>
   );
 }

@@ -1,11 +1,9 @@
 import type { CaseStudy } from "./types";
 
 /**
- * Soro Software, 2017-2020. DRAFT, not yet in the display order: every body
- * paragraph below is a placeholder shape for Dave to write into, and two
- * decisions are still his: the framing (retail CRM vs the actual vertical),
- * and which product screens can be shown once real customer data is scrubbed.
- * Source assets: Design Assets/portfolio-art/Website2/soro.
+ * Soro Software, 2017-2020. Source assets: Design Assets/portfolio-art/Website2/soro.
+ * The dashboard capture is deliberately not used: it carries real customer and
+ * staff names. Add product screens only after scrubbing.
  */
 export const soroStudies: CaseStudy[] = [
   {
@@ -22,7 +20,7 @@ export const soroStudies: CaseStudy[] = [
       transparent: true,
     },
     summary:
-      "DRAFT. Soro was a customer relationship tool for a regional wholesale sales team. I designed the brand and the product: the mark, the palette and type system, the information architecture, and the dashboard and account screens the reps used every day. It was adopted across the team's Seattle-area accounts, and the company was later acquired.",
+      "Soro was a customer relationship tool for a regional wholesale sales team. I designed the brand and the product: the mark, the palette and type system, the information architecture, and the dashboard and account screens the reps used every day. It was adopted across the team's Seattle-area accounts, and the company was later acquired.",
     year: "2017-2020",
     platform: "Web",
     role: "Product Designer, Brand",
@@ -30,12 +28,8 @@ export const soroStudies: CaseStudy[] = [
     tags: ["CRM", "Brand", "Information Architecture", "Web"],
     sections: [
       {
-        heading: "The Problem",
-        body: "DRAFT. Who the reps were, what they were tracking on paper and in spreadsheets, and why a general-purpose CRM did not fit. Write this in one or two paragraphs.",
-      },
-      {
         heading: "A Mark Before a Screen",
-        body: "DRAFT. The brand came first, because the product needed a name and a face before anyone would trust it with their accounts. The mark started as pages of pencil, then settled into an S built from two interlocking strokes, and the lowercase logotype beside it.",
+        body: "The brand came first, because the product needed a name and a face before anyone would trust it with their accounts. The mark started as pages of pencil, then settled into an S built from two interlocking strokes, and the lowercase logotype beside it.",
         figures: [
           {
             src: "/work/soro/sketchbook-marks.webp",
@@ -56,7 +50,7 @@ export const soroStudies: CaseStudy[] = [
       },
       {
         heading: "The System",
-        body: "DRAFT. A primary blue for the product, a small set of status colours the reps would learn fast, neutral greys for the chrome, and one sans at a handful of sizes. Everything in the dashboard is built from this sheet.",
+        body: "A primary blue for the product, a small set of status colours the reps would learn fast, neutral greys for the chrome, and one sans at a handful of sizes. Everything in the dashboard is built from this sheet.",
         figures: [
           {
             src: "/work/soro/colour-sheet.webp",
@@ -79,7 +73,7 @@ export const soroStudies: CaseStudy[] = [
       },
       {
         heading: "The Shape of It",
-        body: "DRAFT. The sitemap is small on purpose. A rep signs in and lands on their own day: recent sales, today's tasks, and the accounts due for a visit. Everything else is one level down.",
+        body: "The sitemap is small on purpose. A rep signs in and lands on their own day: recent sales, today's tasks, and the accounts due for a visit. Everything else is one level down.",
         figures: [
           {
             src: "/work/soro/sitemap.webp",
@@ -101,7 +95,7 @@ export const soroStudies: CaseStudy[] = [
       },
       {
         heading: "What Shipped",
-        body: "DRAFT. The dashboard: recent sales, sales by category, and the rep's to-do list with the account card beside it. Product screenshots go here once customer names, contacts and staff names are scrubbed from the capture.",
+        body: "The dashboard is the rep's day: recent sales, sales by category, and the to-do list with the account card beside it, so the next call and everything known about that account sit on one screen.",
         figures: [
           {
             src: "/work/soro/devices.webp",
