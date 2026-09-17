@@ -29,7 +29,7 @@ export const passportStudies: CaseStudy[] = [
     sections: [
       /* ---------- PROBLEM ---------- */
       {
-        heading: "The App Nobody Opened",
+        heading: "An Underused App Reimagined",
         body: "Passport Unlimited is an established savings and discount program connecting members with participating vendors. By the time this project started, the desktop experience had already been modernized. The mobile app was a different story. It was old, outdated, and barely used.\n\nThat mattered more than it sounds. Mobile was the primary touchpoint for a member out in the world, standing on a street with two hours free and no idea that the restaurant across from them honored their card. The company had the bones of a valuable product. The app just wasn't reflecting that.\n\nThe core promise, finding a nearby vendor offer, wasn't being delivered in a way that felt useful or current. This needed more than a visual refresh. It needed the discovery model rebuilt.",
         figures: [
           {

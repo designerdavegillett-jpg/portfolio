@@ -61,16 +61,7 @@ export const ownTheScriptStudies: CaseStudy[] = [
       {
         heading: "The Problem Nobody in the Category Is Solving",
         body: "A mortgage loan officer lives or dies on referral flow, and short-form video is the cheapest referral engine available to them. The evidence that it works is real but narrow. Across working loan officer communities I found one originator posting a short video every day for two years and reporting qualified leads at $5 to $10 each, and another who traced three closed deals to a single September video in their first year. Against that, a thread of thirty-three comments from someone who posted three or four educational videos a week for a year and generated nothing.\n\nWhat made the category interesting was not that video works. It is that every piece of a loan officer's video is a regulated advertisement, and the tooling pretends otherwise.\n\nA single sixty second clip is governed at the same time by the SAFE Act, which requires the originator's NMLS ID on advertising. By the Fair Housing Act and ECOA, which require the Equal Housing mark and prohibit steering language. By Regulation Z, where quoting an APR or a payment triggers a full disclosure. By the FTC's Mortgage Acts and Practices Rule, which bans guaranteed approvals, debt elimination claims and skip a payment. By RESPA Section 8 on referral arrangements, and by UDAAP generally.\n\nMost of that cannot be handled by a caption, because the caption is not what gets reshared. It has to be inside the rendered video file. That became the product's central technical commitment and its clearest differentiator.\n\nI checked five vendors that a top ten US lender actually contracts with, against their own documentation rather than their marketing. Not one of them lets a loan officer record vertical video on a phone, burn captions into it, and publish it to a vertical feed. One states in its own docs that its Instagram support is single images only. Another's video product is a mail merge loan status tool, with real video handed to a third party integration. The only vendor that accepts 9:16 to Reels is upload only, and was acquired in 2023 by a company that now redirects its domain elsewhere.",
-        figures: [
-          {
-            src: "/work/own-the-script/home-and-script.jpg",
-            alt: "The home feed beside the script builder, showing a weekly streak strip, the video library, and a script with a compliance review prompt attached.",
-            width: 1762,
-            height: 990,
-            caption:
-              "Every screenshot here is a frame from the Meta App Review screencast, recorded from the Release build on a physical iPhone. Nothing is a mockup. Faces are blurred, the interface is not retouched.",
-          },
-        ],
+        interactive: "script-flow",
       },
       {
         heading: "Two Assumptions the Research Killed",
@@ -96,7 +87,7 @@ export const ownTheScriptStudies: CaseStudy[] = [
             width: 1600,
             height: 899,
             caption:
-              "Captions are data until export. The same primitives drive this preview and the native renderer, so what you see is what burns.",
+              "Captions are data until export. The same primitives drive this preview and the native renderer, so what you see is what burns. This and every screenshot below is a frame from the Meta App Review screencast, recorded from the Release build on a physical iPhone. Faces are blurred, the interface is not retouched.",
           },
           {
             src: "/work/own-the-script/connected-contradiction.webp",
