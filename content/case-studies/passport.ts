@@ -49,34 +49,8 @@ export const passportStudies: CaseStudy[] = [
       /* ---------- SOLUTION ---------- */
       {
         heading: "Who I Was Designing For",
+        interactive: "persona-cards",
         body: "Three personas carried the work, and they were deliberately not the same person.\n\nThomas is 55, IT support in Kirkland, married, no kids, dines out two to four times a week. Emily is 33, an HR director in Seattle with two young children, telecommuting most days. James is 29, an entrepreneur in Bellevue who is rarely home and travels within the states most weeks and abroad once or twice a month.\n\nNone of them is a deal hunter. All three were handed a benefit by an employer and mostly forget they have it. What separates them is when and where they need it to surface: Thomas near home on a weeknight, Emily somewhere that will tolerate a six year old, James in a city he landed in that morning.\n\nThe frustrations were the part I kept going back to, because several of them turned up in more than one card. Navigation hidden enough that the app goes unopened. Filters that disappear once applied, so nobody can tell what they have narrowed to. Content that has nothing to do with where you actually are.\n\nAnd in two of the three, the same sentence: having been turned away at a business that had quietly left the program. That one is not a layout problem, and it is the one that stayed with me. No amount of interface saves a member who is embarrassed at a till.\n\nSomeone hunting a discount will go looking for it. Someone who has forgotten they have a benefit needs the benefit to find them, and that is a different product.",
-        figures: [
-          {
-            src: "/work/passport-unlimited-mobile/persona-thomas.webp",
-            width: 778,
-            height: 476,
-            alt: "The Thomas Whipple persona card: 55, Kirkland, IT support, with his bio, wants and needs, technology use and frustrations.",
-            transparent: true,
-            size: "text",
-          },
-          {
-            src: "/work/passport-unlimited-mobile/persona-emily.webp",
-            width: 778,
-            height: 476,
-            alt: "The Emily Renault persona card: 33, Seattle, HR director with two children, with her bio, wants and needs, technology use and frustrations.",
-            transparent: true,
-            size: "text",
-          },
-          {
-            src: "/work/passport-unlimited-mobile/persona-james.webp",
-            width: 778,
-            height: 476,
-            alt: "The James Hosten persona card: 29, Bellevue, entrepreneur who travels most weeks, with his bio, wants and needs, technology use and frustrations.",
-            caption: "Three members, one benefit, three completely different moments of needing it. The repeated frustrations are the ones that shaped the work.",
-            transparent: true,
-            size: "text",
-          },
-        ],
       },
       {
         heading: "Rebuilding Around What's Close",
