@@ -29,6 +29,7 @@ export const ownTheScriptStudies: CaseStudy[] = [
       "Own the Script: A short-form video app that carries its own compliance layer, concept to App Store review in ten weeks.",
     status: "In App Store review",
     visual: "dark",
+    hideHero: true,
     image: {
       src: "/work/own-the-script/main.webp",
       alt: "Three screens from Own the Script: the home feed with a weekly streak strip and video library, the script builder with a compliance review prompt, and the capture screen with the teleprompter running over the camera.",

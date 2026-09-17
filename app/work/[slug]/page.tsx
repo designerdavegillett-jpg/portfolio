@@ -168,11 +168,13 @@ export default async function CaseStudyPage({
           <span>{study.year}</span>
         </div>
 
-        <div style={{ marginTop: "3rem", maxWidth: "52rem" }}>
-          {/* The largest above-the-fold element on this page, so it is the one
-              image that loads eagerly. Everything below stays lazy. */}
-          <Thumb kind={study.visual} image={study.image} priority />
-        </div>
+        {!study.hideHero && (
+          <div style={{ marginTop: "3rem", maxWidth: "52rem" }}>
+            {/* The largest above-the-fold element on this page, so it is the one
+                image that loads eagerly. Everything below stays lazy. */}
+            <Thumb kind={study.visual} image={study.image} priority />
+          </div>
+        )}
       </div>
 
       {/* One rail for the whole document, carrying the section index, rather

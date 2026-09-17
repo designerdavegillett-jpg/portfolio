@@ -56,6 +56,12 @@ export type CaseStudy = {
    * type-check; safe to delete from all of them in one pass.
    */
   status?: string;
+  /**
+   * Skip the hero image at the top of the case study page. `image` still
+   * feeds the card, Open Graph and structured data. Set when the first
+   * section opens with an interactive figure that is the hero.
+   */
+  hideHero?: boolean;
   /** Abstract placeholder visual. Ignored once `image` is set. */
   visual?: ThumbKind;
   /** Real screenshot for the thumbnail, once you have one. Takes priority over `visual`. */
