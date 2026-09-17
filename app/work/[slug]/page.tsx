@@ -1,4 +1,7 @@
-import { caseStudies } from "@/content/case-studies";
+import { caseStudies, draftStudies } from "@/content/case-studies";
+
+/* Drafts resolve by URL but are not listed anywhere. */
+const allStudies = [...caseStudies, ...draftStudies];
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Thumb from "@/components/Thumb";
@@ -33,7 +36,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const study = caseStudies.find((s) => s.slug === slug);
+  const study = allStudies.find((s) => s.slug === slug);
   if (!study) return {};
 
   /* Search engines cut the description around 155 characters. `summary` is
@@ -64,7 +67,7 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  return caseStudies.map((s) => ({ slug: s.slug }));
+  return allStudies.map((s) => ({ slug: s.slug }));
 }
 
 export default async function CaseStudyPage({
@@ -73,7 +76,7 @@ export default async function CaseStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const study = caseStudies.find((s) => s.slug === slug);
+  const study = allStudies.find((s) => s.slug === slug);
   if (!study) notFound();
 
   /* Structured data. This is what lets a search engine understand the page as

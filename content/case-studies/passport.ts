@@ -178,6 +178,41 @@ export const passportStudies: CaseStudy[] = [
         ],
       },
       {
+        heading: "The Corporate Portal Beside It",
+        body: "DRAFT. The app was one door into the program. The other was the corporate member portal, the web experience a company's employees landed on after HR enrolled them. It had to do the same job as the app on a desktop, for a member who might only visit once a quarter to see what was near the office.\n\nThe portal reuses the mobile system rather than restating it. The three category marks and their colours carry over unchanged, the location and filter row does the same work as the app's live filters, and the featured collections down the right are the same paid placements that fund the program.\n\nThe emails were the part nobody had designed. Welcome, assign your gifts, and the survey sent when a company let its membership lapse. Each one is a single column with one action, because they were read on a phone in an inbox full of other things.",
+        figures: [
+          {
+            src: "/work/passport-unlimited-mobile/corporate-signin.webp",
+            width: 1600,
+            height: 1007,
+            alt: "The Passport Corporate member portal sign-in page: a sign-in form on the left and a full-bleed food photograph on the right.",
+            caption: "The portal's front door. Sign in on the left, the program's promise on the right.",
+          },
+          {
+            src: "/work/passport-unlimited-mobile/corporate-home.webp",
+            width: 1600,
+            height: 1324,
+            alt: "The portal's dining results page: a location and filter row, a list of restaurant offers with save, map and menu actions, and featured collections on the right.",
+            caption: "Dining results. The same filters as the app, the same three marks in the navigation, and the paid collections on the right.",
+          },
+          {
+            src: "/work/passport-unlimited-mobile/corporate-mobile-detail.webp",
+            width: 522,
+            height: 1460,
+            alt: "The portal's vendor detail page at phone width: the restaurant photograph, the offer, alternate offers, about, social and exclusions.",
+            caption: "The vendor page at phone width. The portal had to hold up on the same screen the app lived on.",
+            size: "text",
+          },
+          {
+            src: "/work/passport-unlimited-mobile/member-emails.webp",
+            width: 1600,
+            height: 1151,
+            alt: "Three member emails side by side: the welcome and assign gifts email, the comp of email, and the lapsed membership survey email.",
+            caption: "Welcome, assign your gifts, and the survey when a company lapsed. One column, one action each.",
+          },
+        ],
+      },
+      {
         heading: "What I'd Do Differently",
         body: "Split ownership with no single roadmap authority meant every direction could be reopened, and the project absorbed a lot of avoidable back-and-forth as a result.\n\nIf I ran this again I'd spend the first week establishing who decides (a single product voice, or failing that a written alignment process) before any design work started. I treated that as someone else's problem to solve. It was mine, and the time lost to it was the biggest drag on the project.",
       },

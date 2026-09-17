@@ -2,6 +2,7 @@ import type { CaseStudy, SelectedItem } from "./types";
 import { efficientlyStudies } from "./efficiently";
 import { passportStudies } from "./passport";
 import { ownTheScriptStudies } from "./own-the-script";
+import { soroStudies } from "./soro";
 
 export type { CaseStudy, SelectedItem };
 
@@ -13,7 +14,11 @@ export const caseStudies: CaseStudy[] = [
   ...ownTheScriptStudies,
   ...efficientlyStudies,
   ...passportStudies,
+  /* DRAFT: Soro renders at /work/soro but stays off the home page and /work
+     index until Dave signs off. See content/case-studies/soro.ts. */
 ];
+
+export const draftStudies: CaseStudy[] = [...soroStudies];
 
 /** Rows under "Also" on the home page. Drop a row once its case study is live. */
 export const selectedWork: SelectedItem[] = [
