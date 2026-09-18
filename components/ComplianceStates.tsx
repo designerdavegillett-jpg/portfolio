@@ -72,8 +72,7 @@ const STYLES = `.compliance-states{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#4242
 .compliance-states .btn span.on{opacity:1}
 .compliance-states .btn.pri{background:var(--p-navy);border-color:var(--p-navy);color:#fff;font-size:3.98cqw}
 .compliance-states .acts .pair{display:grid;grid-template-columns:1fr 1fr;gap:2.9cqw}
-.compliance-states .home{height:7.2cqw;position:relative}
-.compliance-states .home i{position:absolute;left:50%;top:0;transform:translateX(-50%);width:34.5cqw;height:1.24cqw;border-radius:1cqw;background:#000}
+.compliance-states .home{height:7.2cqw}
 .compliance-states .screen[data-state="ok"]{--st:var(--ok)}
 .compliance-states .screen[data-state="warn"]{--st:var(--warn)}
 .compliance-states .screen[data-state="bad"]{--st:var(--bad)}
@@ -161,7 +160,7 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
           <div class="btn"><span data-k="ok warn bad" class="on">Cancel</span></div>
         </div>
       </div>
-      <div class="home"><i></i></div>
+      <div class="home"></div>
       </div>
     </div>
   </div>
