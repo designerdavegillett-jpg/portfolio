@@ -204,6 +204,10 @@ export default async function CaseStudyPage({
               <h2 className="display d-sm cs-h reveal">{section.heading}</h2>
 
               <div className="prose reveal" style={{ "--d": ".08s" } as React.CSSProperties}>
+                {section.body.split("\n\n").map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+
                 {section.interactive === "capture-anatomy" && <CaptureAnatomy />}
                 {section.interactive === "compliance-states" && <ComplianceStates />}
                 {section.interactive === "persona-cards" && <PersonaCards />}
@@ -235,10 +239,6 @@ export default async function CaseStudyPage({
                     ))}
                   </div>
                 )}
-
-                {section.body.split("\n\n").map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
               </div>
             </section>
           ))}
