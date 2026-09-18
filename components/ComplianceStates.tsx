@@ -166,7 +166,6 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
     </div>
   </div>
   <div class="col">
-  <p class="lede">The same screen, three verdicts. What changes is what you are allowed to do next.</p>
   <ol class="states" id="states">
     <li data-state="ok" style="--dot:var(--ok)"><button class="so" type="button"><i></i><h2>Looks compliant</h2></button><span class="bar"></span>
       <div class="dsc"><span>The scan found nothing to flag. Your transcript is shown in full so you can read what you actually said, and the two disclosures that will be burned into the end of the video sit beneath it. Next is the primary action and Re-record is one tap away, because the transcript is also the first time you see your own take written down.</span></div></li>
