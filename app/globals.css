@@ -601,6 +601,18 @@ strong {
   margin-top: var(--s4);
 }
 
+/* An interactive figure or image block now follows the section's opening
+   paragraph rather than sitting directly under the heading, so it needs the
+   air a paragraph break does not give it. The component roots set
+   margin-block-start: 0 for the old position; this outspecifies them. */
+.cs-section .prose > p + .figures,
+.cs-section .prose > p + .capture-anatomy,
+.cs-section .prose > p + .compliance-states,
+.cs-section .prose > p + .personas,
+.cs-section .prose > p + .script-flow {
+  margin-top: var(--s6);
+}
+
 /* FIGURES — case study imagery, rendered under the heading before the copy */
 .figures {
   display: grid;
