@@ -204,41 +204,50 @@ export default async function CaseStudyPage({
               <h2 className="display d-sm cs-h reveal">{section.heading}</h2>
 
               <div className="prose reveal" style={{ "--d": ".08s" } as React.CSSProperties}>
-                {section.body.split("\n\n").map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
+                {(() => {
+                  const [intro, ...rest] = section.body.split("\n\n");
+                  return (
+                    <>
+                      <p>{intro}</p>
 
-                {section.interactive === "capture-anatomy" && <CaptureAnatomy />}
-                {section.interactive === "compliance-states" && <ComplianceStates />}
-                {section.interactive === "persona-cards" && <PersonaCards />}
-                {section.interactive === "script-flow" && <ScriptFlow />}
-                {section.figures && section.figures.length > 0 && (
-                  <div className="figures">
-                    {section.figures.map((fig) => (
-                      <figure
-                        key={fig.src}
-                        className={fig.size === "text" ? "figure text" : "figure"}
-                        data-transparent={fig.transparent ? "true" : undefined}
-                      >
-                        {fig.clip ? (
-                          <Clip src={fig.clip} poster={fig.src} alt={fig.alt} />
-                        ) : (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={fig.src}
-                            alt={fig.alt}
-                            width={fig.width}
-                            height={fig.height}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        )}
+                      {section.interactive === "capture-anatomy" && <CaptureAnatomy />}
+                      {section.interactive === "compliance-states" && <ComplianceStates />}
+                      {section.interactive === "persona-cards" && <PersonaCards />}
+                      {section.interactive === "script-flow" && <ScriptFlow />}
+                      {section.figures && section.figures.length > 0 && (
+                        <div className="figures">
+                          {section.figures.map((fig) => (
+                            <figure
+                              key={fig.src}
+                              className={fig.size === "text" ? "figure text" : "figure"}
+                              data-transparent={fig.transparent ? "true" : undefined}
+                            >
+                              {fig.clip ? (
+                                <Clip src={fig.clip} poster={fig.src} alt={fig.alt} />
+                              ) : (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                  src={fig.src}
+                                  alt={fig.alt}
+                                  width={fig.width}
+                                  height={fig.height}
+                                  loading="lazy"
+                                  decoding="async"
+                                />
+                              )}
 
-                        {fig.caption && <figcaption>{fig.caption}</figcaption>}
-                      </figure>
-                    ))}
-                  </div>
-                )}
+                              {fig.caption && <figcaption>{fig.caption}</figcaption>}
+                            </figure>
+                          ))}
+                        </div>
+                      )}
+
+                      {rest.map((para, i) => (
+                        <p key={i}>{para}</p>
+                      ))}
+                    </>
+                  );
+                })()}
               </div>
             </section>
           ))}
