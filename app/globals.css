@@ -626,6 +626,15 @@ strong {
 .figure.text {
   max-width: 34rem;
 }
+/* A dense diagram the reader has to actually read. It takes the whole column
+   and stops at its own pixel width, so it is never upscaled into mush. */
+.figure.wide {
+  max-width: none;
+}
+.figure.wide img {
+  width: auto;
+  max-width: 100%;
+}
 .figure img {
   display: block;
   width: 100%;

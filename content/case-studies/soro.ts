@@ -82,7 +82,7 @@ export const soroStudies: CaseStudy[] = [
             alt: "The Soro sitemap: sign in leading to home, customers, orders, contacts, reports, users and data tools, each with its child pages.",
             caption: "Sign in, then home, then seven sections.",
             transparent: true,
-            size: "text",
+            size: "wide",
           },
           {
             src: "/work/soro/sketchbook-screens.webp",

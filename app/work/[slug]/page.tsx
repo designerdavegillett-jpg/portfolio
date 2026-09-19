@@ -219,7 +219,7 @@ export default async function CaseStudyPage({
                           {section.figures.map((fig) => (
                             <figure
                               key={fig.src}
-                              className={fig.size === "text" ? "figure text" : "figure"}
+                              className={fig.size ? `figure ${fig.size}` : "figure"}
                               data-transparent={fig.transparent ? "true" : undefined}
                             >
                               {fig.clip ? (
