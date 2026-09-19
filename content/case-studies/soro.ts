@@ -102,7 +102,7 @@ export const soroStudies: CaseStudy[] = [
             width: 1400,
             height: 651,
             alt: "The Soro dashboard on a laptop, a tablet and a phone.",
-            caption: "The shipped dashboard across three screen sizes.",
+            caption: "The shipped dashboard across two screen sizes.",
             transparent: true,
           },
         ],
