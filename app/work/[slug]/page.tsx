@@ -225,15 +225,35 @@ export default async function CaseStudyPage({
                               {fig.clip ? (
                                 <Clip src={fig.clip} poster={fig.src} alt={fig.alt} />
                               ) : (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
-                                  src={fig.src}
-                                  alt={fig.alt}
-                                  width={fig.width}
-                                  height={fig.height}
-                                  loading="lazy"
-                                  decoding="async"
-                                />
+                                (() => {
+                                  const img = (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                      src={fig.src}
+                                      alt={fig.alt}
+                                      width={fig.width}
+                                      height={fig.height}
+                                      loading="lazy"
+                                      decoding="async"
+                                    />
+                                  );
+                                  /* A dense diagram is worth more than the column
+                                     can give it. The link opens the file itself,
+                                     so the browser does the zooming. */
+                                  return fig.zoom ? (
+                                    <a
+                                      className="figure-zoom"
+                                      href={fig.src}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      aria-label={`Open the full-size image: ${fig.alt}`}
+                                    >
+                                      {img}
+                                    </a>
+                                  ) : (
+                                    img
+                                  );
+                                })()
                               )}
 
                               {fig.caption && <figcaption>{fig.caption}</figcaption>}

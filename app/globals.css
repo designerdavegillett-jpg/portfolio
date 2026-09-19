@@ -635,6 +635,15 @@ strong {
   width: auto;
   max-width: 100%;
 }
+/* Opens the file itself in a new tab, so the cursor should say so. */
+.figure-zoom {
+  display: block;
+  cursor: zoom-in;
+}
+.figure-zoom:focus-visible {
+  outline: 2px solid var(--hi, #0071e3);
+  outline-offset: 4px;
+}
 .figure img {
   display: block;
   width: 100%;

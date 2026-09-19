@@ -11,6 +11,11 @@ export type Figure = {
   /** "wide" (default) runs to the content column. "text" holds it to the prose measure. */
   size?: "text" | "wide";
   /**
+   * Dense artwork a reader may want larger than the column allows. Wraps the
+   * image in a link that opens the file itself in a new tab.
+   */
+  zoom?: boolean;
+  /**
    * The file has a transparent background. Drops the hairline border, which
    * otherwise draws a box around empty space. Same flag as the thumbnail's.
    */

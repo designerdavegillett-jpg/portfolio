@@ -76,13 +76,14 @@ export const soroStudies: CaseStudy[] = [
         body: "The sitemap is small on purpose. A rep signs in and lands on their own day: recent sales, today's tasks, and the accounts due for a visit. Everything else is one level down.",
         figures: [
           {
-            src: "/work/soro/sitemap.webp",
-            width: 982,
-            height: 699,
+            src: "/work/soro/sitemap.svg",
+            width: 1800,
+            height: 1096,
             alt: "The Soro sitemap: sign in leading to home, customers, orders, contacts, reports, users and data tools, each with its child pages.",
             caption: "Sign in, then home, then seven sections.",
             transparent: true,
             size: "wide",
+            zoom: true,
           },
           {
             src: "/work/soro/sketchbook-screens.webp",
