@@ -1,6 +1,8 @@
 import type { ThumbKind } from "@/components/Thumb";
 
 /** An image inside a case study section. Files live in /public. */
+export type Interactive = "capture-anatomy" | "compliance-states" | "script-flow" | "persona-cards" | "caption-placement" | "post-everywhere";
+
 export type Figure = {
   /** Path from /public, e.g. "/work/design-finish-selection/item-id-model.png" */
   src: string;
@@ -111,7 +113,7 @@ export type Section = {
    * component in the case study page's registry, so content stays data and the
    * page keeps the only import.
    */
-  interactive?: "capture-anatomy" | "compliance-states" | "script-flow" | "persona-cards" | "caption-placement";
+  interactive?: Interactive | Interactive[];
 };
 
 /** Short rows under "Also" on the home page. Add an href once a page exists. */

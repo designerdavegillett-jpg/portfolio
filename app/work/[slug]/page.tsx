@@ -15,6 +15,7 @@ import ComplianceStates from "@/components/ComplianceStates";
 import PersonaCards from "@/components/PersonaCards";
 import ScriptFlow from "@/components/ScriptFlow";
 import CaptionPlacement from "@/components/CaptionPlacement";
+import PostEverywhere from "@/components/PostEverywhere";
 
 /**
  * Serialise structured data for a <script> tag. A "<" anywhere in a case
@@ -211,11 +212,12 @@ export default async function CaseStudyPage({
                     <>
                       <p>{intro}</p>
 
-                      {section.interactive === "capture-anatomy" && <CaptureAnatomy />}
-                      {section.interactive === "compliance-states" && <ComplianceStates />}
-                      {section.interactive === "persona-cards" && <PersonaCards />}
-                      {section.interactive === "script-flow" && <ScriptFlow />}
-                      {section.interactive === "caption-placement" && <CaptionPlacement />}
+                      {[section.interactive].flat().includes("capture-anatomy") && <CaptureAnatomy />}
+                      {[section.interactive].flat().includes("compliance-states") && <ComplianceStates />}
+                      {[section.interactive].flat().includes("persona-cards") && <PersonaCards />}
+                      {[section.interactive].flat().includes("script-flow") && <ScriptFlow />}
+                      {[section.interactive].flat().includes("caption-placement") && <CaptionPlacement />}
+                      {[section.interactive].flat().includes("post-everywhere") && <PostEverywhere />}
                       {section.figures && section.figures.length > 0 && (
                         <div className="figures">
                           {section.figures.map((fig) => (
