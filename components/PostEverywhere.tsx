@@ -253,15 +253,14 @@ const STYLES = `.post-everywhere{margin-block:0 var(--s6,3rem);-webkit-font-smoo
 .post-everywhere .pe-toast{position:absolute;z-index:6;left:50%;top:${u(128)};transform:translate(-50%,${u(-30)});opacity:0;display:flex;align-items:center;gap:${u(8)};background:#fff;color:#0f7643;border-radius:999px;padding:${u(10)} ${u(18)};font:700 ${u(15)}/1 var(--ots);white-space:nowrap;box-shadow:0 ${u(6)} ${u(20)} rgba(0,0,0,.25);transition:transform .4s cubic-bezier(.3,1.4,.5,1),opacity .3s}
 .post-everywhere .pe-toast svg{width:${u(14)};height:${u(14)}}
 .post-everywhere .pe-dest.pop .pe-toast{transform:translate(-50%,0);opacity:1}
-/* platform tabs under the right phone */
-.post-everywhere .pe-tabs{display:flex;gap:8px}
-.post-everywhere .pe-tab{all:unset;box-sizing:border-box;position:relative;width:34px;height:34px;border-radius:10px;padding:5px;cursor:pointer;opacity:.25;transition:opacity .2s,box-shadow .2s;pointer-events:none}
-.post-everywhere .pe-tab svg{width:100%;height:100%;display:block}
-.post-everywhere .pe-tab.sel{opacity:.55;pointer-events:auto}
-.post-everywhere .pe-tab.live{opacity:1}
-.post-everywhere .pe-tab.cur{box-shadow:0 0 0 2px #0071e3}
-.post-everywhere .pe-tab::after{content:"";position:absolute;right:2px;top:2px;width:8px;height:8px;border-radius:50%;background:#34c759;box-shadow:0 0 0 2px var(--paper,#f5f5f7);transform:scale(0);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
-.post-everywhere .pe-tab.live::after{transform:scale(1)}
+/* the wall of destinations */
+.post-everywhere .pe-quad{--mw:120px;--gap:12px;display:grid;grid-template-columns:repeat(2,var(--mw));gap:var(--gap);align-content:start}
+.post-everywhere .pe-mini{width:var(--mw);display:none}
+.post-everywhere .pe-mini.show{display:block;animation:pe-in .35s ease}
+@keyframes pe-in{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.post-everywhere .pe-mini .pe-frm{box-shadow:0 ${u(10)} ${u(28)} rgba(3,6,20,.12),0 0 0 ${u(1)} rgba(3,6,20,.06)}
+.post-everywhere .pe-slot{width:var(--mw);aspect-ratio:523.46/1099;border:1.5px dashed rgba(29,29,31,.2);border-radius:calc(var(--mw) * .0917);display:none;place-items:center;text-align:center;padding:10px;font:600 .68rem/1.3 var(--sys,system-ui);color:var(--muted,#86868b)}
+.post-everywhere .pe-slot.show{display:grid}
 @media (max-width:640px){
 .post-everywhere .pe-grid{grid-template-columns:1fr}
 .post-everywhere .pe-phone{width:min(280px,78vw)}
@@ -347,13 +346,13 @@ const MARKUP = `<div class="pe-grid">
     </div>
   </div>
   <div class="pe-col">
-    <div class="pe-phone" role="img" aria-label="The same video as it appears on each platform it was posted to.">
-      <div class="pe-frm" style="background:#fff"><div class="pe-scr" style="background:#000">${ORDER.map((p) => DEST[p]).join("")}</div></div>
+    <div class="pe-quad" data-quad role="img" aria-label="The same video as it appears on each platform it was posted to, one small phone per platform.">
+      ${ORDER.map((p) => `<div class="pe-phone pe-mini" data-cell="${p}"><div class="pe-frm"><div class="pe-scr" style="background:#000">${DEST[p]}</div></div></div>`).join("")}
+      ${[0, 1, 2, 3].map((i) => `<div class="pe-slot" data-slot="${i}"><span>Add a platform</span></div>`).join("")}
     </div>
-    <div class="pe-tabs" role="tablist" aria-label="Destinations">${ORDER.map((p) => `<button type="button" class="pe-tab" role="tab" data-tab="${p}" aria-label="${SHOWN[p]}">${LOGO[p]}</button>`).join("")}</div>
   </div>
 </div>
-<p class="pe-hint">Pick the platforms, then tap Post Video. Tap an icon under the right phone to see the post there.</p>`;
+<p class="pe-hint">Pick the platforms, then tap Post Video. Each one goes live on the right.</p>`;
 
 export default function PostEverywhere() {
   const root = useRef<HTMLDivElement>(null);
@@ -368,7 +367,9 @@ export default function PostEverywhere() {
 
     const chips = new Map<P, HTMLElement>($$("[data-chip]").map((c) => [c.dataset.chip as P, c]));
     const dests = new Map<P, HTMLElement>($$("[data-dest]").map((d) => [d.dataset.dest as P, d]));
-    const tabs = new Map<P, HTMLElement>($$("[data-tab]").map((t) => [t.dataset.tab as P, t]));
+    const cells = new Map<P, HTMLElement>($$("[data-cell]").map((c) => [c.dataset.cell as P, c]));
+    const slots = $$("[data-slot]");
+    const quad = $("[data-quad]");
     const post = $<HTMLButtonElement>("[data-post]");
     const postLabel = $("[data-post-label]");
     const bar = $(".pe-bar");
@@ -377,7 +378,7 @@ export default function PostEverywhere() {
 
     const sel = new Set<P>();
     const live = new Set<P>();
-    let view: P = "linkedin", busy = false;
+    let busy = false;
 
     function render() {
       ORDER.forEach((p) => {
@@ -386,18 +387,29 @@ export default function PostEverywhere() {
         c.classList.toggle("on", on);
         c.classList.toggle("done", live.has(p));
         c.setAttribute("aria-pressed", String(on));
-        const t = tabs.get(p)!;
-        t.classList.toggle("sel", on || live.has(p));
-        t.classList.toggle("live", live.has(p));
-        t.classList.toggle("cur", p === view);
-        t.setAttribute("aria-selected", String(p === view));
+        cells.get(p)!.classList.toggle("show", on || live.has(p));
         const d = dests.get(p)!;
-        d.classList.toggle("on", p === view);
+        d.classList.toggle("on", true);
         d.classList.toggle("live", live.has(p));
         const v = d.querySelector("[data-veil]") as HTMLElement;
         v.textContent = d.classList.contains("busy") ? "Posting…" : sel.has(p) ? "Ready to post" : "Not posted yet";
       });
       post.disabled = sel.size === 0 && !busy;
+      const n = ORDER.filter((p) => sel.has(p) || live.has(p)).length;
+      slots.forEach((sl, i) => sl.classList.toggle("show", i < 4 - n));
+      rows = n > 4 ? 3 : 2;
+      size();
+    }
+    /* Size the small phones so the wall is as tall as the Post Caption phone. */
+    let rows = 2;
+    function size() {
+      const h = left.getBoundingClientRect().height;
+      if (!h) return;
+      const stacked = innerWidth <= 640;
+      const gap = 12;
+      const byH = ((h - gap * (rows - 1)) / rows) * (523.46 / 1099);
+      const mw = stacked ? Math.min(byH, (quad.parentElement!.clientWidth - gap) / 2) : byH;
+      quad.style.setProperty("--mw", mw.toFixed(1) + "px");
     }
 
     /* Timers carry a generation so a reset cancels everything in flight. */
@@ -406,12 +418,9 @@ export default function PostEverywhere() {
     const clear = () => { timers.forEach(clearTimeout); timers = []; gen++; };
     cleanups.push(clear);
 
-    function setView(p: P) { view = p; render(); }
     function toggle(p: P) {
       if (busy) return;
       if (sel.has(p)) { sel.delete(p); live.delete(p); } else sel.add(p);
-      if (!sel.has(view) && !live.has(view)) view = [...sel][0] ?? view;
-      if (sel.has(p)) view = p;
       postLabel.textContent = "Post Video"; post.classList.remove("done"); bar.style.width = "0";
       render();
     }
@@ -426,7 +435,7 @@ export default function PostEverywhere() {
       list.forEach((p, i) => at(500 + i * 700, () => {
         chips.get(p)!.classList.remove("busy");
         const d = dests.get(p)!; d.classList.remove("busy");
-        live.add(p); view = p;
+        live.add(p);
         bar.style.width = ((i + 1) / list.length) * 100 + "%";
         render();
         d.classList.add("pop"); at(1500, () => d.classList.remove("pop"));
@@ -454,7 +463,7 @@ export default function PostEverywhere() {
       (["linkedin", "instagram", "facebook"] as P[]).forEach((p) => sel.add(p));
       dests.forEach((d) => d.classList.remove("busy", "pop"));
       chips.forEach((c) => c.classList.remove("busy"));
-      view = "linkedin"; busy = false;
+      busy = false;
       postLabel.textContent = "Post Video"; post.classList.remove("done"); bar.style.width = "0";
       render();
     }
@@ -468,9 +477,7 @@ export default function PostEverywhere() {
       at(2100, () => point(post));
       at(2800, () => { press(post); doPost(() => {
         at(700, () => finger.classList.remove("on"));
-        const shown = ORDER.filter((p) => live.has(p));
-        shown.forEach((p, i) => at(1600 + i * 2200, () => setView(p)));
-        at(1600 + shown.length * 2200, () => loop());
+        at(6500, () => loop());
       }); });
     }
     function stopAuto() {
@@ -488,7 +495,7 @@ export default function PostEverywhere() {
     cleanups.push(() => host.removeEventListener("pointerdown", onDown, true));
     chips.forEach((c, p) => c.addEventListener("click", () => toggle(p)));
     post.addEventListener("click", () => doPost());
-    tabs.forEach((t, p) => t.addEventListener("click", () => setView(p)));
+    const ro = new ResizeObserver(size); ro.observe(left); cleanups.push(() => ro.disconnect());
 
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (e.isIntersecting) { if (auto && !running) loop(); }
