@@ -247,7 +247,6 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
   </div>
 
   <div class="col">
-  <h1 class="lede">Anatomy of a capture screen reimagined</h1>
   <ol class="callouts" id="callouts">
     <li data-part="2"><button class="co" type="button"><h2>Prompter</h2><div class="dsc"><span>Listens as you speak and scrolls at your pace, so the script never runs ahead of you or drags behind. Five lines at a time: the line you're saying is orange, the next one warms up, and what you've already said fades back.</span></div></button></li>
     <li data-part="3"><button class="co" type="button"><h2>When the mic drops out</h2><div class="dsc"><span>The prompter follows your voice, so if the mic stops hearing you - a noisy room, a hand over the mic, a permission that lapsed - it would otherwise freeze mid-sentence and you'd stop with it. Instead this pill appears and the script falls back to scrolling at a steady estimated pace, so the take keeps running. It's hidden the rest of the time.</span></div></button></li>
@@ -279,7 +278,8 @@ export default function CaptureAnatomy() {
         const list=q('#callouts');
         const parts=[...fig.querySelectorAll('svg .part[data-part]')];
         const items: HTMLLIElement[] = [...list.querySelectorAll('li[data-part]')];
-        let pinned: string | null = null, hover: string | null = null;
+        /* The prompter is pinned at rest, so the figure opens on its headline part. */
+        let pinned: string | null = '2', hover: string | null = null;
         // prompter: smooth scroll while hovered, speed ramps up and down
         const SCRIPT=["Refinancing into a shorter term is","the quiet wealth move. Your","payment may rise, but more of every","payment goes to the balance","instead of interest, and you own","your home years sooner. Rates","moved again this month, so let's","run your numbers before the","window closes. Reply here and I'll","send two options side by side."];
         const ptl=q('#ptl'), PITCH=38.87, Y0=119.2, N=SCRIPT.length;
@@ -373,7 +373,7 @@ export default function CaptureAnatomy() {
           sweep.setAttribute('stroke-dasharray',(ms/TAKE*C).toFixed(1)+' '+C); raf=requestAnimationFrame(rec);}
         let raf=requestAnimationFrame(rec); cleanups.push(()=>cancelAnimationFrame(raf));
         sizePhone(); apply();
-        if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{sizePhone();sizeDetail();});
+        if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{sizePhone();sizeDetail();drawLead(hover||pinned);});
 
     })();
     return () => cleanups.forEach((fn) => fn());
