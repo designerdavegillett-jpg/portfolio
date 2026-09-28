@@ -26,7 +26,7 @@ const STYLES = `.compliance-states{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#4242
 .compliance-states .figure{position:relative;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:auto minmax(320px,1fr);gap:40px clamp(32px,5vw,64px);align-items:start}
 
 /* ---------- the phone: Figma frame 1384:776, 552 wide, 1cqw = 5.52px in the design ---------- */
-.compliance-states .phone{position:relative;width:min(400px,36vw);justify-self:center;container-type:inline-size;
+.compliance-states .phone{position:relative;width:min(320px,28.8vw);justify-self:center;container-type:inline-size;
     --p-bg:#f3f5f9; --p-ink:#101322; --p-mute:#6a707b; --p-faint:#9ca3af; --p-line:#e5e7eb; --p-edge:#d9dbde;
     --p-navy:#1e2b6b; --p-sec:#f9fafb; --p-sec-edge:#babfd3; --p-sec-ink:#4b5563;
     --ok:#0f7643; --warn:#b45a00; --bad:#dc2626;
@@ -103,7 +103,7 @@ const STYLES = `.compliance-states{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#4242
 
   @media (max-width:820px){
 .compliance-states .figure{grid-template-columns:1fr;gap:20px}
-.compliance-states .phone{width:100%;max-width:300px;margin-inline:auto}
+.compliance-states .phone{width:100%;max-width:240px;margin-inline:auto}
 .compliance-states .lede{font-size:1.2rem;margin-bottom:14px}
 .compliance-states .states{flex-direction:row;flex-wrap:wrap;gap:8px}
 .compliance-states .states li,.compliance-states .states li:last-child{border:0;opacity:1}
@@ -118,7 +118,7 @@ const STYLES = `.compliance-states{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#4242
   }
   @media (max-width:560px){
 .compliance-states .figure{gap:18px}
-.compliance-states .phone{max-width:260px}
+.compliance-states .phone{max-width:208px}
   }
   @media (prefers-reduced-motion:reduce){.compliance-states *{transition:none!important;animation:none!important}}
 `;

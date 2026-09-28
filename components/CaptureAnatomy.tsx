@@ -27,7 +27,7 @@ const STYLES = `.capture-anatomy{--paper:#f5f5f7; --paper-sunk:#e8e8ed; --ink:#1
 .capture-anatomy *{box-sizing:border-box}
 .capture-anatomy{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:var(--ink);font-family:var(--sans);margin-block:0 var(--s6,3rem)}
 .capture-anatomy .figure{position:relative;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:auto minmax(320px,1fr);gap:40px clamp(32px,5vw,64px);align-items:start}
-.capture-anatomy .phone{position:relative;width:min(480px,42vw);display:block;justify-self:center}
+.capture-anatomy .phone{position:relative;width:min(384px,33.6vw);display:block;justify-self:center}
 .capture-anatomy .phone svg{width:100%;height:auto;display:block;overflow:hidden;border-radius:6px;
     --ink:#e9ecf1; --ink-2:#b6bcc6; --mute:#6f7885; --hi:#2997FF; --acc-2:#F0A472}
 .capture-anatomy .part{transition:opacity .22s ease}
@@ -92,7 +92,7 @@ const STYLES = `.capture-anatomy{--paper:#f5f5f7; --paper-sunk:#e8e8ed; --ink:#1
 .capture-anatomy .figure{grid-template-columns:1fr;gap:16px}
 .capture-anatomy .col{display:contents}
 .capture-anatomy .lede{order:-1;font-size:1.2rem;margin:0}
-.capture-anatomy .phone{order:0;width:100%;max-width:340px;margin-inline:auto}
+.capture-anatomy .phone{order:0;width:100%;max-width:272px;margin-inline:auto}
 .capture-anatomy .callouts{display:none}
 .capture-anatomy .detail{order:1;margin-top:0;padding:16px 18px}
 .capture-anatomy .detail .dsc{font-size:14px}
@@ -330,7 +330,7 @@ export default function CaptureAnatomy() {
           const target=list.offsetHeight+26+tallest;
           /* The list lost a row, so height alone under-sizes the drawing.
              Scale up and hold a floor, capped so it never crowds the column. */
-          phone.style.width=Math.round(target*AR*1.25)+'px';
+          phone.style.width=Math.round(target*AR*1.25*0.8)+'px';
         }
         function sizeDetail(){
           const a=dscs.find((d)=>d.classList.contains('on'));
