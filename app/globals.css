@@ -609,7 +609,8 @@ strong {
 .cs-section .prose > p + .capture-anatomy,
 .cs-section .prose > p + .compliance-states,
 .cs-section .prose > p + .personas,
-.cs-section .prose > p + .script-flow {
+.cs-section .prose > p + .script-flow,
+.cs-section .prose > p + .caption-placement {
   margin-top: var(--s6);
 }
 

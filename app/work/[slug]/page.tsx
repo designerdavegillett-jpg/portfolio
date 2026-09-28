@@ -14,6 +14,7 @@ import CaptureAnatomy from "@/components/CaptureAnatomy";
 import ComplianceStates from "@/components/ComplianceStates";
 import PersonaCards from "@/components/PersonaCards";
 import ScriptFlow from "@/components/ScriptFlow";
+import CaptionPlacement from "@/components/CaptionPlacement";
 
 /**
  * Serialise structured data for a <script> tag. A "<" anywhere in a case
@@ -214,6 +215,7 @@ export default async function CaseStudyPage({
                       {section.interactive === "compliance-states" && <ComplianceStates />}
                       {section.interactive === "persona-cards" && <PersonaCards />}
                       {section.interactive === "script-flow" && <ScriptFlow />}
+                      {section.interactive === "caption-placement" && <CaptionPlacement />}
                       {section.figures && section.figures.length > 0 && (
                         <div className="figures">
                           {section.figures.map((fig) => (

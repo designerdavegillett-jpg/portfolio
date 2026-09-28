@@ -111,7 +111,7 @@ export type Section = {
    * component in the case study page's registry, so content stays data and the
    * page keeps the only import.
    */
-  interactive?: "capture-anatomy" | "compliance-states" | "script-flow" | "persona-cards";
+  interactive?: "capture-anatomy" | "compliance-states" | "script-flow" | "persona-cards" | "caption-placement";
 };
 
 /** Short rows under "Also" on the home page. Add an href once a page exists. */
