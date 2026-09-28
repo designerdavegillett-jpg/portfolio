@@ -23,12 +23,14 @@ const u = (px: number) => `${((px * 100) / W).toFixed(3)}cqw`;
 /* Caption box geometry in the video's own design px. */
 const VW = 213, VH = 377.59, BW = 208.16, BH = 101.66;
 const REST = { x: 0.61, y: 211.18, s: 1 };
+/* Within this many design px of centre, the caption snaps to it. */
+const SNAP = 5;
 
 const IMG = "/work/own-the-script/caption-bg.webp";
 
 const STYLES = `.caption-placement{margin-block:0 var(--s6,3rem);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .caption-placement *{box-sizing:border-box}
-.caption-placement .cp-panel{max-width:52rem;background:color-mix(in srgb,var(--paper-sunk,#e8e8ed) 45%,var(--paper,#f5f5f7));padding:clamp(28px,5vw,56px) 16px clamp(20px,3vw,32px);display:flex;flex-direction:column;align-items:center;gap:18px}
+.caption-placement .cp-panel{max-width:52rem;padding:clamp(8px,2vw,16px) 16px 0;display:flex;flex-direction:column;align-items:center;gap:18px}
 .caption-placement .cp-hint{margin:0;font-size:.7rem;line-height:1.5;color:var(--muted,#86868b);text-align:center;max-width:none}
 
 .caption-placement .phone{position:relative;width:min(290px,72vw);container-type:inline-size;aspect-ratio:523.46/1099;-webkit-text-size-adjust:none;text-size-adjust:none;
@@ -37,7 +39,7 @@ const STYLES = `.caption-placement{margin-block:0 var(--s6,3rem);-webkit-font-sm
   --cap:var(--font-ots-cap),"Montserrat",system-ui,sans-serif}
 /* cqw on the container itself resolves against its parent, so the bezel lives one level in. */
 .caption-placement .frm{height:100%;background:#fff;border-radius:${u(48)};padding:${u(12.33)};box-shadow:0 ${u(14)} ${u(40)} rgba(3,6,20,.12),0 0 0 ${u(1)} rgba(3,6,20,.06)}
-.caption-placement .scr{position:relative;height:100%;background:#f3f5f9;border-radius:${u(36)};overflow:hidden;color:#101322;font-family:var(--ots)}
+.caption-placement .scr{position:relative;height:100%;background:#f3f5f9;border-radius:${u(36)};overflow:hidden;overflow:clip;color:#101322;font-family:var(--ots)}
 .caption-placement .sb{position:relative;height:${u(55)};display:flex;align-items:center;justify-content:space-between;padding:${u(6)} ${u(46)} 0 ${u(58)};font:700 ${u(19)}/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;font-variant-numeric:tabular-nums;color:#000}
 .caption-placement .sb .pill{position:absolute;left:${u(174.57)};top:${u(13.91)};width:${u(145.47)};height:${u(37.95)};background:#000;border-radius:${u(30)}}
 .caption-placement .sb svg{height:${u(15)};width:auto;display:block}
@@ -59,33 +61,49 @@ const STYLES = `.caption-placement{margin-block:0 var(--s6,3rem);-webkit-font-sm
 .caption-placement .cbox.grab{cursor:grabbing}
 .caption-placement .cbox .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;font:800 calc(20.574 * var(--s) * var(--k))/1.2353 var(--cap);color:#fff;text-align:center;white-space:nowrap;letter-spacing:0;text-transform:uppercase;
   text-shadow:0 0 calc(1.2 * var(--k)) rgba(0,0,0,.85),0 calc(.6 * var(--k)) calc(2 * var(--k)) rgba(0,0,0,.5)}
-.caption-placement .cbox .t span{display:block}
-.caption-placement .cbox .t em{font-style:normal;color:#ffc468}
+.caption-placement .cbox .tw{display:flex;flex-direction:column;align-items:center}
+.caption-placement .cbox .ln{display:block}
+.caption-placement .cbox .w{transition:color .12s}
+.caption-placement .cbox[data-style="bold"] .w.hl{color:#ffc468}
+.caption-placement .cbox[data-style="pop"] .t{font-size:calc(18.2 * var(--s) * var(--k));text-shadow:none}
+.caption-placement .cbox[data-style="pop"] .tw{background:#c66643;border-radius:calc(6.85 * var(--s) * var(--k));padding:calc(5 * var(--s) * var(--k)) calc(7 * var(--s) * var(--k))}
+.caption-placement .cbox[data-style="karaoke"] .t{font-weight:700}
+.caption-placement .cbox[data-style="karaoke"] .w.on{color:#3ddc84;font-weight:800}
 .caption-placement .hdl{position:absolute;width:${u(10)};height:${u(10)};background:#fff;border:${u(1.5)} solid #1e2b6b;border-radius:${u(2)};cursor:nwse-resize}
 .caption-placement .hdl::after{content:"";position:absolute;inset:-${u(10)}}
 .caption-placement .hdl[data-h="tl"]{left:${u(-3.82)};top:${u(-4.73)}}
 .caption-placement .hdl[data-h="tr"]{right:${u(-6.02)};top:${u(-4.73)};cursor:nesw-resize}
 .caption-placement .hdl[data-h="br"]{right:${u(-6.02)};bottom:${u(-5.61)}}
 .caption-placement .hdl[data-h="bl"]{left:${u(-3.82)};bottom:${u(-5.61)};cursor:nesw-resize}
+.caption-placement .guide{position:absolute;left:50%;top:0;bottom:0;width:${u(1.4)};margin-left:${u(-0.7)};background:#ff3b6b;opacity:0;transition:opacity .12s;pointer-events:none;border-radius:${u(1)}}
+.caption-placement .guide.on{opacity:1}
 .caption-placement .fing{position:absolute;left:calc(var(--fx) * var(--k));top:calc(var(--fy) * var(--k));width:${u(30)};height:${u(30)};margin:${u(-15)} 0 0 ${u(-15)};border-radius:50%;background:rgba(255,255,255,.5);border:${u(1.6)} solid rgba(255,255,255,.95);box-shadow:0 ${u(2)} ${u(8)} rgba(0,0,0,.35);opacity:var(--fo);transform:scale(calc(1 - .18 * var(--fp)));pointer-events:none}
 
-.caption-placement .sty{display:flex;gap:${u(10)};align-items:center;overflow:hidden;margin-right:${u(-30)}}
-.caption-placement .scard{flex:none;width:${u(165)};background:#fff;border-radius:${u(16)};overflow:hidden}
+.caption-placement .sty{display:flex;gap:${u(10)};align-items:center;overflow:hidden;overflow:clip;margin-right:${u(-30)}}
+.caption-placement .scard{all:unset;box-sizing:border-box;flex:none;width:${u(165)};background:#fff;border-radius:${u(16)};overflow:hidden;border:${u(1.5)} solid #d9dbde;cursor:pointer;transition:border-color .15s}
+.caption-placement .scard:hover{border-color:#1e2b6b}
+.caption-placement .scard.sel{border:${u(4)} solid #007bff}
+.caption-placement .scard:focus-visible{outline:2px solid #007bff;outline-offset:2px}
 .caption-placement .tile{background:#3f4452;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--cap);white-space:nowrap;line-height:1.22}
-.caption-placement .c1{border:${u(4)} solid #007bff}
-.caption-placement .c1 .tile{height:${u(100)};border:${u(1)} solid #fff;border-radius:${u(14)};gap:${u(2)};font-weight:800}
+.caption-placement .c1 .tile{height:${u(100)};border-radius:${u(14)};gap:${u(2)};font-weight:800}
 .caption-placement .c1 .a{color:#f4c542;font-size:${u(34.5)}}
 .caption-placement .c1 .b{color:#fff;font-size:${u(22.5)}}
-.caption-placement .c2{border:${u(2)} solid #1e2b6b}
 .caption-placement .c2 .tile{height:${u(100)};border-radius:${u(10)}}
 .caption-placement .c2 .pop{background:#c66643;border-radius:${u(6.847)};padding:${u(10.27)} ${u(8)};display:flex;flex-direction:column;align-items:center;gap:${u(1.71)};color:#fff;font-weight:800;font-size:${u(20.541)}}
-.caption-placement .c3{border:${u(1.5)} solid #d9dbde}
 .caption-placement .c3 .tile{height:${u(101)};border-radius:${u(10)};gap:${u(2)};font-size:${u(24.474)}}
 .caption-placement .c3 .a{color:#3ddc84;font-weight:800}
 .caption-placement .c3 .b{color:#fff;font-weight:700}
 
-.caption-placement .tc{background:#fff;border:${u(1.225)} solid #d9dbde;border-radius:${u(14.705)};padding:${u(19.607)};height:${u(208)};overflow:hidden}
-.caption-placement .ok{display:flex;align-items:center;gap:${u(7.35)};padding:${u(9.8)} 0 ${u(14.7)};border-bottom:${u(1.225)} solid #e5e7eb;font:700 ${u(15.93)}/1.25 var(--ots);color:#0f7643}
+.caption-placement .tc{position:relative;background:#fff;border:${u(1.225)} solid #d9dbde;border-radius:${u(14.705)};padding:${u(19.607)} ${u(19.607)} 0;height:${u(208)};overflow:hidden;display:flex;flex-direction:column}
+.caption-placement .txw{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding-bottom:${u(19.6)}}
+.caption-placement .txw::-webkit-scrollbar{display:none}
+.caption-placement .more{all:unset;position:absolute;right:${u(19.6)};top:${u(24)};transform:translateY(${u(-4)});display:flex;align-items:center;gap:${u(6)};padding:${u(8)} ${u(16)};border-radius:999px;background:#1e2b6b;color:#fff;font:700 ${u(14)}/1 var(--ots);white-space:nowrap;cursor:pointer;opacity:0;transition:opacity .2s,transform .2s;box-shadow:0 ${u(3)} ${u(10)} rgba(16,19,34,.25)}
+.caption-placement .more svg{width:${u(14)};height:${u(14)};stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.caption-placement .more.up svg{transform:rotate(180deg)}
+.caption-placement .tc:hover .more,.caption-placement .tc:focus-within .more{opacity:1;transform:none}
+.caption-placement .tc .more{z-index:1}
+@media (hover:none){.caption-placement .more{opacity:1;transform:none}}
+.caption-placement .ok{flex:none;display:flex;align-items:center;gap:${u(7.35)};padding:${u(9.8)} 0 ${u(14.7)};border-bottom:${u(1.225)} solid #e5e7eb;font:700 ${u(15.93)}/1.25 var(--ots);color:#0f7643}
 .caption-placement .ok i{width:${u(19.6)};height:${u(22.06)};border-radius:${u(11)};background:#0f7643;display:grid;place-items:center}
 .caption-placement .ok svg{width:${u(9.8)};height:${u(9.8)};stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .caption-placement .tx{margin:0;padding-top:${u(14.7)};font:400 ${u(20.54)}/${u(30.8)} var(--ots);color:#101322;max-width:none}
@@ -110,28 +128,29 @@ const MARKUP = `<div class="cp-panel">
           <p class="lb">Caption style &amp; placement</p>
           <div class="area"><div class="stage" data-stage>
             <div class="vid"></div>
-            <div class="cbox" data-box>
-              <div class="t"><span>What <em>happens</em></span><span>to your</span><span>earnest</span><span>money?</span></div>
+            <div class="cbox" data-box data-style="bold">
+              <div class="t"><div class="tw"><span class="ln"><span class="w">What</span> <span class="w hl">happens</span></span><span class="ln"><span class="w">to</span> <span class="w">your</span></span><span class="ln"><span class="w">earnest</span></span><span class="ln"><span class="w">money?</span></span></div></div>
               <i class="hdl" data-h="tl"></i><i class="hdl" data-h="tr"></i><i class="hdl" data-h="br"></i><i class="hdl" data-h="bl"></i>
             </div>
-            <div class="fing" data-finger></div>
+            <div class="guide" data-guide></div><div class="fing" data-finger></div>
           </div></div>
         </div>
         <div class="sty">
-          <div class="scard c1"><div class="tile"><span class="a">RATES</span><span class="b">DROPPED</span></div></div>
-          <div class="scard c2"><div class="tile"><div class="pop"><span>RATES</span><span>DROPPED</span></div></div></div>
-          <div class="scard c3"><div class="tile"><span class="a">RATES</span><span class="b">DROPPED</span></div></div>
+          <button type="button" class="scard c1 sel" data-pick="bold" aria-pressed="true" aria-label="Bold style"><div class="tile"><span class="a">TEXT</span><span class="b">STYLE</span></div></button>
+          <button type="button" class="scard c2" data-pick="pop" aria-pressed="false" aria-label="Pop style"><div class="tile"><div class="pop"><span>TEXT</span><span>STYLE</span></div></div></button>
+          <button type="button" class="scard c3" data-pick="karaoke" aria-pressed="false" aria-label="Karaoke style"><div class="tile"><span class="a">TEXT</span><span class="b">STYLE</span></div></button>
         </div>
         <div class="grp">
           <p class="lb">Transcript of your audio</p>
           <div class="tc"><div class="ok"><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></i>Looks compliant</div>
-            <p class="tx">Refinancing your mortgage into a shorter term is a smart strategy for building wealth quietly. While your monthly payment might increase, a larger portion of each payment goes directly toward reducing your loan balance instead of paying interest.</p></div>
+            <div class="txw" data-tx><p class="tx">Refinancing your mortgage into a shorter term is a smart strategy for building wealth quietly. While your monthly payment might increase, a larger portion of each payment goes directly toward reducing your loan balance instead of paying interest. This means you pay off your home faster and save a significant amount on interest over the life of the loan. It's a powerful way to accelerate your financial freedom and build equity more quickly.</p></div>
+            <button type="button" class="more" data-more><span data-more-label>Read the rest</span><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div>
         </div>
       </div>
       <div class="bot"><div class="nx">Next</div></div>
     </div></div>
   </div>
-  <p class="cp-hint">Drag the caption to move it. Drag a corner to resize it.</p>
+  <p class="cp-hint">Drag the caption to move it. Drag a corner to resize it. Pick a style to restyle it.</p>
 </div>`;
 
 /* One loop of the demo, in design px of the video. fo = finger opacity,
@@ -169,6 +188,8 @@ export default function CaptionPlacement() {
     const stage = host.querySelector("[data-stage]") as HTMLElement;
     const box = host.querySelector("[data-box]") as HTMLElement;
     const finger = host.querySelector("[data-finger]") as HTMLElement;
+    const guide = host.querySelector("[data-guide]") as HTMLElement;
+    const setGuide = (on: boolean) => guide.classList.toggle("on", on);
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const st = { ...REST };
@@ -200,6 +221,7 @@ export default function CaptionPlacement() {
       st.x = m(a.x, b.x); st.y = m(a.y, b.y); st.s = m(a.s, b.s);
       paint();
       paintFinger(m(a.fx, b.fx), m(a.fy, b.fy), m(a.fo, b.fo), m(a.fp, b.fp));
+      setGuide(elapsed > 1260 && elapsed < 2480);
       raf = requestAnimationFrame(frame);
     }
     function play() { if (auto && !raf) { last = 0; raf = requestAnimationFrame(frame); } }
@@ -210,9 +232,10 @@ export default function CaptionPlacement() {
 
     /* Direct manipulation, in the video's design px. */
     let drag: null | { mode: string; px: number; py: number; x: number; y: number; s: number } = null;
+    let snapped = false;
     const scale = () => VW / stage.getBoundingClientRect().width;
     function down(ev: PointerEvent) {
-      if (auto) { auto = false; pause(); paintFinger(0, 0, 0, 0); }
+      if (auto) { auto = false; pause(); paintFinger(0, 0, 0, 0); setGuide(false); }
       const t = ev.target as HTMLElement;
       const h = t.closest("[data-h]") as HTMLElement | null;
       if (!h && !t.closest("[data-box]")) return;
@@ -226,7 +249,11 @@ export default function CaptionPlacement() {
       const k = scale(), dx = (ev.clientX - drag.px) * k, dy = (ev.clientY - drag.py) * k;
       const w0 = BW * drag.s, h0 = BH * drag.s;
       if (drag.mode === "move") {
-        st.x = clamp(drag.x + dx, 0, VW - w0);
+        const nx = clamp(drag.x + dx, 0, VW - w0);
+        const snap = Math.abs(nx + w0 / 2 - VW / 2) < SNAP;
+        st.x = snap ? VW / 2 - w0 / 2 : nx;
+        if (snap && !snapped && navigator.vibrate) navigator.vibrate(6);
+        snapped = snap; setGuide(snap);
         st.y = clamp(drag.y + dy, 0, VH - h0);
       } else if (drag.mode === "br") {
         st.s = clamp((w0 + dx) / BW, 0.45, Math.min(1, (VW - drag.x) / BW, (VH - drag.y) / BH));
@@ -243,7 +270,7 @@ export default function CaptionPlacement() {
       }
       paint();
     }
-    function up() { drag = null; box.classList.remove("grab"); }
+    function up() { drag = null; snapped = false; setGuide(false); box.classList.remove("grab"); }
     stage.addEventListener("pointerdown", down);
     stage.addEventListener("pointermove", move);
     stage.addEventListener("pointerup", up);
@@ -254,6 +281,37 @@ export default function CaptionPlacement() {
       stage.removeEventListener("pointerup", up);
       stage.removeEventListener("pointercancel", up);
     });
+
+    /* Style picker. Karaoke runs its word highlight while selected. */
+    const cards = [...host.querySelectorAll("[data-pick]")] as HTMLElement[];
+    const words = [...box.querySelectorAll(".w")] as HTMLElement[];
+    let kt = 0, ki = 0;
+    function pick(style: string) {
+      box.dataset.style = style;
+      cards.forEach((c) => { const on = c.dataset.pick === style; c.classList.toggle("sel", on); c.setAttribute("aria-pressed", String(on)); });
+      clearInterval(kt); kt = 0; words.forEach((w) => w.classList.remove("on"));
+      if (style === "karaoke" && !reduced) {
+        ki = 0; words[0].classList.add("on");
+        kt = window.setInterval(() => { words[ki].classList.remove("on"); ki = (ki + 1) % words.length; words[ki].classList.add("on"); }, 420);
+      } else if (style === "karaoke") words[0].classList.add("on");
+    }
+    cards.forEach((c) => c.addEventListener("click", () => pick(c.dataset.pick as string)));
+    cleanups.push(() => clearInterval(kt));
+
+    /* Transcript: the card is a fixed window; the button pages through it. */
+    const txw = host.querySelector("[data-tx]") as HTMLElement;
+    const more = host.querySelector("[data-more]") as HTMLElement;
+    const moreLabel = host.querySelector("[data-more-label]") as HTMLElement;
+    const bar = host.querySelector(".bot") as HTMLElement;
+    const visH = () => Math.min(txw.getBoundingClientRect().bottom, bar.getBoundingClientRect().top) - txw.getBoundingClientRect().top;
+    const atEnd = () => txw.scrollTop + visH() >= txw.scrollHeight - 24;
+    function syncMore() { const end = atEnd(); more.classList.toggle("up", end); moreLabel.textContent = end ? "Back to top" : "Read the rest"; }
+    more.addEventListener("click", () => {
+      if (atEnd()) txw.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+      else txw.scrollBy({ top: Math.max(40, (Math.min(txw.getBoundingClientRect().bottom, bar.getBoundingClientRect().top) - txw.getBoundingClientRect().top) * 0.85), behavior: reduced ? "auto" : "smooth" });
+    });
+    txw.addEventListener("scroll", syncMore, { passive: true });
+    cleanups.push(() => txw.removeEventListener("scroll", syncMore));
 
     const clock = host.querySelector("[data-clock]") as HTMLElement;
     function clk() { const d = new Date(); clock.textContent = (d.getHours() % 12 || 12) + ":" + String(d.getMinutes()).padStart(2, "0"); }
