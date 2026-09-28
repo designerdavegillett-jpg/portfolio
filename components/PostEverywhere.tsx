@@ -240,6 +240,8 @@ const STYLES = `.post-everywhere{margin-block:0 var(--s6,3rem);-webkit-font-smoo
 .post-everywhere .pe-acts{display:flex;justify-content:space-around;padding:${u(10)} ${u(8)} ${u(14)};color:#5e5e5e}
 .post-everywhere .pe-acts b{display:flex;flex-direction:column;align-items:center;gap:${u(5)};font:600 ${u(12.5)}/1 var(--sys)}
 .post-everywhere .pe-acts .pe-i{font-size:${u(22)}}
+.post-everywhere .pe-mind{background:#f0f2f5;border-radius:999px;color:#65676b}
+.post-everywhere .pe-fbnav b.on{color:#0866ff}
 .post-everywhere .pe-fb .pe-acts{flex-direction:row;color:#65676b;border-top:${u(1)} solid #ced0d4;margin:0 ${u(14)};padding:${u(12)} 0}
 .post-everywhere .pe-fb .pe-acts b{flex-direction:row;gap:${u(8)};font-size:${u(15)}}
 /* waiting / posting veil */
@@ -313,11 +315,12 @@ const DEST: Record<P, string> = {
     <div class="pe-nav lt"><b class="on">${ic("home")}Home</b><b>${ic("users")}My Network</b><b>${ic("add")}Post</b><b>${ic("bell")}Notifications</b><b>${ic("case")}Jobs</b></div>
     </div>${veil("linkedin")}</div>`,
   facebook: `<div class="pe-dest" data-dest="facebook"><div class="pe-feed pe-fb">${SB(false)}
-    <div class="pe-fbtabs"><span class="on">${ic("home")}</span><span>${ic("video")}</span><span>${ic("users")}</span><span>${ic("bell")}</span><span>${ic("menu")}</span></div>
-    <div class="pe-post2" style="top:${u(127)}"><div class="pe-ph2">${AV}<div><b>David Gillett</b><small>Just now · ${ic("globe")}</small></div>${ic("more")}</div>
+    <div class="pe-bar2">${AV}<span class="pe-srch pe-mind">What's on your mind?</span>${ic("search")}</div>
+    <div class="pe-post2" style="top:${u(131)}"><div class="pe-ph2">${AV}<div><b>David Gillett</b><small>Just now · ${ic("globe")}</small></div>${ic("more")}</div>
       <p class="pe-body">${POST.filter(Boolean).slice(0, 3).join(" ")} <i>…See more</i></p>
       <div class="pe-media"><div class="pe-ph"></div>${BURN}<span class="pe-playb">${ic("play")}</span></div>
       <div class="pe-acts"><b>${ic("up")}Like</b><b>${ic("chat")}Comment</b><b>${ic("share")}Share</b></div></div>
+    <div class="pe-nav lt pe-fbnav"><b class="on">${ic("home")}Home</b><b>${ic("video")}Video</b><b>${ic("users")}Friends</b><b>${ic("bell")}Notifications</b><b>${ic("menu")}Menu</b></div>
     </div>${veil("facebook")}</div>`,
 };
 
