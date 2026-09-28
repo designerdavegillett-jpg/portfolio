@@ -796,33 +796,53 @@ strong {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  padding-bottom: 0.55rem;
-  border-bottom: 1px solid var(--hairline);
 }
 
-.rsm-name {
-  margin: 1.6rem 0 0.15rem;
+/* name left, contact stacked right, as on the PDF */
+.rsm-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  margin: 1.4rem 0 1.3rem;
 }
-.rsm-role {
+.rsm-name {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  font-size: 3.4rem;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-transform: none;
+  color: var(--ink);
+}
+.rsm-contact {
+  list-style: none;
+  text-align: right;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.66rem;
+  line-height: 1.75;
+}
+.rsm-contact a {
   color: var(--ink-soft);
-  font-size: 0.92rem;
-  margin-bottom: 2.2rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--muted);
+}
+.rsm-contact a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 /* key / value spec table */
 .rsm-spec {
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
+  border-top: 1px solid var(--hairline);
 }
 .rsm-row {
   display: grid;
-  grid-template-columns: 9.5rem 1fr;
+  grid-template-columns: 11rem 1fr;
   gap: 1.4rem;
-  padding: 0.62rem 0;
+  padding: 0.55rem 0;
   border-bottom: 1px solid var(--hairline);
-}
-.rsm-row:last-child {
-  border-bottom: 0;
 }
 .rsm-row dd {
   font-size: 0.8rem;
@@ -835,46 +855,51 @@ strong {
 
 /* experience records */
 .rsm-section-label {
-  margin: 2.6rem 0 0.5rem;
+  margin: 1.6rem 0 0;
+  padding-bottom: 0.3rem;
 }
 .rsm-records {
-  border-top: 1.5px solid var(--ink);
+  border-top: 1px solid var(--hairline);
 }
 .rsm-record {
   display: grid;
-  grid-template-columns: 2.2rem 7.3rem 1fr;
+  grid-template-columns: 11rem 1fr;
   gap: 1.4rem;
-  padding: 1.05rem 0;
+  padding: 0.9rem 0;
   border-bottom: 1px solid var(--hairline);
 }
 .rsm-record:last-child {
   border-bottom: 0;
 }
+.rsm-dates {
+  padding-top: 0.3rem;
+}
 .rsm-co {
   font-size: 0.96rem;
-  font-weight: 600;
-  letter-spacing: -0.014em;
-  margin-bottom: 0.18rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
 }
 .rsm-record ul {
   list-style: none;
-  margin-top: 0.55rem;
+  margin-top: 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 0.42rem;
+  gap: 0.2rem;
 }
 .rsm-record li {
   position: relative;
-  padding-left: 0.85rem;
+  padding-left: 1.4rem;
   font-size: 0.8rem;
-  line-height: 1.58;
+  line-height: 1.5;
 }
 .rsm-record li::before {
-  content: "·";
+  content: "\2022";
   position: absolute;
-  left: 0.1rem;
-  color: var(--muted);
-  font-family: var(--font-resume-mono), monospace;
+  left: 0.2rem;
+  font-size: 0.6rem;
+  line-height: 2.1;
+  color: var(--ink-soft);
 }
 
 .rsm-actions {
@@ -897,6 +922,16 @@ strong {
   .rsm-slug {
     flex-direction: column;
     gap: 0.25rem;
+  }
+  .rsm-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .rsm-contact {
+    text-align: left;
+  }
+  .rsm-name {
+    font-size: 2.6rem;
   }
 }
 

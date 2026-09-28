@@ -40,7 +40,7 @@ const STYLES = `.caption-placement{margin-block:0 var(--s6,3rem);-webkit-font-sm
 /* cqw on the container itself resolves against its parent, so the bezel lives one level in. */
 .caption-placement .frm{height:100%;background:#fff;border-radius:${u(48)};padding:${u(12.33)};box-shadow:0 ${u(14)} ${u(40)} rgba(3,6,20,.12),0 0 0 ${u(1)} rgba(3,6,20,.06)}
 .caption-placement .scr{position:relative;height:100%;background:#f3f5f9;border-radius:${u(36)};overflow:hidden;overflow:clip;color:#101322;font-family:var(--ots)}
-.caption-placement .sb{position:relative;height:${u(55)};display:flex;align-items:center;justify-content:space-between;padding:${u(6)} ${u(46)} 0 ${u(58)};font:700 ${u(19)}/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;font-variant-numeric:tabular-nums;color:#000}
+.caption-placement .sb{position:relative;z-index:2;background:#f3f5f9;height:${u(55)};display:flex;align-items:center;justify-content:space-between;padding:${u(6)} ${u(46)} 0 ${u(58)};font:700 ${u(19)}/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;font-variant-numeric:tabular-nums;color:#000}
 .caption-placement .sb .pill{position:absolute;left:${u(174.57)};top:${u(13.91)};width:${u(145.47)};height:${u(37.95)};background:#000;border-radius:${u(30)}}
 .caption-placement .sb svg{height:${u(15)};width:auto;display:block}
 .caption-placement .hd{padding:${u(15)} ${u(29.41)};display:flex;flex-direction:column;gap:${u(30)}}
@@ -94,9 +94,9 @@ const STYLES = `.caption-placement{margin-block:0 var(--s6,3rem);-webkit-font-sm
 .caption-placement .c3 .a{color:#3ddc84;font-weight:800}
 .caption-placement .c3 .b{color:#fff;font-weight:700}
 
-.caption-placement .tc{position:relative;background:#fff;border:${u(1.225)} solid #d9dbde;border-radius:${u(14.705)};padding:${u(19.607)} ${u(19.607)} 0;height:${u(208)};overflow:hidden;display:flex;flex-direction:column}
-.caption-placement .txw{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding-bottom:${u(19.6)}}
-.caption-placement .txw::-webkit-scrollbar{display:none}
+.caption-placement .main{position:absolute;top:${u(55)};left:0;right:0;bottom:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding-bottom:${u(140)}}
+.caption-placement .main::-webkit-scrollbar{display:none}
+.caption-placement .tc{position:relative;background:#fff;border:${u(1.225)} solid #d9dbde;border-radius:${u(14.705)};padding:${u(19.607)}}
 .caption-placement .more{all:unset;position:absolute;right:${u(19.6)};top:${u(24)};transform:translateY(${u(-4)});display:flex;align-items:center;gap:${u(6)};padding:${u(8)} ${u(16)};border-radius:999px;background:#1e2b6b;color:#fff;font:700 ${u(14)}/1 var(--ots);white-space:nowrap;cursor:pointer;opacity:0;transition:opacity .2s,transform .2s;box-shadow:0 ${u(3)} ${u(10)} rgba(16,19,34,.25)}
 .caption-placement .more svg{width:${u(14)};height:${u(14)};stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
 .caption-placement .more.up svg{transform:rotate(180deg)}
@@ -119,7 +119,7 @@ const MARKUP = `<div class="cp-panel">
       <div class="sb"><span data-clock>4:01</span><span class="pill"></span>
         <svg viewBox="0 0 66 12" fill="#000"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="9" y="3" width="3" height="9" rx=".8"/><rect x="13.5" y="0.5" width="3" height="11.5" rx=".8"/><path d="M23 4.6a9 9 0 0 1 12.4 0M25.6 7.4a5.3 5.3 0 0 1 7.2 0" stroke="#000" stroke-width="1.7" fill="none" stroke-linecap="round"/><circle cx="29.2" cy="10.4" r="1.4"/><rect x="42" y="1" width="20" height="10" rx="3" stroke="#000" stroke-width="1.2" fill="none" opacity=".4"/><rect x="43.5" y="2.5" width="17" height="7" rx="1.8" fill="#34c759"/><rect x="63" y="4" width="1.6" height="4" rx=".8" opacity=".4"/><path d="M52.6 3.2 50.2 6.4h2l-1 2.6 2.6-3.3h-2z" fill="#000"/></svg>
       </div>
-      <div class="hd">
+      <div class="main" data-main><div class="hd">
         <div class="nv"><span class="bk"><svg viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg></span><span class="cn">Cancel</span></div>
         <div class="tt"><p class="ey">New Video</p><p class="h">Audio &amp; Captions</p></div>
       </div>
@@ -143,9 +143,10 @@ const MARKUP = `<div class="cp-panel">
         <div class="grp">
           <p class="lb">Transcript of your audio</p>
           <div class="tc"><div class="ok"><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></i>Looks compliant</div>
-            <div class="txw" data-tx><p class="tx">Refinancing your mortgage into a shorter term is a smart strategy for building wealth quietly. While your monthly payment might increase, a larger portion of each payment goes directly toward reducing your loan balance instead of paying interest. This means you pay off your home faster and save a significant amount on interest over the life of the loan. It's a powerful way to accelerate your financial freedom and build equity more quickly.</p></div>
+            <div class="txw"><p class="tx">Refinancing your mortgage into a shorter term is a smart strategy for building wealth quietly. While your monthly payment might increase, a larger portion of each payment goes directly toward reducing your loan balance instead of paying interest. This means you pay off your home faster and save a significant amount on interest over the life of the loan. It's a powerful way to accelerate your financial freedom and build equity more quickly.</p></div>
             <button type="button" class="more" data-more><span data-more-label>Read the rest</span><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div>
         </div>
+      </div>
       </div>
       <div class="bot"><div class="nx">Next</div></div>
     </div></div>
@@ -299,16 +300,14 @@ export default function CaptionPlacement() {
     cleanups.push(() => clearInterval(kt));
 
     /* Transcript: the card is a fixed window; the button pages through it. */
-    const txw = host.querySelector("[data-tx]") as HTMLElement;
+    const txw = host.querySelector("[data-main]") as HTMLElement;
     const more = host.querySelector("[data-more]") as HTMLElement;
     const moreLabel = host.querySelector("[data-more-label]") as HTMLElement;
-    const bar = host.querySelector(".bot") as HTMLElement;
-    const visH = () => Math.min(txw.getBoundingClientRect().bottom, bar.getBoundingClientRect().top) - txw.getBoundingClientRect().top;
-    const atEnd = () => txw.scrollTop + visH() >= txw.scrollHeight - 24;
+    const atEnd = () => txw.scrollTop + txw.clientHeight >= txw.scrollHeight - 4;
     function syncMore() { const end = atEnd(); more.classList.toggle("up", end); moreLabel.textContent = end ? "Back to top" : "Read the rest"; }
     more.addEventListener("click", () => {
       if (atEnd()) txw.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
-      else txw.scrollBy({ top: Math.max(40, (Math.min(txw.getBoundingClientRect().bottom, bar.getBoundingClientRect().top) - txw.getBoundingClientRect().top) * 0.85), behavior: reduced ? "auto" : "smooth" });
+      else txw.scrollTo({ top: txw.scrollHeight, behavior: reduced ? "auto" : "smooth" });
     });
     txw.addEventListener("scroll", syncMore, { passive: true });
     cleanups.push(() => txw.removeEventListener("scroll", syncMore));
