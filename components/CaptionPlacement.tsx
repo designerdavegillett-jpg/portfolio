@@ -31,11 +31,12 @@ const STYLES = `.caption-placement{margin-block:0 var(--s6,3rem);-webkit-font-sm
 .caption-placement .cp-panel{max-width:52rem;background:color-mix(in srgb,var(--paper-sunk,#e8e8ed) 45%,var(--paper,#f5f5f7));padding:clamp(28px,5vw,56px) 16px clamp(20px,3vw,32px);display:flex;flex-direction:column;align-items:center;gap:18px}
 .caption-placement .cp-hint{margin:0;font-size:.7rem;line-height:1.5;color:var(--muted,#86868b);text-align:center;max-width:none}
 
-.caption-placement .phone{position:relative;width:min(290px,72vw);container-type:inline-size;aspect-ratio:523.46/1099;
+.caption-placement .phone{position:relative;width:min(290px,72vw);container-type:inline-size;aspect-ratio:523.46/1099;-webkit-text-size-adjust:none;text-size-adjust:none;
   --k:calc(100cqw / 523.46);
   --serif:var(--font-ots-serif),"Merriweather",Georgia,serif; --ots:var(--font-ots-sans),"Merriweather Sans",system-ui,sans-serif;
-  --cap:var(--font-ots-cap),"Montserrat",system-ui,sans-serif;
-  background:#fff;border-radius:${u(48)};padding:${u(12.33)};box-shadow:0 ${u(14)} ${u(40)} rgba(3,6,20,.12),0 0 0 ${u(1)} rgba(3,6,20,.06);-webkit-text-size-adjust:none;text-size-adjust:none}
+  --cap:var(--font-ots-cap),"Montserrat",system-ui,sans-serif}
+/* cqw on the container itself resolves against its parent, so the bezel lives one level in. */
+.caption-placement .frm{height:100%;background:#fff;border-radius:${u(48)};padding:${u(12.33)};box-shadow:0 ${u(14)} ${u(40)} rgba(3,6,20,.12),0 0 0 ${u(1)} rgba(3,6,20,.06)}
 .caption-placement .scr{position:relative;height:100%;background:#f3f5f9;border-radius:${u(36)};overflow:hidden;color:#101322;font-family:var(--ots)}
 .caption-placement .sb{position:relative;height:${u(55)};display:flex;align-items:center;justify-content:space-between;padding:${u(6)} ${u(46)} 0 ${u(58)};font:700 ${u(19)}/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;font-variant-numeric:tabular-nums;color:#000}
 .caption-placement .sb .pill{position:absolute;left:${u(174.57)};top:${u(13.91)};width:${u(145.47)};height:${u(37.95)};background:#000;border-radius:${u(30)}}
@@ -65,9 +66,10 @@ const STYLES = `.caption-placement{margin-block:0 var(--s6,3rem);-webkit-font-sm
 .caption-placement .hdl[data-h="tl"]{left:${u(-3.82)};top:${u(-4.73)}}
 .caption-placement .hdl[data-h="tr"]{right:${u(-6.02)};top:${u(-4.73)};cursor:nesw-resize}
 .caption-placement .hdl[data-h="br"]{right:${u(-6.02)};bottom:${u(-5.61)}}
+.caption-placement .hdl[data-h="bl"]{left:${u(-3.82)};bottom:${u(-5.61)};cursor:nesw-resize}
 .caption-placement .fing{position:absolute;left:calc(var(--fx) * var(--k));top:calc(var(--fy) * var(--k));width:${u(30)};height:${u(30)};margin:${u(-15)} 0 0 ${u(-15)};border-radius:50%;background:rgba(255,255,255,.5);border:${u(1.6)} solid rgba(255,255,255,.95);box-shadow:0 ${u(2)} ${u(8)} rgba(0,0,0,.35);opacity:var(--fo);transform:scale(calc(1 - .18 * var(--fp)));pointer-events:none}
 
-.caption-placement .sty{display:flex;gap:${u(10)};align-items:center;overflow:hidden;width:${u(433)}}
+.caption-placement .sty{display:flex;gap:${u(10)};align-items:center;overflow:hidden;margin-right:${u(-30)}}
 .caption-placement .scard{flex:none;width:${u(165)};background:#fff;border-radius:${u(16)};overflow:hidden}
 .caption-placement .tile{background:#3f4452;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--cap);white-space:nowrap;line-height:1.22}
 .caption-placement .c1{border:${u(4)} solid #007bff}
@@ -95,7 +97,7 @@ const STYLES = `.caption-placement{margin-block:0 var(--s6,3rem);-webkit-font-sm
 
 const MARKUP = `<div class="cp-panel">
   <div class="phone" role="img" aria-label="The Audio and Captions screen. The caption is dragged to a new position on the video, then resized from its corner.">
-    <div class="scr">
+    <div class="frm"><div class="scr">
       <div class="sb"><span data-clock>4:01</span><span class="pill"></span>
         <svg viewBox="0 0 66 12" fill="#000"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="9" y="3" width="3" height="9" rx=".8"/><rect x="13.5" y="0.5" width="3" height="11.5" rx=".8"/><path d="M23 4.6a9 9 0 0 1 12.4 0M25.6 7.4a5.3 5.3 0 0 1 7.2 0" stroke="#000" stroke-width="1.7" fill="none" stroke-linecap="round"/><circle cx="29.2" cy="10.4" r="1.4"/><rect x="42" y="1" width="20" height="10" rx="3" stroke="#000" stroke-width="1.2" fill="none" opacity=".4"/><rect x="43.5" y="2.5" width="17" height="7" rx="1.8" fill="#34c759"/><rect x="63" y="4" width="1.6" height="4" rx=".8" opacity=".4"/><path d="M52.6 3.2 50.2 6.4h2l-1 2.6 2.6-3.3h-2z" fill="#000"/></svg>
       </div>
@@ -110,7 +112,7 @@ const MARKUP = `<div class="cp-panel">
             <div class="vid"></div>
             <div class="cbox" data-box>
               <div class="t"><span>What <em>happens</em></span><span>to your</span><span>earnest</span><span>money?</span></div>
-              <i class="hdl" data-h="tl"></i><i class="hdl" data-h="tr"></i><i class="hdl" data-h="br"></i>
+              <i class="hdl" data-h="tl"></i><i class="hdl" data-h="tr"></i><i class="hdl" data-h="br"></i><i class="hdl" data-h="bl"></i>
             </div>
             <div class="fing" data-finger></div>
           </div></div>
@@ -127,7 +129,7 @@ const MARKUP = `<div class="cp-panel">
         </div>
       </div>
       <div class="bot"><div class="nx">Next</div></div>
-    </div>
+    </div></div>
   </div>
   <p class="cp-hint">Drag the caption to move it. Drag a corner to resize it.</p>
 </div>`;
@@ -231,6 +233,9 @@ export default function CaptionPlacement() {
       } else if (drag.mode === "tr") {
         st.s = clamp((w0 + dx) / BW, 0.45, Math.min(1, (VW - drag.x) / BW, (drag.y + h0) / BH));
         st.y = drag.y + h0 - BH * st.s;
+      } else if (drag.mode === "bl") {
+        st.s = clamp((w0 - dx) / BW, 0.45, Math.min(1, (drag.x + w0) / BW, (VH - drag.y) / BH));
+        st.x = drag.x + w0 - BW * st.s;
       } else {
         st.s = clamp((w0 - dx) / BW, 0.45, Math.min(1, (drag.x + w0) / BW, (drag.y + h0) / BH));
         st.x = drag.x + w0 - BW * st.s;
