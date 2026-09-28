@@ -25,6 +25,8 @@ const VIDEO = "/work/own-the-script/post-video.webp";
 
 type P = "linkedin" | "instagram" | "facebook" | "tiktok" | "youtube";
 const ORDER: P[] = ["linkedin", "instagram", "facebook", "tiktok", "youtube"];
+/* LinkedIn and Facebook lead the wall; the vertical-video platforms follow. */
+const WALL: P[] = ["linkedin", "facebook", "instagram", "tiktok", "youtube"];
 const NAME: Record<P, string> = { linkedin: "LinkedIn", instagram: "Instagram", facebook: "Facebook", tiktok: "TikTok", youtube: "Youtube" };
 const SHOWN: Record<P, string> = { linkedin: "LinkedIn", instagram: "Instagram", facebook: "Facebook", tiktok: "TikTok", youtube: "YouTube" };
 
@@ -257,11 +259,18 @@ const STYLES = `.post-everywhere{margin-block:0 var(--s6,3rem);-webkit-font-smoo
 .post-everywhere .pe-dest.pop .pe-toast{transform:translate(-50%,0);opacity:1}
 /* the wall of destinations */
 .post-everywhere .pe-quad{--mw:120px;--gap:12px;display:grid;grid-template-columns:repeat(2,var(--mw));gap:var(--gap);align-content:start}
-.post-everywhere .pe-mini{width:var(--mw);display:none}
-.post-everywhere .pe-mini.show{display:block;animation:pe-in .35s ease}
+.post-everywhere .pe-cell{display:none;flex-direction:column;gap:6px;width:var(--mw)}
+.post-everywhere .pe-cell.show{display:flex;animation:pe-in .35s ease}
+.post-everywhere .pe-mini{width:var(--mw)}
+.post-everywhere .pe-lab{height:22px;display:flex;align-items:center;gap:6px;font:600 .68rem/1 var(--font-body,system-ui),system-ui,sans-serif;color:var(--ink,#1d1d1f);white-space:nowrap}
+.post-everywhere .pe-lg{width:18px;height:18px;flex:none}
+.post-everywhere .pe-lg svg{width:100%;height:100%;display:block}
+.post-everywhere .pe-lab em{margin-left:auto;font-style:normal;font-weight:500;color:var(--muted,#86868b);display:flex;align-items:center;gap:4px}
+.post-everywhere .pe-cell.live .pe-lab em{color:#0f7643}
+.post-everywhere .pe-cell.live .pe-lab em::before{content:"";width:6px;height:6px;border-radius:50%;background:#34c759}
 @keyframes pe-in{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 .post-everywhere .pe-mini .pe-frm{box-shadow:0 ${u(10)} ${u(28)} rgba(3,6,20,.12),0 0 0 ${u(1)} rgba(3,6,20,.06)}
-.post-everywhere .pe-slot{width:var(--mw);aspect-ratio:523.46/1099;border:1.5px dashed rgba(29,29,31,.2);border-radius:calc(var(--mw) * .0917);display:none;place-items:center;text-align:center;padding:10px;font:600 .68rem/1.3 var(--sys,system-ui);color:var(--muted,#86868b)}
+.post-everywhere .pe-slot{width:var(--mw);height:calc(var(--mw) * 1099 / 523.46);border:1.5px dashed rgba(29,29,31,.2);border-radius:calc(var(--mw) * .0917);display:none;place-items:center;text-align:center;padding:10px;font:600 .68rem/1.3 var(--sys,system-ui);color:var(--muted,#86868b)}
 .post-everywhere .pe-slot.show{display:grid}
 @media (max-width:640px){
 .post-everywhere .pe-grid{grid-template-columns:1fr}
@@ -350,7 +359,7 @@ const MARKUP = `<div class="pe-grid">
   </div>
   <div class="pe-col">
     <div class="pe-quad" data-quad role="img" aria-label="The same video as it appears on each platform it was posted to, one small phone per platform.">
-      ${ORDER.map((p) => `<div class="pe-phone pe-mini" data-cell="${p}"><div class="pe-frm"><div class="pe-scr" style="background:#000">${DEST[p]}</div></div></div>`).join("")}
+      ${WALL.map((p) => `<div class="pe-cell" data-cell="${p}"><div class="pe-phone pe-mini"><div class="pe-frm"><div class="pe-scr" style="background:#000">${DEST[p]}</div></div></div><div class="pe-lab"><span class="pe-lg">${LOGO[p]}</span>${SHOWN[p]}<em data-state>Ready</em></div></div>`).join("")}
       ${[0, 1, 2, 3].map((i) => `<div class="pe-slot" data-slot="${i}"><span>Add a platform</span></div>`).join("")}
     </div>
   </div>
@@ -390,7 +399,10 @@ export default function PostEverywhere() {
         c.classList.toggle("on", on);
         c.classList.toggle("done", live.has(p));
         c.setAttribute("aria-pressed", String(on));
-        cells.get(p)!.classList.toggle("show", on || live.has(p));
+        const cell = cells.get(p)!;
+        cell.classList.toggle("show", on || live.has(p));
+        cell.classList.toggle("live", live.has(p));
+        (cell.querySelector("[data-state]") as HTMLElement).textContent = live.has(p) ? "Live" : dests.get(p)!.classList.contains("busy") ? "Posting…" : "Ready";
         const d = dests.get(p)!;
         d.classList.toggle("on", true);
         d.classList.toggle("live", live.has(p));
@@ -410,7 +422,8 @@ export default function PostEverywhere() {
       if (!h) return;
       const stacked = innerWidth <= 640;
       const gap = 12;
-      const byH = ((h - gap * (rows - 1)) / rows) * (523.46 / 1099);
+      const lab = 28;
+      const byH = ((h - gap * (rows - 1) - lab * rows) / rows) * (523.46 / 1099);
       const mw = stacked ? Math.min(byH, (quad.parentElement!.clientWidth - gap) / 2) : byH;
       quad.style.setProperty("--mw", mw.toFixed(1) + "px");
     }
