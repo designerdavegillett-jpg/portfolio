@@ -3,8 +3,8 @@
  * review clears. The Get button reads Coming soon and the caption says the
  * app is in review, so the figure never claims a listing that does not exist.
  *
- * Every fact on the page is one the case study already states. The icon is a
- * stand-in (navy tile, "ots" wordmark) until the real app icon is exported.
+ * Every fact on the page is one the case study already states. The icon is
+ * the real app icon, exported by Dave.
  * Static; the screenshot row scrolls sideways like the real page. Scoped under
  * .app-store, classes prefixed as-, sizes in cqw against a 390px iPhone.
  */
@@ -43,7 +43,7 @@ const STYLES = `.app-store{max-width:52rem;margin-block:0 var(--s6,3rem);display
 .app-store .as-nav{height:${v(40)};display:flex;align-items:center;padding:0 ${v(10)};color:#007aff;font:400 ${v(17)}/1 var(--as-f)}
 .app-store .as-nav svg{width:${v(24)};height:${v(24)}}
 .app-store .as-hd{display:flex;gap:${v(16)};padding:${v(6)} ${v(20)} ${v(18)}}
-.app-store .as-icon{flex:none;width:${v(118)};height:${v(118)};border-radius:${v(26)};background:linear-gradient(160deg,#2a3a86,#1e2b6b 60%,#15204f);display:grid;place-items:center;color:#fff;font:800 ${v(38)}/1 var(--font-ots-sans),"Merriweather Sans",system-ui,sans-serif;letter-spacing:-.02em;box-shadow:inset 0 0 0 ${v(.5)} rgba(0,0,0,.12)}
+.app-store .as-icon{flex:none;width:${v(118)};height:${v(118)};border-radius:${v(26)};background:#8aa3bd url(${IMG}app-icon.webp) center/cover;box-shadow:inset 0 0 0 ${v(.5)} rgba(0,0,0,.12)}
 .app-store .as-meta{flex:1;display:flex;flex-direction:column;min-width:0}
 .app-store .as-meta b{font:600 ${v(22)}/1.2 var(--as-f);letter-spacing:-.01em}
 .app-store .as-meta small{font:400 ${v(15)}/1.3 var(--as-f);color:#8a8a8e;margin-top:${v(3)}}
@@ -58,8 +58,8 @@ const STYLES = `.app-store{max-width:52rem;margin-block:0 var(--s6,3rem);display
 .app-store .as-info small{font:400 ${v(11.5)}/1 var(--as-f)}
 .app-store .as-shots{display:flex;gap:${v(10)};padding:${v(16)} ${v(20)};overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:${v(20)};scrollbar-width:none}
 .app-store .as-shots::-webkit-scrollbar{display:none}
-.app-store .as-shot{flex:none;width:${v(168)};height:${v(336)};border-radius:${v(20)};overflow:hidden;background:#1e2b6b;scroll-snap-align:start;display:flex;flex-direction:column;border:${v(.5)} solid rgba(0,0,0,.08)}
-.app-store .as-shot p{margin:0;padding:${v(14)} ${v(12)} ${v(10)};color:#fff;font:700 ${v(15.5)}/1.2 var(--as-f);text-align:center;max-width:none;letter-spacing:-.01em}
+.app-store .as-shot{flex:none;width:${v(168)};height:${v(336)};border-radius:${v(20)};overflow:hidden;background:#f2f2f7;scroll-snap-align:start;display:flex;flex-direction:column;border:${v(.5)} solid rgba(0,0,0,.08)}
+.app-store .as-shot p{margin:0;padding:${v(14)} ${v(12)} ${v(10)};color:#000;font:700 ${v(15.5)}/1.2 var(--as-f);text-align:center;max-width:none;letter-spacing:-.01em}
 .app-store .as-shot i{flex:1;margin:0 ${v(13)};border-radius:${v(20)} ${v(20)} 0 0;border:${v(5)} solid #0b0f24;border-bottom:0;background-size:cover}
 .app-store .as-desc{margin:0 ${v(20)};font:400 ${v(15)}/1.35 var(--as-f);color:#000;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-width:none}
 .app-store .as-more{margin:${v(2)} ${v(20)} 0;text-align:right;color:#007aff;font:400 ${v(15)}/1.2 var(--as-f)}
@@ -76,7 +76,7 @@ const MARKUP = `<div class="as-phone" role="img" aria-label="Own the Script's Ap
   <div class="as-frm">
     <div class="as-sb"><span>9:41</span><span class="as-isl"></span>${SB}</div>
     <div class="as-nav">${ic(`<path d="m15 18-6-6 6-6"/>`)}Search</div>
-    <div class="as-hd"><div class="as-icon">ots</div>
+    <div class="as-hd"><div class="as-icon"></div>
       <div class="as-meta"><b>Own the Script</b><small>Video for loan officers</small>
         <div class="as-row"><span class="as-get">Coming soon</span>${ic(`<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>`)}</div></div></div>
     <div class="as-info">${INFO.map(([a, b, c]) => `<div><span>${a}</span><b>${b}</b><small>${c}</small></div>`).join("")}</div>
