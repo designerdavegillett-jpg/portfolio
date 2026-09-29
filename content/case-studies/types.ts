@@ -1,7 +1,7 @@
 import type { ThumbKind } from "@/components/Thumb";
 
 /** An image inside a case study section. Files live in /public. */
-export type Interactive = "capture-anatomy" | "compliance-states" | "script-flow" | "persona-cards" | "caption-placement" | "post-everywhere" | "status-board" | "audit-trail";
+export type Interactive = "capture-anatomy" | "compliance-states" | "script-flow" | "persona-cards" | "caption-placement" | "post-everywhere";
 
 export type Figure = {
   /** Path from /public, e.g. "/work/design-finish-selection/item-id-model.png" */

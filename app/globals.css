@@ -611,9 +611,7 @@ strong {
 .cs-section .prose > p + .personas,
 .cs-section .prose > p + .script-flow,
 .cs-section .prose > p + .caption-placement,
-.cs-section .prose > p + .post-everywhere,
-.cs-section .prose > p + .audit-trail,
-.cs-section .prose > p + .status-board {
+.cs-section .prose > p + .post-everywhere {
   margin-top: var(--s6);
 }
 
