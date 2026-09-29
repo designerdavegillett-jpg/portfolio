@@ -99,7 +99,7 @@ const AV = `<span class="pe-av">DG</span>`;
 
 const STYLES = `.post-everywhere{margin-block:0 var(--s6,3rem);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .post-everywhere *{box-sizing:border-box}
-.post-everywhere .pe-grid{max-width:52rem;display:grid;grid-template-columns:auto auto;justify-content:center;align-items:start;gap:28px clamp(24px,5vw,56px)}
+.post-everywhere .pe-grid{display:grid;grid-template-columns:auto auto;justify-content:center;align-items:start;gap:28px clamp(24px,5vw,56px)}
 .post-everywhere .pe-col{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
 .post-everywhere .pe-hint{margin:18px auto 0;font-size:.7rem;line-height:1.5;color:var(--muted,#86868b);text-align:center;max-width:none}
 .post-everywhere .pe-phone{position:relative;width:min(262px,40vw);container-type:inline-size;aspect-ratio:523.46/1099;-webkit-text-size-adjust:none;text-size-adjust:none;
