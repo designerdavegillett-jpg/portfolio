@@ -106,8 +106,8 @@ const STYLES = `.compliance-states{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#4242
 .compliance-states .phone{width:100%;max-width:240px;margin-inline:auto}
 .compliance-states .lede{font-size:1.2rem;margin-bottom:14px}
 .compliance-states .states{flex-direction:row;flex-wrap:wrap;gap:8px}
-.compliance-states .states li,.compliance-states .states li:last-child{border:0;opacity:1}
-.compliance-states .so{padding:8px 13px 8px 10px;border:1px solid var(--hair);border-radius:999px;background:var(--card);gap:8px;transition:background .2s,border-color .2s}
+.compliance-states .states li,.compliance-states .states li:last-child,.compliance-states .states li:not(.active){border:0;opacity:1}
+.compliance-states .so{width:auto;box-sizing:border-box;padding:8px 13px 8px 10px;border:1px solid var(--hair);border-radius:999px;background:var(--card);gap:8px;transition:background .2s,border-color .2s}
 .compliance-states li.active .so{background:var(--hi);border-color:var(--hi)}
 .compliance-states li.active .so i{box-shadow:none}
 .compliance-states .so h2{font-size:.78rem;letter-spacing:.02em;line-height:1}
