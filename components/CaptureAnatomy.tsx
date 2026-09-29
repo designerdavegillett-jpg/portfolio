@@ -20,6 +20,7 @@ import { useEffect, useRef } from "react";
 const STYLES = `.capture-anatomy{--paper:#f5f5f7; --paper-sunk:#e8e8ed; --ink:#1d1d1f; --ink-2:#424245; --mute:#86868b;
     --hair:rgba(29,29,31,.12); --card:#ffffff; --hi:#0071E3;
     --acc:#FF6B00; --acc-2:#E8935A; --rec:#FF3B30; --spent:#8E97A6;
+    --pt:#FFB020; --pt-2:#F2C97E;
     --panel:#2b2b2e; --panel-text:#FFFFFF; --dim:0.3;
     --sans:var(--font-body),"Inter Tight",system-ui,sans-serif;
     --display:var(--font-condensed),"Archivo",system-ui,sans-serif;
@@ -291,7 +292,7 @@ export default function CaptureAnatomy() {
           nodes.forEach((t,k)=>{const i=base-2+k; const off=i-live;
             t.textContent=SCRIPT[((i%N)+N)%N];
             t.setAttribute('y',(Y0+(i-pos+2)*PITCH).toFixed(2));
-            t.setAttribute('fill',off<0?'var(--mute)':off===0?'var(--acc)':off===1?'var(--acc-2)':'var(--ink)');});
+            t.setAttribute('fill',off<0?'var(--mute)':off===0?'var(--pt)':off===1?'var(--pt-2)':'var(--ink)');});
         }
         function ptFrame(now: number){
           const dt=Math.min(0.05,(now-last)/1000); last=now;
