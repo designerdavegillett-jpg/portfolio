@@ -109,10 +109,10 @@ const STYLES = `.compliance-states{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#4242
 .compliance-states .states{flex-direction:row;flex-wrap:wrap;gap:8px;justify-content:center}
 .compliance-states .states li,.compliance-states .states li:last-child,.compliance-states .states li:not(.active){border:0;opacity:1}
 .compliance-states .so{width:auto;box-sizing:border-box;padding:8px 13px 8px 10px;border:1px solid var(--hair);border-radius:999px;background:var(--card);gap:8px;transition:background .2s,border-color .2s}
-.compliance-states li.active .so{background:var(--hi);border-color:var(--hi)}
+.compliance-states li.active .so{background:var(--card);border-color:var(--hi);box-shadow:inset 0 0 0 1px var(--hi)}
 .compliance-states li.active .so i{box-shadow:none}
 .compliance-states .so h2{font-size:.78rem;letter-spacing:.02em;line-height:1}
-.compliance-states li.active .so h2{color:#fff}
+.compliance-states li.active .so h2{color:var(--hi)}
 .compliance-states .bar{display:none}
 .compliance-states .detail{margin-top:16px;padding:16px 18px}
 .compliance-states .detail .dsc{font-size:14px}
