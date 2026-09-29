@@ -19,6 +19,7 @@ import { useEffect, useRef } from "react";
 const STYLES = `.compliance-states{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#424245; --mute:#86868b;
     --hair:rgba(29,29,31,.12); --card:#ffffff; --hi:#0071E3;
     --sans:var(--font-body),"Inter Tight",system-ui,sans-serif;
+    --ok:#0f7643; --warn:#b45a00; --bad:#dc2626;
     --display:var(--font-condensed),"Archivo",system-ui,sans-serif;}
 .compliance-states *{box-sizing:border-box}
 .compliance-states .phone, .compliance-states .phone *{-webkit-text-size-adjust:none;text-size-adjust:none}
@@ -105,7 +106,7 @@ const STYLES = `.compliance-states{--paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#4242
 .compliance-states .figure{grid-template-columns:1fr;gap:20px}
 .compliance-states .phone{width:100%;max-width:240px;margin-inline:auto}
 .compliance-states .lede{font-size:1.2rem;margin-bottom:14px}
-.compliance-states .states{flex-direction:row;flex-wrap:wrap;gap:8px}
+.compliance-states .states{flex-direction:row;flex-wrap:wrap;gap:8px;justify-content:center}
 .compliance-states .states li,.compliance-states .states li:last-child,.compliance-states .states li:not(.active){border:0;opacity:1}
 .compliance-states .so{width:auto;box-sizing:border-box;padding:8px 13px 8px 10px;border:1px solid var(--hair);border-radius:999px;background:var(--card);gap:8px;transition:background .2s,border-color .2s}
 .compliance-states li.active .so{background:var(--hi);border-color:var(--hi)}
