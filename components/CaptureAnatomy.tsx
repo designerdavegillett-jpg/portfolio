@@ -122,6 +122,10 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
       <!-- dark ground for the drawing -->
       <rect x="-15" y="-15" width="523" height="1099" rx="60" fill="#0d1014"/>
       <rect x="0" y="0" width="493" height="1069" rx="46" fill="#15181d"/>
+      <!-- the camera feed: the photo the app records over, dimmed so the line art still reads -->
+      <clipPath id="camclip"><rect x="0" y="0" width="493" height="1069" rx="46"/></clipPath>
+      <image href="/work/own-the-script/flow/camera.webp" x="0" y="0" width="493" height="1069" preserveAspectRatio="xMidYMid slice" clip-path="url(#camclip)"/>
+      <rect x="0" y="0" width="493" height="1069" rx="46" fill="#0d1014" opacity=".55"/>
       <!-- shell -->
       <rect class="ink" x="-15" y="-15" width="523" height="1099" rx="60" stroke-width="1.5"/>
       <rect class="ink" x="0" y="0" width="493" height="1069" rx="46"/>
