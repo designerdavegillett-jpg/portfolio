@@ -611,7 +611,8 @@ strong {
 .cs-section .prose > p + .personas,
 .cs-section .prose > p + .script-flow,
 .cs-section .prose > p + .caption-placement,
-.cs-section .prose > p + .post-everywhere {
+.cs-section .prose > p + .post-everywhere,
+.cs-section .prose > p + .app-store {
   margin-top: var(--s6);
 }
 
