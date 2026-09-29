@@ -20,10 +20,13 @@ const TABS: [string, string][] = [
   ["Arcade", `<path d="M12 3v8M8 21h8M12 11a3 3 0 1 0 0-6"/><rect x="5" y="15" width="14" height="6" rx="2"/>`],
   ["Search", `<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>`],
 ];
-const SHOTS: [string, string, string][] = [
-  ["A prompter that follows your voice", "flow/camera.webp", "center 30%"],
-  ["Captions you style and place", "caption-bg.webp", "center"],
-  ["One tap posts everywhere", "post-video.webp", "center 30%"],
+/* Screenshot 1: the prompter over the camera feed. Screenshot 2: the caption
+   style and placement screen. Screenshot 3: the finished video. */
+const PT = ["the quiet wealth move. Your", "payment may rise, but more", "of every payment goes to", "the balance instead of", "interest, and you own your"];
+const SHOTS: [string, string][] = [
+  ["A prompter that follows your voice", `<i class="as-scr" style="background-image:url(${IMG}flow/camera.webp);background-position:center 30%"><span class="as-pt">${PT.map((l, k) => `<em class="${k < 2 ? "sp" : k === 2 ? "lv" : k === 3 ? "nx" : ""}">${l}</em>`).join("")}</span></i>`],
+  ["Captions you style and place", `<i class="as-scr as-capscr"><b>Audio &amp; Captions</b><span class="as-vid" style="background-image:url(${IMG}caption-bg.webp)"><span class="as-box">What <em>happens</em><br>to your<br>earnest<br>money?</span></span><span class="as-tiles"><span class="t1"><em>TEXT</em>STYLE</span><span class="t2"><em>TEXT</em>STYLE</span><span class="t3"><em>TEXT</em>STYLE</span></span></i>`],
+  ["One tap posts everywhere", `<i class="as-scr" style="background-image:url(${IMG}post-video.webp);background-position:center 30%"></i>`],
 ];
 const INFO: [string, string, string][] = [
   ["Status", "In review", "App Store"],
@@ -60,7 +63,21 @@ const STYLES = `.app-store{max-width:52rem;margin-block:0 var(--s6,3rem);display
 .app-store .as-shots::-webkit-scrollbar{display:none}
 .app-store .as-shot{flex:none;width:${v(168)};height:${v(336)};border-radius:${v(20)};overflow:hidden;background:#f2f2f7;scroll-snap-align:start;display:flex;flex-direction:column;border:${v(.5)} solid rgba(0,0,0,.08)}
 .app-store .as-shot p{margin:0;padding:${v(14)} ${v(12)} ${v(10)};color:#000;font:700 ${v(15.5)}/1.2 var(--as-f);text-align:center;max-width:none;letter-spacing:-.01em}
-.app-store .as-shot i{flex:1;margin:0 ${v(13)};border-radius:${v(20)} ${v(20)} 0 0;border:${v(5)} solid #0b0f24;border-bottom:0;background-size:cover}
+.app-store .as-shot i{flex:1;margin:0 ${v(13)};border-radius:${v(20)} ${v(20)} 0 0;border:${v(5)} solid #0b0f24;border-bottom:0;background-size:cover;position:relative;overflow:hidden;font-style:normal;display:block}
+.app-store .as-pt{position:absolute;left:${v(6)};right:${v(6)};top:${v(14)};padding:${v(6)} ${v(7)};border-radius:${v(6)};background:rgba(18,20,25,.72);display:flex;flex-direction:column;gap:${v(1)}}
+.app-store .as-pt em{font:700 ${v(8.4)}/1.45 var(--as-f);font-style:normal;color:#fff;white-space:nowrap}
+.app-store .as-pt em.sp{color:#8e97a6}.app-store .as-pt em.lv{color:#FFB020}.app-store .as-pt em.nx{color:#F2C97E}
+.app-store .as-capscr{background:#f3f5f9;display:flex!important;flex-direction:column;align-items:center;padding:${v(10)} ${v(8)} 0}
+.app-store .as-capscr b{align-self:flex-start;font:700 ${v(11)}/1.2 var(--font-ots-serif),"Merriweather",Georgia,serif;color:#111827;margin-bottom:${v(6)}}
+.app-store .as-vid{width:${v(80)};height:${v(142)};border-radius:${v(7)};background:#222 center/100% 100% no-repeat;position:relative;flex:none}
+.app-store .as-box{position:absolute;left:${v(2)};right:${v(2)};top:56%;border:${v(.6)} dashed #fff;text-align:center;font:800 ${v(7.4)}/1.2 var(--font-ots-cap),"Montserrat",system-ui,sans-serif;color:#fff;text-transform:uppercase;text-shadow:0 0 ${v(1)} rgba(0,0,0,.8)}
+.app-store .as-box em{font-style:normal;color:#ffc468}
+.app-store .as-tiles{display:flex;gap:${v(4)};margin-top:${v(9)};width:100%;overflow:hidden}
+.app-store .as-tiles span{flex:none;width:${v(40)};height:${v(26)};border-radius:${v(5)};background:#3f4452;display:flex;flex-direction:column;align-items:center;justify-content:center;font:800 ${v(5.6)}/1.15 var(--font-ots-cap),"Montserrat",system-ui,sans-serif;color:#fff;border:${v(1)} solid #d9dbde}
+.app-store .as-tiles em{font-style:normal;font-size:${v(7.6)}}
+.app-store .as-tiles .t1{border:${v(1.5)} solid #007bff}.app-store .as-tiles .t1 em{color:#f4c542}
+.app-store .as-tiles .t2 em,.app-store .as-tiles .t2{color:#fff}.app-store .as-tiles .t2{background:#3f4452;box-shadow:inset 0 0 0 ${v(4)} #3f4452,inset 0 0 0 ${v(20)} #c66643}
+.app-store .as-tiles .t3 em{color:#3ddc84}
 .app-store .as-desc{margin:0 ${v(20)};font:400 ${v(15)}/1.35 var(--as-f);color:#000;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-width:none}
 .app-store .as-more{margin:${v(2)} ${v(20)} 0;text-align:right;color:#007aff;font:400 ${v(15)}/1.2 var(--as-f)}
 .app-store .as-tabs{position:absolute;left:0;right:0;bottom:0;height:${v(84)};background:rgba(249,249,249,.94);border-top:${v(.5)} solid #d1d1d6;display:flex;justify-content:space-around;padding-top:${v(7)};color:#999}
@@ -77,10 +94,10 @@ const MARKUP = `<div class="as-phone" role="img" aria-label="Own the Script's Ap
     <div class="as-sb"><span>9:41</span><span class="as-isl"></span>${SB}</div>
     <div class="as-nav">${ic(`<path d="m15 18-6-6 6-6"/>`)}Search</div>
     <div class="as-hd"><div class="as-icon"></div>
-      <div class="as-meta"><b>Own the Script</b><small>Video for loan officers</small>
+      <div class="as-meta"><b>Own the Script</b><small>Short-form viral videos</small>
         <div class="as-row"><span class="as-get">Coming soon</span>${ic(`<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>`)}</div></div></div>
     <div class="as-info">${INFO.map(([a, b, c]) => `<div><span>${a}</span><b>${b}</b><small>${c}</small></div>`).join("")}</div>
-    <div class="as-shots">${SHOTS.map(([t, src, pos]) => `<div class="as-shot"><p>${t}</p><i style="background-image:url(${IMG}${src});background-position:${pos}"></i></div>`).join("")}</div>
+    <div class="as-shots">${SHOTS.map(([t, inner]) => `<div class="as-shot"><p>${t}</p>${inner}</div>`).join("")}</div>
     <p class="as-desc">Record a short video with a prompter that follows your voice. Every export carries your NMLS ID and the Equal Housing mark, and one tap posts it to every platform you connect.</p>
     <div class="as-more">more</div>
     <div class="as-tabs">${TABS.map(([n, d]) => `<span${n === "Search" ? ' class="on"' : ""}>${ic(d)}${n}</span>`).join("")}</div>
