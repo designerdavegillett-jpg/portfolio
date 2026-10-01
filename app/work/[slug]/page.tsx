@@ -50,8 +50,10 @@ export async function generateMetadata({
      written for the card, not for a SERP, so prefer an explicit short one. */
   const description = study.seoDescription ?? study.summary;
   const image = study.image?.src;
+  const isDraft = draftStudies.some((s) => s.slug === slug);
 
   return {
+    ...(isDraft ? { robots: { index: false, follow: false } } : {}),
     title: study.title,
     description,
     alternates: { canonical: `/work/${study.slug}` },
@@ -272,9 +274,17 @@ export default async function CaseStudyPage({
                         </div>
                       )}
 
-                      {rest.map((para, i) => (
-                        <p key={i}>{para}</p>
-                      ))}
+                      {rest.map((para, i) => {
+                        /* A paragraph whose every line starts with "• " is a list. */
+                        const lines = para.split("\n");
+                        return lines.every((l) => l.startsWith("• ")) ? (
+                          <ul key={i} className="cs-list">
+                            {lines.map((l) => <li key={l}>{l.slice(2)}</li>)}
+                          </ul>
+                        ) : (
+                          <p key={i}>{para}</p>
+                        );
+                      })}
                     </>
                   );
                 })()}

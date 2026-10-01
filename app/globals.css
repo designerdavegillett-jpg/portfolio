@@ -341,6 +341,20 @@ strong {
 .cs-section[data-layout="two-col"] .prose p + p {
   margin-top: var(--s4);
 }
+.prose .cs-list {
+  margin: var(--s3) 0 0;
+  padding-left: 1.1rem;
+  max-width: var(--measure, 34rem);
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.68;
+}
+.prose .cs-list li + li {
+  margin-top: 0.35rem;
+}
+.prose .cs-list + p {
+  margin-top: var(--s4);
+}
 .cs-section[data-layout="wide"] .figure,
 .cs-section[data-layout="full"] .figure,
 .cs-section[data-layout="two-col"] .figure {
