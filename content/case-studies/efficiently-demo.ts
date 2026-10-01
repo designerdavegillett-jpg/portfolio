@@ -25,7 +25,7 @@ export const efficientlyDemo: CaseStudy[] = [
       transparent: true,
     },
     summary:
-      "A house gets built out of thousands of small decisions and almost none of them have one owner. I designed the first two stages of a platform meant to hold all of them in one place: a plans canvas for measuring and placing finishes, an item schedule that carries the approval workflow, a design book for presenting selections, and a portal where the homeowner says yes. One item record sits underneath all of it, so a decision made anywhere is visible everywhere.",
+      "Interior designers were building client presentations by hand. Every item meant finding it, finding an image, copying its details line by line and fixing the formatting, then making the same change again in the item schedule. One missed update between the two could cost a build weeks and thousands of dollars in restocking and replacement fees.",
     year: "2020-2026",
     platform: "Cloud web app",
     role: "Senior Product & Systems Designer. Interaction model, UI, UX, team direction",
