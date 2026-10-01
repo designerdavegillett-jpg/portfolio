@@ -26,10 +26,10 @@ export const efficientlyDemo: CaseStudy[] = [
     },
     summary:
       "Interior designers were building client presentations by hand. Every item meant finding it, finding an image, copying its details line by line and fixing the formatting, then making the same change again in the item schedule. One missed update between the two could cost a build weeks and thousands of dollars in restocking and replacement fees.",
-    year: "2020-2026",
-    platform: "Cloud web app",
+    year: "",
+    platform: "",
     role: "Senior Product & Systems Designer. Interaction model, UI, UX, team direction",
-    team: "A product design team that started as just me and grew to 8, under my direction",
+    team: "",
     tags: [
       "Systems Design",
       "Information Architecture",

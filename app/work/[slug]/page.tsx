@@ -170,9 +170,9 @@ export default async function CaseStudyPage({
           style={{ "--d": ".6s", marginTop: "2rem" } as React.CSSProperties}
         >
           <span>{study.role}</span>
-          <span>{study.team}</span>
-          <span>{study.platform}</span>
-          <span>{study.year}</span>
+          {study.team && <span>{study.team}</span>}
+          {study.platform && <span>{study.platform}</span>}
+          {study.year && <span>{study.year}</span>}
         </div>
 
         {!study.hideHero && (
