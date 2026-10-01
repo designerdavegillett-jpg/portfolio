@@ -171,11 +171,16 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     await E.reach(X.x, X.y, { arc: 0.12 }); if (!ok()) return false;
     await wait(380); if (!ok()) return false;
     await E.click(); if (!ok()) return false;
+    await hide();
+    return true;
+  }
+
+  /* Slide the panel away and lift the scrim. */
+  const hide = async () => {
     panel.animate([{ transform: "translateX(0)" }, { transform: OFF }], { duration: 300, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" });
     scrim.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, fill: "forwards" });
     await wait(300);
-    return true;
-  }
+  };
 
   const closeState = () => {
     scroller.scrollTop = 0;
@@ -194,5 +199,5 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     scrim.style.opacity = "1";
   };
 
-  return { K, hover, show, tour, closeState, reset, reducedShow };
+  return { K, P, X, measure, at, hover, show, hide, tour, closeState, reset, reducedShow };
 }

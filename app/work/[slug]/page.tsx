@@ -20,6 +20,7 @@ import AppStoreListing from "@/components/AppStoreListing";
 import BookDrop from "@/components/BookDrop";
 import ItemDetails from "@/components/ItemDetails";
 import ItemSchedule from "@/components/ItemSchedule";
+import BookSync from "@/components/BookSync";
 
 /**
  * Serialise structured data for a <script> tag. A "<" anywhere in a case
@@ -228,6 +229,7 @@ export default async function CaseStudyPage({
                       {[section.interactive].flat().includes("book-drop") && <BookDrop />}
                       {[section.interactive].flat().includes("item-details") && <ItemDetails />}
                       {[section.interactive].flat().includes("item-schedule") && <ItemSchedule />}
+                      {[section.interactive].flat().includes("book-sync") && <BookSync />}
                       {section.figures && section.figures.length > 0 && (
                         <div className="figures">
                           {section.figures.map((fig) => (
