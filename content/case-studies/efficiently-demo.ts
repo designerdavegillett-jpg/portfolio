@@ -12,7 +12,7 @@ import type { CaseStudy } from "./types";
 export const efficientlyDemo: CaseStudy[] = [
   {
     slug: "efficiently-demo",
-    title: "Efficiently",
+    title: "Efficiently - Phase 1: Designer",
     headline:
       "Efficiently: A single-source-of-truth SaaS platform for residential construction.",
     status: "Shipped",
