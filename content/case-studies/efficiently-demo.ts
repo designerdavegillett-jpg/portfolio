@@ -25,7 +25,7 @@ export const efficientlyDemo: CaseStudy[] = [
       transparent: true,
     },
     summary:
-      "Interior designers were building client presentations by hand. Every item meant finding it, finding an image, copying its details line by line and fixing the formatting, then making the same change again in the item schedule. One missed update between the two could cost a build weeks and thousands of dollars in restocking and replacement fees.",
+      "An Interior Designer needs multiple applications to present their clients with finish item options for their project. An application to manage the finish schedule and item data, one to create a visually appealing presentation of the items, and more to manage/edit images and documents.",
     year: "",
     platform: "",
     role: "Senior Product & Systems Designer. Interaction model, UI, UX, team direction",
