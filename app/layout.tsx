@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter_Tight, Archivo, Geist, Geist_Mono, Merriweather, Merriweather_Sans, Montserrat } from "next/font/google";
+import { Fraunces, Inter_Tight, Archivo, Geist, Geist_Mono, Merriweather, Merriweather_Sans, Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteBanner from "@/components/SiteBanner";
@@ -35,6 +35,8 @@ const archivo = Archivo({
    phone renders exactly as the app does. */
 const merriweather = Merriweather({ subsets: ["latin"], weight: ["700"], variable: "--font-ots-serif", display: "swap" });
 const merriweatherSans = Merriweather_Sans({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-ots-sans", display: "swap" });
+/* Efficiently's app face, for the design book figures only (components/book). */
+const openSans = Open_Sans({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-eff-sans", display: "swap" });
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-ots-cap", display: "swap" });
 
 const interTight = Inter_Tight({
@@ -79,7 +81,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${interTight.variable} ${archivo.variable} ${geist.variable} ${geistMono.variable} ${merriweather.variable} ${merriweatherSans.variable} ${montserrat.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${interTight.variable} ${archivo.variable} ${geist.variable} ${geistMono.variable} ${merriweather.variable} ${merriweatherSans.variable} ${montserrat.variable} ${openSans.variable}`}>
       <body>
         <SiteBanner />
         <SiteHeader />

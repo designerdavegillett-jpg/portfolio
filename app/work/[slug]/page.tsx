@@ -17,6 +17,8 @@ import ScriptFlow from "@/components/ScriptFlow";
 import CaptionPlacement from "@/components/CaptionPlacement";
 import PostEverywhere from "@/components/PostEverywhere";
 import AppStoreListing from "@/components/AppStoreListing";
+import BookDrop from "@/components/BookDrop";
+import ItemDetails from "@/components/ItemDetails";
 
 /**
  * Serialise structured data for a <script> tag. A "<" anywhere in a case
@@ -220,6 +222,8 @@ export default async function CaseStudyPage({
                       {[section.interactive].flat().includes("caption-placement") && <CaptionPlacement />}
                       {[section.interactive].flat().includes("post-everywhere") && <PostEverywhere />}
                       {[section.interactive].flat().includes("app-store") && <AppStoreListing />}
+                      {[section.interactive].flat().includes("book-drop") && <BookDrop />}
+                      {[section.interactive].flat().includes("item-details") && <ItemDetails />}
                       {section.figures && section.figures.length > 0 && (
                         <div className="figures">
                           {section.figures.map((fig) => (

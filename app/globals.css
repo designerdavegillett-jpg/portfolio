@@ -612,7 +612,9 @@ strong {
 .cs-section .prose > p + .script-flow,
 .cs-section .prose > p + .caption-placement,
 .cs-section .prose > p + .post-everywhere,
-.cs-section .prose > p + .app-store {
+.cs-section .prose > p + .app-store,
+.cs-section .prose > p + .book-drop,
+.cs-section .prose > p + .item-details {
   margin-top: var(--s6);
 }
 
