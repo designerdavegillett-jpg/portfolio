@@ -344,10 +344,15 @@ strong {
 .prose .cs-list {
   margin: var(--s3) 0 0;
   padding-left: 1.1rem;
+  list-style: disc outside;
   max-width: var(--measure, 34rem);
   color: var(--ink-soft);
   font-size: 0.86rem;
   line-height: 1.68;
+}
+.prose .cs-list li {
+  display: list-item;
+  list-style: inherit;
 }
 .prose .cs-list li + li {
   margin-top: 0.35rem;
