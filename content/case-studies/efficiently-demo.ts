@@ -51,7 +51,7 @@ export const efficientlyDemo: CaseStudy[] = [
       {
         heading: "Catalog & Item Management",
         body: "The company already had an aggregated item catalog consisting of 4 million+ finish items that we would use as a data source and a system that we could use to allow designers to cultivate their own catalog should we not have the item they are looking for. I added an item management system that used the current catalog as a database so users could create or upload their curated items as well.",
-        interactive: ["book-drop", "item-details"],
+        interactive: ["book-drop", "item-details", "item-schedule"],
       },
     ],
   },
