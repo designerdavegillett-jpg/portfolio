@@ -46,7 +46,7 @@ export const efficientlyDemo: CaseStudy[] = [
       },
       {
         heading: "The Solution",
-        body: "Build a cloud-based platform that serves as a single source of item information, allowing interior designers to build beautifully formatted, luxury-level presentations and maintain pervasive item data throughout the project’s item schedule. We also introduced an approval management system concept that all designers validated as a high-value time- and effort-relief function.",
+        body: "Build a cloud-based platform that serves as a single source of item information, allowing interior designers to build beautifully formatted, luxury-level presentations and maintain pervasive item data throughout the project’s item schedule. We also introduced an approval management system concept that all designers validated as highly valuable.",
       },
       {
         heading: "Catalog & Item Management",
