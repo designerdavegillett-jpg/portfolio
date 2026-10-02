@@ -59,7 +59,7 @@ export const efficientlyDemo: CaseStudy[] = [
             body: "When a designer couldn't find an item in the catalog, they could add it themselves with a photo, the details they had and the item's documents. It went into My items and could be used on any project like any catalog item.",
           },
           "book-drop": {
-            title: "Placing items on the page",
+            title: "Placing items on the canvas",
             body: "Every item assigned to the room shows up in the list beside the page. A designer drags an item onto a spot on the page and it lands formatted, image and details included, and the list marks which page it's on.",
           },
           "item-details": {
