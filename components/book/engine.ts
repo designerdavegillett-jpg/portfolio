@@ -25,7 +25,7 @@ export const inside = (p: Pt, r: Rect) => p.x >= r.x && p.x <= r.x + r.w && p.y 
 /* Minimum-jerk: the bell-shaped speed curve of a real hand. */
 export const mj = (t: number) => t * t * t * (10 - 15 * t + 6 * t * t);
 
-export const STYLES = `.bk{--hi:#0071E3;--app:var(--font-eff-sans,"Open Sans"),system-ui,sans-serif;margin-block:0 var(--s5,2rem);max-width:none;width:80%}
+export const STYLES = `.bk{--hi:#0071E3;--app:var(--font-eff-sans,"Open Sans"),system-ui,sans-serif;margin-block:24px var(--s5,2rem);max-width:none;width:80%}
 @media (max-width:767px){.bk{width:auto}}
 .bk *{box-sizing:border-box}
 .bk .bk-stage{position:relative;width:100%;aspect-ratio:1366/768;overflow:hidden;border-radius:8px;background:#1e1f21;box-shadow:0 0 0 1px rgba(29,29,31,.1);cursor:pointer;-webkit-tap-highlight-color:transparent}
