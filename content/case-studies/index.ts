@@ -3,7 +3,6 @@ import { efficientlyStudies } from "./efficiently";
 import { passportStudies } from "./passport";
 import { ownTheScriptStudies } from "./own-the-script";
 import { soroStudies } from "./soro";
-import { efficientlyDemo } from "./efficiently-demo";
 
 export type { CaseStudy, SelectedItem };
 
@@ -19,7 +18,7 @@ export const caseStudies: CaseStudy[] = [
 ];
 
 /** Studies that resolve by URL but are not listed, and are marked noindex. */
-export const draftStudies: CaseStudy[] = [...efficientlyDemo];
+export const draftStudies: CaseStudy[] = [];
 
 /** Rows under "Also" on the home page. Drop a row once its case study is live. */
 export const selectedWork: SelectedItem[] = [];

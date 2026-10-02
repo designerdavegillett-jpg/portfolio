@@ -17,9 +17,9 @@ export default function WorkCard({ study }: { study: CaseStudy }) {
         <div className="card-body reveal" style={{ "--d": ".12s" } as React.CSSProperties}>
           <p>{study.summary}</p>
           <div className="card-facts">
-            <span>{study.platform}</span>
-            <span>{study.role}</span>
-            <span>{study.year}</span>
+            {study.platform && <span>{study.platform}</span>}
+            {study.role && <span>{study.role}</span>}
+            {study.year && <span>{study.year}</span>}
           </div>
         </div>
       </div>

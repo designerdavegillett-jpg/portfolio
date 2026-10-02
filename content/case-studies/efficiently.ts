@@ -1,26 +1,16 @@
 import type { CaseStudy } from "./types";
 
 /**
- * Efficiently, 2020-2026. Owned by the "Efficiently" workstream.
- * Case study 1 of 3: the system. 2 (density ceiling) and 3 (AI prototype) come later.
+ * Efficiently, Phase 1: Designer. Owned by the "Efficiently" workstream.
+ * Rebuilt on 2026-10-02 from the efficiently-demo draft; the previous version
+ * of this page is in git history.
  *
- * Adding an image to a section: drop the file in /public/work/<slug>/ then add
- *
- *   figures: [
- *     {
- *       src: "/work/design-finish-selection/item-id-model.png",
- *       alt: "Four bathroom locations pointing at item ID TO-01, a fifth at TO-02.",
- *       caption: "Change what TO-01 points at and four bathrooms change. The fifth was never listening.",
- *       size: "wide", // or "text" to hold it to the prose measure
- *     },
- *   ]
- *
- * alongside `heading` and `body`. Multiple figures stack in order.
+ * Bullets: a paragraph whose lines all start with "• " renders as a list.
  */
 export const efficientlyStudies: CaseStudy[] = [
   {
     slug: "design-finish-selection",
-    title: "Efficiently",
+    title: "Efficiently - Phase 1: Designer",
     headline:
       "Efficiently: A single-source-of-truth SaaS platform for residential construction.",
     status: "Shipped",
@@ -33,11 +23,11 @@ export const efficientlyStudies: CaseStudy[] = [
       transparent: true,
     },
     summary:
-      "A house gets built out of thousands of small decisions and almost none of them have one owner. I designed the first two stages of a platform meant to hold all of them in one place: a plans canvas for measuring and placing finishes, an item schedule that carries the approval workflow, a design book for presenting selections, and a portal where the homeowner says yes. One item record sits underneath all of it, so a decision made anywhere is visible everywhere.",
-    year: "2020-2026",
-    platform: "Cloud web app",
+      "An Interior Designer needs multiple applications to present their clients with finish item options for their project. An application to manage the finish schedule and item data, one to create a visually appealing presentation of the items, and more to manage/edit images and documents.",
+    year: "",
+    platform: "",
     role: "Senior Product & Systems Designer. Interaction model, UI, UX, team direction",
-    team: "A product design team that started as just me and grew to 8, under my direction",
+    team: "",
     tags: [
       "Systems Design",
       "Information Architecture",
@@ -48,178 +38,41 @@ export const efficientlyStudies: CaseStudy[] = [
       "B2B SaaS",
     ],
     sections: [
-      /* ---------- PROBLEM ---------- */
       {
-        heading: "The Question Nobody Owns",
-        body: "Try this. A homeowner standing in a half-built house points at a tile sample and says yes.\n\nWhat happens next?\n\nSomebody records that yes. Somebody decides whether the homeowner was even the person authorized to say it, or whether their spouse gets a vote, or the architect, or all three. Somebody tells the supplier. Somebody cuts a purchase order. Someone receives the pallet, inspects it, installs it. And if that tile gets discontinued between the yes and the pallet, every one of those people is now working from an answer that stopped being true.\n\nNone of those questions are hard, which is the maddening part. Each one has an obvious answer, and the answers live in a drawing set, an email thread, a spreadsheet, a set of shop drawings, and somebody's text messages, so answering one of them quietly breaks another.\n\nThe company started here because the founder had built his own house and lived through exactly this. When I joined we went and checked whether it generalized, talking to luxury builders and to people who had built. It did, and what came back loudest was money. A change gets requested, the request doesn't reach whoever placed the order in time, the range has already shipped, and now there's a restocking fee. One missed message can cost tens of thousands of dollars. On a large build that isn't a rare disaster, it's a Tuesday.\n\nSo: one record of a build, from the first drawing to the last warranty, where every stakeholder can see where any item stands. This case study covers the first two stages of it.",
-        figures: [
-          {
-            src: "/work/design-finish-selection/01-cascade.svg",
-            width: 1600,
-            height: 558,
-            alt: "One decision branching into records, approvals, purchase orders, delivery and installation, with loops back to the start.",
-            caption: "Every one of these is answerable. None of them lives in the same place as the others.",
-          },
-        ],
+        heading: "The Problem",
+        body: "We interviewed 50+ designers ranging from single-designer studios to entire teams of interior designers to find out what their design process consisted of and what parts of that process drove their pain points, time drifts, and reduction in client satisfaction. The exhaustive list was quite large, but we were able to pinpoint several consistent data points that we established as the foundation for our relief effort ;)\n\nConsistent pain points:\n\n• Inconsistent formatting and spacing across canvas elements.\n• Universal alignment drift, often requiring manual workarounds like ruler guides and duplicating past presentations.\n• Moving elements easily breaks the alignment of surrounding text and images.\n• Changing an item requires copy/pasting from one program to another.\n• Images needed to be at spec prior to being imported.\n\nItem data was a manual chore. Adding an item to the canvas was a series of events. Find the item, get an image, copy and paste the item details line by line, and format the text. Most designers would duplicate the text and paste in new item details to maintain formatting, but the data consistency and manual copy/paste activity were a large source of consternation. Replacing an item on the canvas was also a replay of the same frustrating events.\n\nAny updates to the items in the client presentation had to be manually edited in the item schedule. In extreme cases, one forgotten item update in the item schedule could cost a build weeks in setbacks and thousands of dollars in restocking and replacement fees. A cascading effect in negative reputation and client trust is an expensive byproduct as a result.",
+        interactive: "copy-paste",
       },
       {
-        heading: "Six People Who Want Opposite Things",
-        body: "Six kinds of people touch a single finish selection, and they want opposite things from the same screen.\n\nThree are specialists, there for their own discipline and impatient with anything outside it: the architect, the interior designer, the supplier. Three are generalists who move the whole project and mainly need to know where things stand: the project manager, the general contractor, and the homeowner.\n\nThe homeowner is the one everybody designs past. They're the decision maker, the reviewer, the person whose signature ends the argument. And they're the only person on that list doing this once in their life, surrounded by professionals who do it fifty times a year. A screen a project manager finds efficient can be genuinely alarming to someone who has never read a finish schedule.\n\nThere's no splitting the difference. A dense screen doesn't get friendlier when you add whitespace, and a friendly one doesn't get more capable when you add columns. So we stopped trying to make one screen serve both and built different doors into the same room.\n\nDeciding who we weren't building for took longer than deciding who we were. That ruled out quick remodels and single-finish projects like a repaint or a tub swap. A tool that tries to be right for a bathtub replacement and a fourteen-room custom build is pleasant for neither, and the gravity pulls toward the bathtub every time, because the bathtub demos in ninety seconds.",
-      },
-
-      /* ---------- SOLUTION ---------- */
-      {
-        heading: "Three Surfaces, One Record",
-        body: "Before anybody drew a screen we wrote down what a person is trying to get done in these two stages, written as tasks rather than features. Read the drawings. Measure areas to pull quantities out of them. Place finish elements and notate distances between them. Then curate and select items plus alternatives, talk to the people who approve, and review, replace, present, around again, because that loop is the job. Almost nothing gets chosen once.\n\nThat list settled arguments for six years. Whenever a feature debate stalled we went back and asked which of those it served.\n\nWhat came out of it was three working areas, plus the catalog that feeds them and the portal where the homeowner says yes. The plans page, where you measure and place. The item schedule, where you operate. The design book, where you persuade.\n\nSchedules are already how construction handles finishes, and every party on a job can read one without being taught, so we built with that instead of around it.\n\nThe hard part was making all three the same thing underneath. The item is the atomic unit and every surface is a view of the same record, never a copy. Put an item on a design book page and it appears in the schedule. Tag it on the plans and that physical location is bound to the selection. Approve it, reject it, ask for a change, and it reads that way everywhere it appears.",
-        figures: [
-          {
-            src: "/work/design-finish-selection/08-propagation.svg",
-            width: 1600,
-            height: 655,
-            alt: "The same item shown in two surfaces, both carrying the same approval status.",
-            caption: "Approve it once. It reads that way everywhere it appears.",
-          },
-        ],
+        heading: "The Solution",
+        body: "Build a cloud-based platform that serves as a single source of item information, allowing interior designers to build beautifully formatted, luxury-level presentations and maintain pervasive item data throughout the project’s item schedule. We also introduced an approval management system concept that all designers validated as highly valuable.",
       },
       {
-        heading: "One Item, Many Places",
-        body: "A location doesn't hold an item. It holds an item ID, and the ID holds the item.\n\nFive bathrooms. You want the same toilet in four of them and something better in the primary. Mark the five locations on the plans, a click each. No items chosen yet. Make an ID called TO-01 and assign it to four of them. Make TO-02 and give it to the fifth. Now pick the toilet for TO-01 and all four bathrooms fill at once.\n\nSix months later the budget is bleeding and toilets are a painless place to take some of it back. Change what TO-01 points at. All four change. The primary doesn't, because it was never listening. The model earns its keep on lighting, where a large house can carry a hundred can lights under one ID.\n\nStructurally that's a placeholder that many places point at, the same shape as a component and its instances, except the instances are physical objects sitting in rooms. It's powerful and it isn't free, because it asks a person to hold an abstraction: the ID is not the toilet, it's a slot the toilet fills. What that cost added up to across the whole platform is a longer story and it gets its own case study.\n\nAll of it works without plans, which mattered more than we expected. Plenty of projects arrive with no drawings, or with drawings the architect hasn't released yet. You can build the entire thing in the schedule, and if plans turn up later the navigation already mirrors the structure you built, so nobody starts over.",
-        interactive: "item-details",
-        figures: [
-          {
-            src: "/work/design-finish-selection/05-item-id-model.svg",
-            width: 1600,
-            height: 907,
-            alt: "Five bathroom locations, four assigned to item ID TO-01 and one to TO-02, with the item each ID resolves to.",
-            caption: "Change what TO-01 points at and four bathrooms change. The fifth was never listening.",
+        heading: "The Platform Design",
+        body: "The company already had an aggregated item catalog consisting of 4 million+ finish items that we would use as a data source and a system that we could use to allow designers to cultivate their own catalog should we not have the item they are looking for. I added an item management system that used the current catalog as a database so users could create or upload their curated items as well.",
+        interactive: ["catalog-add", "book-drop", "item-details", "item-schedule", "book-sync"],
+        interactiveCopy: {
+          "catalog-add": {
+            title: "Adding your own item",
+            body: "When a designer couldn't find an item in the catalog, they could add it themselves with a photo, the details they had and the item's documents. It went into My items and could be used on any project like any catalog item.",
           },
-        ],
-      },
-      {
-        heading: "What a Rejection Costs",
-        body: "Saying no in the client portal is one button. It means two entirely different things depending on when somebody presses it.\n\nDuring selection it is cheap. The homeowner rejects an item, the designer is told, the designer picks again. Nobody else hears about it, because nobody else is affected yet.\n\nAfter approval, the same button starts a different machine. The item has moved on by then. Somebody has ordered it, or scheduled around it, or built something that assumes it is coming. So the project manager works out what is still possible, finds whoever is holding that item now, and gathers the real scope and cost of changing it. Then that number goes back to the homeowner as a decision: approve the change order, or cancel it and build what was already agreed.\n\nEverything upstream of the approval gate exists to keep rejections in the cheap version of that story.\n\nIt also settled who gets told what. A rejection during selection reaches one person. A rejection after approval reaches the person who can price it and the person who has to pay for it, and nobody else until there is something for them to do. Notifications followed consequence. A system tends to drop that rule as soon as it has a notification service and a list of everyone on the project.\n\nThe same logic covers an item that stops existing. Pulling a discontinued item off the page is the clean implementation, and it's wrong, because now the page has changed and nobody knows why. We put a badge over the image instead. The selection stays where it is, visibly dead, and somebody still has to decide what to do about it.",
-        figures: [
-          {
-            src: "/work/design-finish-selection/19-rejection-cost.svg",
-            width: 1600,
-            height: 743,
-            alt: "Two paths from the same rejection: three steps during selection, six steps and three people after approval.",
-            caption: "The same action, taken at two different moments. Timing is the whole difference between a loop and a change order.",
+          "book-drop": {
+            title: "Placing items on the canvas",
+            body: "Every item assigned to the room shows up in the list beside the page. A designer drags an item onto a spot on the page and it lands formatted, image and details included, and the list marks which page it's on.",
           },
-          {
-            src: "/work/design-finish-selection/07-discontinued-badge.svg",
-            width: 1600,
-            height: 663,
-            alt: "An item on a design book page with a discontinued status badge over its image.",
-            caption: "The selection stays where it is, visibly dead. Someone still has to decide what to do about it.",
-            size: "text",
+          "item-details": {
+            title: "Item details without leaving the page",
+            body: "Clicking an item opens its details beside the list so the page stays in view. Replace and Remove sit at the top, followed by the photo, specs, every location using that Item ID and the item's documents.",
           },
-        ],
-      },
-
-      /* ---------- PROCESS ---------- */
-      {
-        heading: "Measuring Before Choosing",
-        body: "Upload the architectural set and scale it so measurements come out true. Then hide most of it. A three story house arrives with a stack of sheets and today you need three of them, so you turn the rest off. Small feature, and it's the difference between a page you can think on and a filing cabinet.\n\nOnce it's scaled you can take off quantities. Draw the floor of a room and you get its square footage. Draw the walls and you get theirs. That measured region is a finish area, and an area carries a number, so when you assign a material to it you get a real quantity out the other side.\n\nA location is the other kind of thing: an object that sits somewhere. A refrigerator, a bed, a toilet, a light. It has no area, it has a place.\n\nAreas and locations are the two ways a finish exists in a house. Separating them early meant the quantity math and the placement logic never had to fight each other, which is the sort of decision nobody thanks you for and everybody would have suffered from.",
-        figures: [
-          {
-            src: "/work/design-finish-selection/04-area-vs-location.svg",
-            width: 1600,
-            height: 697,
-            alt: "A drawing showing a measured floor area alongside placed point locations for fixtures.",
-            caption: "An area carries a number. A location carries a place. Almost everything downstream depends on keeping those apart.",
+          "item-schedule": {
+            title: "Replacing an item from the schedule",
+            body: "The Item Schedule holds the same items as the Design Book. Replace opens the catalog already filtered to the item's division and type, since nothing else would be a valid replacement. Picking a new item updates every location that uses that Item ID. If the previous item was already approved, replacing it puts it back into Change Request status.",
           },
-        ],
-      },
-      {
-        heading: "Inside the Design Book",
-        body: "Two page sizes, two orientations. 11x17 and 11x8.5, portrait or landscape, and that's the entire menu.\n\nThat came out of research, not taste. We collected the books designers were already making. The sample had all sorts of sizes in it, but the bulk landed on those two, and the reason was mundane and completely decisive: those are the sizes an office can print itself. Anything else means sending a file out and waiting on it. Constraining the canvas to what somebody could hold in their hands an hour from now killed off a whole category of layout problems before anyone had to hit one.\n\nThe item box is where the actual design is. It's a placeholder with four addressable zones around it: above, below, left, right. Pick something from the catalog and it drops onto the page bound to the catalog record, and the zones around it can surface any field on that record, each formatted on its own terms. Save the arrangement as a style and any item in the book can wear it with one click.\n\nThe default is the part I'd defend hardest. Nothing arrives naked and waiting for you to format it. An item lands already correct, and everything past that is available rather than required.\n\nThe quadrant model is mine, concept and implementation both. It comes out of magazine work early in my career, where you learn fast how little of a well-set spread is talent. Mostly it's alignment. Put guardrails on alignment and a non-designer gets further than they have any right to, and the designers speed up too, because they stop doing arithmetic with their eyes. Every interior designer we talked to was doing this by hand, and rebuilding the alignment by hand every time a selection changed.\n\nPermissions run on the same separation. Any element locks and unlocks with a click, and a firm can lock the elements inside a template so its standards travel with the file. A locked book isn't a frozen book, though: the layout is a view of the items, so you can freeze the view and keep changing what it's looking at. That's what lets a firm hand a junior a book they can fill and can't wreck.",
-        interactive: "book-drop",
-        figures: [
-          {
-            src: "/work/design-finish-selection/design-book.webp",
-            alt: "A design book spread in the editor, laying out selections for a primary bathroom across a two page layout.",
-            caption:
-              "The design book itself. Every diagram below it is an explanation of something happening on this screen.",
-            width: 1600,
-            height: 1100,
-            transparent: true,
+          "book-sync": {
+            title: "Keeping the book in sync",
+            body: "When an item changes in the schedule, the room list in the book updates right away. The page keeps the item it was laid out with and marks it Outdated, and Update on that tag swaps the new item in.",
           },
-          {
-            src: "/work/design-finish-selection/09-quadrant-item-box.svg",
-            width: 1600,
-            height: 879,
-            alt: "An item box on the canvas with four zones around it holding the item name, SKU, and size and color, each formatted differently.",
-            caption: "Four addressable zones around the image. Every field on the record, formatted on its own terms.",
-          },
-          {
-            src: "/work/design-finish-selection/10-style-swap.svg",
-            width: 1600,
-            height: 692,
-            alt: "The same catalog item rendered under two different saved styles.",
-            caption: "Save the arrangement as a style and any item in the book can wear it with one click.",
-          },
-          {
-            src: "/work/design-finish-selection/11-page-sizes.svg",
-            width: 1600,
-            height: 734,
-            alt: "The new book dialog offering two page sizes in portrait and landscape.",
-            caption: "The entire menu. Both sizes print in a designer's own office.",
-            size: "text",
-          },
-          {
-            src: "/work/design-finish-selection/12-permissions.svg",
-            width: 1600,
-            height: 470,
-            alt: "The request to edit flow: a viewer requests access, the senior is notified, one click approves.",
-            caption: "Locked layout, live content. A junior can fill the book and cannot wreck it.",
-            size: "text",
-          },
-        ],
-      },
-      {
-        heading: "The Half-Pixel Problem",
-        body: "One thing about the canvas bothered me for a long time, and it's small enough that explaining it feels like a confession.\n\nA canvas puts elements on a pixel grid. The whole point is that when you nudge something one pixel, the next thing lines up to that exact intersection without anybody guessing. The first implementation didn't enforce it. An element could sit at x.7, and the guides couldn't save you because the thing you were aligning to wasn't on the grid either. Zoom in far enough and you could watch an element sitting halfway inside a pixel.\n\nThere were two fixes. Grid lines belong on the boundary where pixels meet, not through the middle of them, so an element can sit cleanly on either side of a line. And the guides had been scaling with the zoom, getting fatter the further you magnified, which made precision worse exactly when you were reaching for it. A guide should be one pixel wide however far in you go.\n\nSame category, different surface: the measurement crosshair on the plans page has to stay visible over every value from paper white to solid black, so it's a one pixel black cross with a one pixel white outline, thin enough to still point at something precisely.\n\nNone of that goes on a roadmap, but it decides whether a designer trusts the tool with client work or goes back to doing it by hand.",
-        figures: [
-          {
-            src: "/work/design-finish-selection/13-half-pixel.svg",
-            alt: "A zoomed comparison of an element at a fractional pixel position beside the same element snapped to the pixel boundary.",
-            caption: "Left, an element sitting halfway inside a pixel with a guide thickened by zoom. Right, what it should have been.",
-            width: 1600,
-            height: 803,
-          },
-          {
-            src: "/work/design-finish-selection/14-crosshair.svg",
-            width: 1600,
-            height: 700,
-            alt: "The measurement crosshair magnified over a light area and a dark area of a drawing.",
-            caption: "One pixel black, one pixel white outline. Findable on paper white and on solid black.",
-          },
-        ],
-      },
-      {
-        heading: "Two Things I Got Wrong",
-        body: "The first version of the item box only took catalog items, and images were a separate object entirely. It should have been one box from the start that could hold either. I didn't see it until we'd already built it, and we went back and redesigned it. The cost landed softly because the rebuild happened alongside functions that needed writing anyway, but the misread was mine and it was avoidable.\n\nThe second one I caught before it cost anything. On a different module, a directory of manufacturers, I pushed for a card grid. Big images, four or five across, scrolling forever. It got approved, and then I looked at it again and realized I'd manufactured a visual hierarchy that made the information harder to read than plain rows and columns would have been. The cards looked more interesting and read worse. We caught it before it went to dev.\n\nThat one taught me a distinction I now hold from experience. Cards are for looking at a thing and deciding whether you want it. Lists are for finding out where things stand. The manufacturer directory was a list job that I'd dressed up as a browsing job.\n\nIt's the same split that runs through the whole product. The design book is for persuasion. It's a terrible operations surface, and a contractor who needs a running account of what's chosen and where it stands will not page through a document. The table won on scannability, and it happened to be the format the industry already ran on.",
-        figures: [
-          {
-            src: "/work/design-finish-selection/16-cards-i-got-wrong.svg",
-            width: 1600,
-            height: 954,
-            alt: "The manufacturer card grid beside the list layout that replaced it.",
-            caption: "My card grid, and the boring rows that were correct. I argued for the wrong one.",
-            size: "text",
-          },
-        ],
-      },
-      {
-        heading: "The Homeowner's Front Door",
-        body: "The homeowner gets their own entrance, and it looks nothing like the rest of the application.\n\nThey sign in and land on their house. If an architect has provided plans they get the floor plan and navigate it. If there are no plans they get a list of rooms. Either way they go into a room and see what's been proposed for it.\n\nThey see large cards instead of a schedule, with the item photographed in the color that was actually selected. Open one and there's more detail, any alternatives the designer put forward, and somewhere to say something. People building a luxury house expect a surface that feels like one, so it's white, spacious and quiet.\n\nIf they'd rather have one of the alternatives, choosing it doesn't swap the item. It files a change request back to whoever holds selection authority. That's deliberate. The alternative might be discontinued, or on back order long enough to stall a trade, or wrong for a reason the designer knows and the homeowner has no way to know. The system shouldn't quietly settle something a person is better placed to settle.\n\nNotification is a daily summary, never one message per event. A designer working through a room can touch twenty items in an afternoon. Twenty emails is noise, and the fastest way to teach somebody to ignore your product is to email them twenty times about it.\n\nThe thing I'd point at, and I didn't notice it for years: this surface runs on a simpler structure than the rest of the platform. No item IDs. No sub-levels underneath the room. Just rooms and the things in them, which is how a person actually thinks about a house. It's also the easiest part of the product to use. I've come to think those two facts are the same fact.",
-      },
-
-      /* ---------- RESULT ---------- */
-      {
-        heading: "What Happened",
-        body: "The platform is in real use. A luxury residential development runs its builds on it exclusively, and it isn't the only one. That still gives me a jolt, because you spend a year arguing about how a guide renders at zoom and then somebody builds actual houses with it.\n\nWe wrote success criteria before we built anything. Are we saving people time and money. Is it quick to work in. Can they drop other tools. Are mistakes caught earlier. Is communication between stakeholders better. Good questions, and nobody instrumented a single one of them, so I can't give you a number and I'm not going to invent one.\n\nWhat I can count is what got built. Two of a project's six stages, end to end. Three working surfaces plus a catalog and a client portal. Six stakeholder types with genuinely opposed needs, handled by giving them different doors instead of splitting differences. An item model that carries its own state to every place it appears. Six years of it, and a product design team that started as just me and grew to eight, which I built and mentored and would take anywhere.\n\nThe story of who ended up using this, and why, turned out to be more interesting than any of it. That one gets its own case study.",
+        },
       },
     ],
   },
