@@ -93,6 +93,16 @@ export const STYLES = `.bk{--hi:#0071E3;--app:var(--font-eff-sans,"Open Sans"),s
 .bk .bk-guide.on{display:flex}
 .bk .bk-guide i{width:9px;height:9px;border-radius:50%;background:#ff6a3d;flex:none}
 .bk .bk-guide button{margin-left:auto;font:inherit;color:inherit;background:transparent;border:1px solid rgba(29,29,31,.16);border-radius:999px;padding:.35rem .7rem;cursor:pointer}
+.bk .bk-cd{position:absolute;inset:0;z-index:30;display:grid;place-items:center;background:rgba(15,16,18,.45);opacity:0;pointer-events:none;transition:opacity .25s;cursor:default}
+.bk .bk-cd.on{opacity:1;pointer-events:auto}
+.bk .bk-cd>div{display:grid;justify-items:center;gap:.8rem;padding:1.1rem 1.4rem;border-radius:14px;background:rgba(29,29,31,.88);color:#fff;font:500 .85rem/1.3 var(--font-body),"Inter Tight",system-ui,sans-serif;box-shadow:0 12px 36px rgba(0,0,0,.35)}
+.bk .bk-cd b{display:inline-block;min-width:1.2em;text-align:center;font-variant-numeric:tabular-nums}
+.bk .bk-cd p{display:flex;gap:.5rem;margin:0}
+.bk .bk-cd button{font:600 .75rem/1 var(--font-body),"Inter Tight",system-ui,sans-serif;border-radius:999px;padding:.55rem .95rem;cursor:pointer;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff}
+.bk .bk-cd button[data-c="play"]{background:#fff;color:#1d1d1f;border-color:#fff}
+.bk .bk-pz{position:absolute;inset:0;z-index:29;display:grid;place-items:center;background:rgba(15,16,18,.25);opacity:0;pointer-events:none;transition:opacity .2s}
+.bk .bk-pz.on{opacity:1}
+.bk .bk-pz span{display:flex;align-items:center;gap:.5rem;padding:.7rem 1.1rem .7rem .85rem;border-radius:999px;background:rgba(29,29,31,.88);color:#fff;font:600 .8rem/1 var(--font-body),"Inter Tight",system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 @media (prefers-reduced-motion:reduce){.bk *{transition:none!important}.bk .bk-replay,.bk .bk-ctl{display:none}}`;
 
 const HAND_OPEN = `<path d="M18 11V6a2 2 0 0 0-4 0"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>`;
@@ -397,19 +407,56 @@ export function controller(
   { reset, loop, reduced }: { reset: () => void; loop: (id: number) => void; reduced: boolean },
 ) {
   let playing = false, stopped = false, started = false;
-  /* Watch the demo, or try it: the same script, waiting on the viewer's clicks. */
+  /* Play the demo, or try it: the same script, waiting on the viewer's clicks. */
   let mode: "watch" | "try" = "watch";
   const ctl = document.createElement("div");
   ctl.className = "bk-ctl";
-  ctl.innerHTML = `<div class="bk-mode" role="group" aria-label="Demo mode"><button type="button" data-m="watch" class="on">Watch demo</button><button type="button" data-m="try">Try it yourself</button></div>`;
+  ctl.innerHTML = `<div class="bk-mode" role="group" aria-label="Demo mode"><button type="button" data-m="watch" class="on">Play demo</button><button type="button" data-m="try">Try it yourself</button></div>`;
   replay.parentElement?.insertBefore(ctl, replay);
   ctl.appendChild(replay);
   const guide = document.createElement("div");
   guide.className = "bk-guide";
   guide.innerHTML = `<i></i><span>Click the marked spot to start</span><button type="button">Skip step</button>`;
   (replay.closest(".bk-bar") ?? stage).insertAdjacentElement("afterend", guide);
-  E.G.onStep = (label) => { if (label) guide.querySelector("span")!.textContent = `Next: ${label}`; else guide.querySelector("span")!.textContent = "Watch what happens…"; };
+  E.G.onStep = (label) => { guide.querySelector("span")!.textContent = label ? `Next: ${label}` : "Watch what happens…"; };
+
+  /* Coming into view, the figure waits 8 seconds before the demo plays, so
+     the viewer can choose to try it instead. */
+  const COUNT = 8;
+  const cd = document.createElement("div");
+  cd.className = "bk-cd";
+  cd.innerHTML = `<div><span>Demo starts in <b>${COUNT}</b></span><p><button type="button" data-c="play">Play demo</button><button type="button" data-c="try">Try it yourself</button></p></div>`;
+  stage.appendChild(cd);
+  let timer = 0;
+  const stopCount = () => {
+    window.clearInterval(timer);
+    timer = 0;
+    cd.classList.remove("on");
+  };
+  const countdown = () => {
+    E.halt();
+    setPaused(false);
+    E.setGuided(false);
+    reset();
+    let n = COUNT;
+    cd.querySelector("b")!.textContent = String(n);
+    cd.classList.add("on");
+    window.clearInterval(timer);
+    timer = window.setInterval(() => {
+      n--;
+      cd.querySelector("b")!.textContent = String(n);
+      if (n <= 0) { stopCount(); start(); }
+    }, 1000);
+  };
+  const onCd = (e: Event) => {
+    e.stopPropagation();
+    const c = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-c]")?.dataset.c;
+    if (c === "play") setMode("watch");
+    else if (c === "try") setMode("try");
+  };
+
   const setMode = (m: "watch" | "try") => {
+    stopCount();
     mode = m;
     ctl.querySelectorAll<HTMLButtonElement>(".bk-mode button").forEach((b) => b.classList.toggle("on", b.dataset.m === m));
     guide.classList.toggle("on", m === "try");
@@ -419,13 +466,15 @@ export function controller(
   };
   const onMode = (e: Event) => {
     const m = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-m]")?.dataset.m as "watch" | "try" | undefined;
-    if (m && m !== mode) setMode(m);
+    if (m) setMode(m);
   };
   const onSkip = () => E.advance();
   ctl.addEventListener("click", onMode);
+  cd.addEventListener("click", onCd);
   guide.querySelector("button")!.addEventListener("click", onSkip);
   const start = () => {
     E.halt();
+    setPaused(false);
     E.setGuided(mode === "try");
     reset();
     E.C.cycleStart = E.now();
@@ -437,8 +486,11 @@ export function controller(
       es.forEach((e) => {
         if (e.isIntersecting && !started && !stopped) {
           started = true;
-          start();
-        } else if (!e.isIntersecting && playing && mode === "watch") {
+          if (mode === "try") start();
+          else countdown();
+        } else if (!e.isIntersecting && mode === "watch" && (playing || timer)) {
+          stopCount();
+          setPaused(false);
           playing = false;
           started = false;
           E.halt();
@@ -447,15 +499,21 @@ export function controller(
       }),
     { threshold: 0.35 },
   );
+  /* A click on a playing demo pauses it; another click plays it on. */
+  const pz = document.createElement("div");
+  pz.className = "bk-pz";
+  pz.innerHTML = `<span><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></svg>Paused, click to play</span>`;
+  stage.appendChild(pz);
+  const setPaused = (on: boolean) => {
+    E.C.paused = on;
+    pz.classList.toggle("on", on);
+  };
   const onStage = () => {
-    if (mode === "try") return;
-    if (playing) {
-      stopped = true;
-      playing = false;
-      E.halt();
-    }
+    if (mode === "try" || timer || !playing) return;
+    setPaused(!E.C.paused);
   };
   const onReplay = () => {
+    stopCount();
     stopped = false;
     started = true;
     start();
@@ -466,10 +524,13 @@ export function controller(
     replay.addEventListener("click", onReplay);
   }
   return () => {
+    stopCount();
     io.disconnect();
     stage.removeEventListener("click", onStage);
     replay.removeEventListener("click", onReplay);
     guide.remove();
+    cd.remove();
+    pz.remove();
     ctl.removeEventListener("click", onMode);
   };
 }
