@@ -17,7 +17,6 @@ export const efficientlyDemo: CaseStudy[] = [
       "Efficiently: A single-source-of-truth SaaS platform for residential construction.",
     status: "Shipped",
     visual: "canvas",
-    heroInteractive: "copy-paste",
     image: {
       src: "/work/design-finish-selection/three-surfaces.webp",
       alt: "Three Efficiently screens overlapping: the plans canvas with a room highlighted on a floor plan, the design book laying out primary bathroom selections, and the item schedule listing locations with approval statuses.",
@@ -44,6 +43,7 @@ export const efficientlyDemo: CaseStudy[] = [
       {
         heading: "The Problem",
         body: "We interviewed 50+ designers ranging from single-designer studios to entire teams of interior designers to find out what their design process consisted of and what parts of that process drove their pain points, time drifts, and reduction in client satisfaction. The exhaustive list was quite large, but we were able to pinpoint several consistent data points that we established as the foundation for our relief effort ;)\n\nConsistent pain points:\n\n• Inconsistent formatting and spacing across canvas elements.\n• Universal alignment drift, often requiring manual workarounds like ruler guides and duplicating past presentations.\n• Moving elements easily breaks the alignment of surrounding text and images.\n• Changing an item requires copy/pasting from one program to another.\n• Images needed to be at spec prior to being imported.\n\nItem data was a manual chore. Adding an item to the canvas was a series of events. Find the item, get an image, copy and paste the item details line by line, and format the text. Most designers would duplicate the text and paste in new item details to maintain formatting, but the data consistency and manual copy/paste activity were a large source of consternation. Replacing an item on the canvas was also a replay of the same frustrating events.\n\nAny updates to the items in the client presentation had to be manually edited in the item schedule. In extreme cases, one forgotten item update in the item schedule could cost a build weeks in setbacks and thousands of dollars in restocking and replacement fees. A cascading effect in negative reputation and client trust is an expensive byproduct as a result.",
+        interactive: "copy-paste",
       },
       {
         heading: "The Solution",
