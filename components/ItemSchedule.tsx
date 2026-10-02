@@ -1,22 +1,24 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { IMG, STYLES as BASE, CURSOR, engine, controller, inside, wait, type Rect } from "@/components/book/engine";
+import { IMG, STYLES as BASE, CURSOR, engine, controller, inside, wait, mj, type Rect } from "@/components/book/engine";
 import { PANEL, panelCss, panelKit } from "@/components/book/details";
 
 /**
  * Replace an item from the Item Schedule. The schedule is Dave's Figma frame
  * 55053:100960 with its rows changed to the Design Book's items (copy at
  * 55056:99609), exported at 2x. The hand clicks the PL-02 tag on LOC 3, the
- * Book's details panel slides in from the right, Replace opens the Catalog,
- * and the Kohler showerhead is picked. The panel and both locations that use
- * PL-02 (LOC 3 and LOC 4) change to the new item.
+ * Book's details panel slides in from the right, and Replace flies the
+ * Catalog in over 8/9 of the screen: search across the top, filters down the
+ * left, a scrolling grid of item cards. The hand scrolls the grid, filters to
+ * Shower Heads and selects the Kohler showerhead. The panel and both
+ * locations that use PL-02 (LOC 3 and LOC 4) change to the new item.
  *
- * The updated item cells (cell-kohler.webp) are cut from the same frame with
- * the Kohler item from Figma 54642:109696 dropped in. Row hover, the tag ring,
- * the Catalog picker and the toast are designs, not captures: the Figma file
- * has no frame for them. Same contract as the other figures. See
- * components/book/engine.ts and components/book/details.ts.
+ * Card images come from the item photos in the Figma file (Book page tiles,
+ * room list thumbnails and the Kohler item at 54642:109696), cut to 436x328.
+ * Row hover, the tag ring, the Catalog and the toast are designs, not
+ * captures: the Figma file has no frame for them. Same contract as the other
+ * figures. See components/book/engine.ts and components/book/details.ts.
  */
 
 /* Item rows in design px: B114 Primary Bathroom, then B115 Shower. */
@@ -26,13 +28,68 @@ const SAME = [4, 5]; // every row that uses PL-02
 const tag = (y: number): Rect => ({ x: 423, y: y + 9.5, w: 34, h: 15 });
 const HOME = { x: 700, y: 200 };
 
+type Card = { k: string; brand: string; name: string; style: string; finish: string; sw: string; cat: string };
+/* Catalog results, in "Relevance" order. */
+const CARDS: Card[] = [
+  { k: "elysian", brand: "Elysian", name: `Transitional 12" Rain Shower Head`, style: "ELY-2190", finish: "Brushed Silver", sw: "#c9cdd2", cat: "Shower Heads" },
+  { k: "lyra", brand: "Lyra", name: "Wall Faucet", style: "LYR-7356", finish: "Solid Brass", sw: "#c8a265", cat: "Faucets" },
+  { k: "aurelia", brand: "Aurelia", name: "Freestanding Tub", style: "AUR-4821", finish: "Calacatta Marble", sw: "#e8e4dc", cat: "Tubs" },
+  { k: "vita", brand: "Vita", name: "Vessel Sink", style: "VTA-3278", finish: "Travertine Stone", sw: "#cdb79a", cat: "Sinks" },
+  { k: "drain", brand: "Universal", name: `48" Channel Shower Drain`, style: "UNSD48", finish: "Stainless Steel", sw: "#b9bdc2", cat: "Drains" },
+  { k: "finot", brand: "Finot", name: "Pressure Balance Control Valve Trim", style: "NPB160", finish: "Polished Nickel", sw: "#d9d6d0", cat: "Valves & Trim" },
+  { k: "solo", brand: "Solo", name: "Towel Ring · Seamless Hoop", style: "LD15G1", finish: "Brushed Brass", sw: "#b8955a", cat: "Bath Accessories" },
+  { k: "serena", brand: "Serena", name: "Double Vanity", style: "SRN-5043", finish: "Fluted Oak", sw: "#b98e62", cat: "Vanities" },
+  { k: "kohler", brand: "Kohler", name: "Statement Multifunction Showerhead", style: "26290-BN", finish: "Vibrant Brushed Nickel", sw: "#9a9a96", cat: "Shower Heads" },
+  { k: "saddle", brand: "Saddle", name: "Porcelain Wood Tile", style: "FN-02", finish: "Natural Oak", sw: "#c2a887", cat: "Tile" },
+];
+const PICK = "Shower Heads";
+const count = (c: string) => CARDS.filter((x) => x.cat === c).length;
+
 const ICON = (d: string, w = 15, sw = 2) =>
   `<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
-const SEARCH = ICON(`<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>`, 15);
+const SEARCH = ICON(`<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>`, 16);
 const CLOSE = ICON(`<path d="M18 6 6 18M6 6l12 12"/>`, 16);
+const XS = ICON(`<path d="M18 6 6 18M6 6l12 12"/>`, 11, 2.6);
 const CARET = ICON(`<path d="m6 9 6 6 6-6"/>`, 14);
 const PLUS = ICON(`<path d="M12 5v14M5 12h14"/>`, 14, 2.2);
 const CHECK = ICON(`<path d="M20 6 9 17l-5-5"/>`, 14, 2.6);
+const TICK = ICON(`<path d="M20 6 9 17l-5-5"/>`, 11, 3.4);
+const GRID = ICON(`<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>`, 15);
+const LIST = ICON(`<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>`, 15);
+
+const box = (label: string, n: number | string, on = false, k = "") =>
+  `<div class="bk-fr${on ? " on" : ""}"${k ? ` data-f="${k}"` : ""}><span class="bk-cb">${TICK}</span><span class="l">${label}</span><span class="n">${n}</span></div>`;
+const FINISHES: [string, string][] = [["Brushed Silver", "#c9cdd2"], ["Brushed Nickel", "#9a9a96"], ["Brushed Brass", "#b8955a"], ["Polished Chrome", "#e6e8ea"], ["Matte Black", "#2b2b2b"], ["Natural Stone", "#cdb79a"]];
+const CATS = [...new Set(CARDS.map((c) => c.cat))];
+
+const FILTERS = `<div class="bk-fl">
+<div class="bk-fh"><b>Filters</b><span>Clear all</span></div>
+<div class="bk-fs"><div class="bk-label">Source</div>${box("Efficiently Catalog", "4M+", true)}${box("My items", 37, true)}</div>
+<div class="bk-fs"><div class="bk-label">Division</div>${box("Plumbing", 8)}${box("Finishes", 1)}${box("Casework", 1)}</div>
+<div class="bk-fs"><div class="bk-label">Category</div>${CATS.map((c) => box(c, count(c), false, c === PICK ? "pick" : "")).join("")}</div>
+<div class="bk-fs"><div class="bk-label">Finish</div><div class="bk-sws">${FINISHES.map(([n, c]) => `<span class="bk-swc"><i style="background:${c}"></i>${n}</span>`).join("")}</div></div>
+<div class="bk-fs"><div class="bk-label">Brand</div>${box("Aurelia", 1)}${box("Elysian", 1)}${box("Finot", 1)}${box("Kohler", 1)}</div>
+<div class="bk-ffade"></div>
+</div>`;
+
+const CARD = (c: Card) => `<div class="bk-card" data-k="${c.k}" data-cat="${c.cat}">
+<div class="bk-ci"><img src="${IMG}cat-${c.k}.webp" alt="">${c.k === "elysian" ? `<span class="bk-now">Current · PL-02</span>` : ""}<span class="bk-sel">Select</span></div>
+<div class="bk-ct"><div class="t"><b>${c.brand}</b> ${c.name}</div><div class="s">Style: ${c.style}</div><div class="f"><i style="background:${c.sw}"></i>${c.finish}</div></div>
+</div>`;
+
+const CATALOG = `<div class="bk-cat">
+<div class="bk-chd">
+<div class="bk-ch"><h4>Catalog</h4><p>Replacing <b>PL-02</b> · Shower Head / Ceiling Mounted · LOC 3, LOC 4</p><div class="bk-x">${CLOSE}</div></div>
+<div class="bk-srow"><div class="bk-in">${SEARCH}<span>Search 4 million+ items by name, brand, style or SKU</span></div><div class="bk-add">${PLUS}Add your own item</div></div>
+</div>
+<div class="bk-cb2">
+${FILTERS}
+<div class="bk-gw">
+<div class="bk-gt"><b class="bk-cnt">${CARDS.length} results</b><span class="bk-chip">${PICK}${XS}</span><span class="bk-sort">Sort: <b>Relevance</b>${CARET}</span><span class="bk-view"><i class="on">${GRID}</i><i>${LIST}</i></span></div>
+<div class="bk-gs"><div class="bk-grid">${CARDS.map(CARD).join("")}</div></div>
+</div>
+</div>
+</div>`;
 
 const STYLES = `${BASE}
 .item-schedule .bk-cell{position:absolute;left:369px;width:277px;height:46px;opacity:0}
@@ -44,34 +101,62 @@ const STYLES = `${BASE}
 .item-schedule .bk-tag{position:absolute;left:423px;width:34px;height:15px;border-radius:3px;box-shadow:0 0 0 1.5px var(--hi);background:rgba(0,113,227,.1);opacity:0;transition:opacity .12s ease;pointer-events:none}
 .item-schedule .bk-tag.on{opacity:1}
 ${panelCss(".item-schedule", "right")}
-.item-schedule .bk-mscrim{position:absolute;left:0;top:48px;right:0;bottom:0;background:rgba(10,11,12,.38);opacity:0;pointer-events:none}
-.item-schedule .bk-cat{position:absolute;left:177px;top:150px;width:640px;display:flex;flex-direction:column;gap:14px;padding:20px 22px 18px;background:#1c1e20;border:1px solid #000;border-radius:10px;box-shadow:0 24px 60px rgba(0,0,0,.5);color:#fff;opacity:0;transform:translateY(8px) scale(.98)}
-.item-schedule .bk-ch{display:flex;align-items:flex-start;gap:12px}
-.item-schedule .bk-ch h4{margin:0;font-size:17px;font-weight:700;line-height:1.2}
-.item-schedule .bk-ch p{margin:4px 0 0;font-size:12px;color:#a9acb0}
-.item-schedule .bk-ch .bk-x{margin-left:auto}
-.item-schedule .bk-srow{display:flex;gap:8px}
-.item-schedule .bk-in{flex:1;height:36px;display:flex;align-items:center;gap:8px;padding:0 12px;border-radius:6px;background:#2a2c2f;border:1px solid #3a3d41;font-size:13px;color:#fff}
-.item-schedule .bk-in svg{color:#8d9095}
-.item-schedule .bk-dd{height:36px;display:flex;align-items:center;gap:6px;padding:0 12px;border-radius:6px;background:#36383b;font-size:12.5px;color:#a9acb0}
-.item-schedule .bk-dd b{color:#fff;font-weight:600}
-.item-schedule .bk-res{display:grid;gap:6px}
-.item-schedule .bk-res>.bk-label{border-top:0;padding-top:0}
-.item-schedule .bk-it{display:flex;align-items:center;gap:14px;height:76px;padding:0 14px 0 10px;border-radius:6px;background:#26282b;transition:background-color .14s}
-.item-schedule .bk-it.hot{background:#303337}
-.item-schedule .bk-it img{width:56px;height:56px;border-radius:4px;background:#fff;flex:none}
-.item-schedule .bk-it div{flex:1;min-width:0}
-.item-schedule .bk-it .t{font-size:13.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.item-schedule .bk-it .s{font-size:12px;color:#a9acb0;margin-top:3px}
-.item-schedule .bk-cur-tag{height:24px;display:flex;align-items:center;padding:0 9px;border-radius:5px;background:#36383b;color:#a9acb0;font-size:11.5px;font-weight:600}
-.item-schedule .bk-pick{height:28px;display:flex;align-items:center;padding:0 14px;border-radius:6px;background:#36383b;color:#fff;font-size:12px;font-weight:600;transition:background-color .14s}
-.item-schedule .bk-pick.hot{background:var(--hi)}
-.item-schedule .bk-own{display:flex;align-items:center;gap:6px;padding-top:12px;border-top:1px solid #303235;font-size:12.5px;color:#a9acb0}
-.item-schedule .bk-own span{display:flex;align-items:center;gap:4px;color:#8fc1ff;font-weight:600}
+.item-schedule .bk-mscrim{position:absolute;left:0;top:48px;right:0;bottom:0;background:rgba(10,11,12,.42);opacity:0;pointer-events:none}
+.item-schedule .bk-cat{position:absolute;left:152px;top:48px;width:1214px;height:720px;display:flex;flex-direction:column;background:#1c1e20;border-left:1px solid #000;box-shadow:-24px 0 48px rgba(0,0,0,.4);color:#fff;transform:translateX(102%)}
+.item-schedule .bk-chd{flex:none;padding:16px 24px 16px;border-bottom:1px solid #303235;display:grid;gap:12px}
+.item-schedule .bk-ch{display:flex;align-items:baseline;gap:14px}
+.item-schedule .bk-ch h4{margin:0;font-size:18px;font-weight:700}
+.item-schedule .bk-ch p{margin:0;font-size:12.5px;color:#a9acb0}
+.item-schedule .bk-ch p b{color:#fff;font-weight:600}
+.item-schedule .bk-ch .bk-x{margin-left:auto;align-self:center}
+.item-schedule .bk-srow{display:flex;gap:10px}
+.item-schedule .bk-in{flex:1;height:40px;display:flex;align-items:center;gap:10px;padding:0 14px;border-radius:6px;background:#2a2c2f;border:1px solid #3a3d41;font-size:13.5px;color:#7d8086}
+.item-schedule .bk-add{height:40px;display:flex;align-items:center;gap:6px;padding:0 14px;border-radius:6px;background:#36383b;font-size:12.5px;font-weight:600;white-space:nowrap}
+.item-schedule .bk-cb2{flex:1;min-height:0;display:grid;grid-template-columns:248px 1fr;grid-template-rows:minmax(0,1fr)}
+.item-schedule .bk-fl{position:relative;overflow:hidden;padding:14px 20px 0;border-right:1px solid #303235;display:grid;gap:14px;align-content:start}
+.item-schedule .bk-fh{display:flex;justify-content:space-between;align-items:baseline;font-size:14px}
+.item-schedule .bk-fh span{font-size:12px;color:#8fc1ff;font-weight:600}
+.item-schedule .bk-fs{display:grid;gap:2px}
+.item-schedule .bk-fs .bk-label{padding:12px 0 6px;font-size:10.5px}
+.item-schedule .bk-fr{display:flex;align-items:center;gap:9px;height:26px;padding:0 6px;margin:0 -6px;border-radius:4px;font-size:12.5px;color:#d5d7da;transition:background-color .12s}
+.item-schedule .bk-fr.hot{background:#2c2e31}
+.item-schedule .bk-fr .l{flex:1}
+.item-schedule .bk-fr .n{font-size:11px;color:#8d9095}
+.item-schedule .bk-cb{width:15px;height:15px;flex:none;border-radius:3px;border:1.5px solid #5a5d62;display:grid;place-items:center;color:transparent;transition:background-color .12s,border-color .12s,color .12s}
+.item-schedule .bk-fr.on .bk-cb{background:var(--hi);border-color:var(--hi);color:#fff}
+.item-schedule .bk-sws{display:flex;flex-wrap:wrap;gap:6px}
+.item-schedule .bk-swc{display:flex;align-items:center;gap:6px;height:24px;padding:0 9px 0 5px;border-radius:12px;background:#2a2c2f;font-size:11px;color:#c3c5c9}
+.item-schedule .bk-swc i,.item-schedule .bk-ct .f i{width:13px;height:13px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.item-schedule .bk-ffade{position:absolute;left:0;right:0;bottom:0;height:64px;background:linear-gradient(rgba(28,30,32,0),#1c1e20)}
+.item-schedule .bk-gw{min-width:0;min-height:0;display:flex;flex-direction:column}
+.item-schedule .bk-gt{flex:none;height:48px;display:flex;align-items:center;gap:12px;padding:0 24px;font-size:13px}
+.item-schedule .bk-chip{display:flex;align-items:center;gap:6px;height:24px;padding:0 8px 0 10px;border-radius:12px;background:rgba(0,113,227,.22);color:#cfe3ff;font-size:11.5px;font-weight:600;opacity:0;transform:scale(.9)}
+.item-schedule .bk-chip.on{opacity:1;transform:none;transition:opacity .18s,transform .18s}
+.item-schedule .bk-sort{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:12.5px;color:#a9acb0}
+.item-schedule .bk-sort b{color:#fff;font-weight:600}
+.item-schedule .bk-view{display:flex;gap:2px;padding:2px;border-radius:6px;background:#2a2c2f}
+.item-schedule .bk-view i{width:28px;height:24px;display:grid;place-items:center;border-radius:4px;color:#8d9095}
+.item-schedule .bk-view i.on{background:#3a3d41;color:#fff}
+.item-schedule .bk-gs{flex:1;min-height:0;overflow:hidden;position:relative}
+.item-schedule .bk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:4px 24px 24px}
+.item-schedule .bk-card{border-radius:8px;background:#26282b;overflow:hidden;box-shadow:0 0 0 1px transparent;transition:box-shadow .14s,background-color .14s}
+.item-schedule .bk-card.hot{background:#2c2f33;box-shadow:0 0 0 1.5px #5a5e64}
+.item-schedule .bk-card.out{display:none}
+.item-schedule .bk-ci{position:relative;aspect-ratio:436/328;background:#fff}
+.item-schedule .bk-ci img{width:100%;height:100%}
+.item-schedule .bk-now{position:absolute;left:8px;top:8px;height:22px;display:flex;align-items:center;padding:0 8px;border-radius:5px;background:#4f8a9a;color:#fff;font-size:11px;font-weight:600}
+.item-schedule .bk-sel{position:absolute;right:8px;bottom:8px;height:28px;display:flex;align-items:center;padding:0 14px;border-radius:6px;background:#36383b;color:#fff;font-size:12px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.25);opacity:0;transform:translateY(4px);transition:opacity .14s,transform .14s,background-color .14s}
+.item-schedule .bk-card[data-k="elysian"] .bk-sel{display:none}
+.item-schedule .bk-card.hot .bk-sel{opacity:1;transform:none}
+.item-schedule .bk-sel.hot{background:var(--hi)}
+.item-schedule .bk-ct{padding:10px 12px 12px;display:grid;gap:3px}
+.item-schedule .bk-ct .t{font-size:13px;line-height:1.35;height:35px;overflow:hidden}
+.item-schedule .bk-ct .s{font-size:11.5px;color:#a9acb0}
+.item-schedule .bk-ct .f{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#c3c5c9;margin-top:2px}
 .item-schedule .bk-toast{position:absolute;left:497px;top:690px;display:flex;align-items:center;gap:8px;height:38px;padding:0 16px 0 12px;border-radius:8px;background:#1c1e20;color:#fff;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.35);white-space:nowrap;opacity:0;transform:translate(-50%,8px)}
 .item-schedule .bk-toast svg{color:#5fd394}`;
 
-const MARKUP = `<div class="bk-stage" role="img" aria-label="The Item Schedule for the primary bathroom and shower. The PL-02 Item ID on a shower head row is clicked and its details slide in from the right. Replace item opens the Catalog, a different showerhead is picked, and the panel and both shower head rows that use PL-02 change to the new item.">
+const MARKUP = `<div class="bk-stage" role="img" aria-label="The Item Schedule for the primary bathroom and shower. The PL-02 Item ID on a shower head row is clicked and its details slide in from the right. Replace item flies the Catalog in over most of the screen, with search across the top, filters down the left and a grid of item cards. The grid is scrolled, filtered to Shower Heads, and a different showerhead is selected. The panel and both shower head rows that use PL-02 change to the new item.">
 <div class="bk-inner">
 <img class="bk-full" src="${IMG}schedule.webp" alt="">
 ${SAME.map((i) => `<img class="bk-cell" style="top:${ROWS[i] + 1}px" src="${IMG}cell-kohler.webp" alt="">`).join("")}
@@ -80,19 +165,11 @@ ${ROWS.map((y) => `<div class="bk-tag" style="top:${y + 9.5}px"></div>`).join(""
 <div class="bk-toast">${CHECK}PL-02 updated in 2 locations</div>
 ${PANEL}
 <div class="bk-mscrim"></div>
-<div class="bk-cat">
-<div class="bk-ch"><div><h4>Catalog</h4><p>Replacing PL-02 · Shower Head / Ceiling Mounted · LOC 3, LOC 4</p></div><div class="bk-x" data-c="x">${CLOSE}</div></div>
-<div class="bk-srow"><div class="bk-in">${SEARCH}shower head</div><div class="bk-dd">Division: <b>Plumbing</b>${CARET}</div></div>
-<div class="bk-res"><div class="bk-label">2 results</div>
-<div class="bk-it"><img src="${IMG}thumb-elysian.webp" alt=""><div><div class="t"><b>Elysian</b> Transitional 12" Rain Shower Head</div><div class="s">Style: ELY-2190 · Brushed Silver</div></div><span class="bk-cur-tag">Current</span></div>
-<div class="bk-it" data-c="row"><img src="${IMG}thumb-kohler.webp" alt=""><div><div class="t"><b>Kohler</b> Statement Multifunction Showerhead</div><div class="s">Style: 26290-BN · Vibrant Brushed Nickel</div></div><span class="bk-pick" data-c="pick">Select</span></div>
-</div>
-<div class="bk-own">Not in the Catalog?<span>${PLUS}Add your own item</span></div>
-</div>
+${CATALOG}
 ${CURSOR}
 </div>
 </div>
-<div class="bk-bar"><div class="bk-cap">Replace on an Item ID opens the Catalog. Pick the new item and everything using that ID changes with it, the details panel and both shower head locations, LOC 3 and LOC 4.</div><button type="button" class="bk-replay">Replay</button></div>`;
+<div class="bk-bar"><div class="bk-cap">Replace on an Item ID opens the Catalog. Search, filter, pick the new item, and everything using that ID changes with it, the details panel and both shower head locations, LOC 3 and LOC 4.</div><button type="button" class="bk-replay">Replay</button></div>`;
 
 /* The panel before and after the swap. */
 const ITEM = {
@@ -107,15 +184,15 @@ export default function ItemSchedule() {
     const host = root.current;
     if (!host) return;
     const q = <T extends HTMLElement = HTMLElement>(s: string) => host.querySelector<T>(s)!;
+    const qa = <T extends HTMLElement = HTMLElement>(s: string) => [...host.querySelectorAll<T>(s)];
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const stage = q(".bk-stage");
-    const rows = [...host.querySelectorAll<HTMLElement>(".bk-row")];
-    const tags = [...host.querySelectorAll<HTMLElement>(".bk-tag")];
-    const cells = [...host.querySelectorAll<HTMLElement>(".bk-cell")];
+    const rows = qa(".bk-row"), tags = qa(".bk-tag"), cells = qa(".bk-cell");
     const kit = panelKit(host, stage, "right");
     const cat = q(".bk-cat"), mscrim = q(".bk-mscrim"), toast = q(".bk-toast"), body = q(".bk-body");
-    const C = { row: q('[data-c="row"]'), pick: q('[data-c="pick"]') };
-    const btns = [...host.querySelectorAll<HTMLElement>(".bk-btn")];
+    const gs = q(".bk-gs"), cards = qa(".bk-card"), frs = qa(".bk-fr"), chip = q(".bk-chip"), cnt = q(".bk-cnt");
+    const fPick = q('[data-f="pick"]'), kohler = q('[data-k="kohler"]'), sel = kohler.querySelector<HTMLElement>(".bk-sel")!;
+    const btns = qa(".bk-btn");
     let modal = false;
 
     const setItem = (k: "old" | "new") => {
@@ -130,7 +207,24 @@ export default function ItemSchedule() {
       const s = stage.clientWidth / 1366, a = stage.getBoundingClientRect(), b = el.getBoundingClientRect();
       return { x: (b.left - a.left) / s, y: (b.top - a.top) / s, w: b.width / s, h: b.height / s };
     };
-    let hit: { row: Rect; pick: Rect } | null = null;
+    const gsBox = () => box(gs);
+    const scrollGrid = (to: number, dur: number) =>
+      new Promise<void>((res) => {
+        const from = gs.scrollTop, t0 = performance.now();
+        const step = (now: number) => {
+          const u = Math.min(1, (now - t0) / dur);
+          gs.scrollTop = from + (to - from) * mj(u);
+          if (u < 1) requestAnimationFrame(step);
+          else res();
+        };
+        requestAnimationFrame(step);
+      });
+    const setFilter = (on: boolean) => {
+      fPick.classList.toggle("on", on);
+      chip.classList.toggle("on", on);
+      cnt.textContent = `${on ? count(PICK) : CARDS.length} results`;
+      cards.forEach((c) => c.classList.toggle("out", on && c.dataset.cat !== PICK));
+    };
 
     const E = engine(stage, {
       home: HOME,
@@ -138,8 +232,10 @@ export default function ItemSchedule() {
       rows: () => [],
       onFrame(_dt, pt) {
         if (modal) {
-          C.row.classList.toggle("hot", !!hit && inside(pt, hit.row));
-          C.pick.classList.toggle("hot", !!hit && inside(pt, hit.pick));
+          const g = gsBox(), inGrid = inside(pt, g);
+          cards.forEach((c) => c.classList.toggle("hot", inGrid && !c.classList.contains("out") && inside(pt, box(c))));
+          sel.classList.toggle("hot", kohler.classList.contains("hot") && inside(pt, box(sel)));
+          frs.forEach((f) => f.classList.toggle("hot", inside(pt, box(f))));
           return;
         }
         kit.hover(pt);
@@ -163,17 +259,19 @@ export default function ItemSchedule() {
       S.cy = HOME.y;
       S.lock = false;
       modal = false;
-      hit = null;
       E.inner.getAnimations({ subtree: true }).forEach((a) => a.cancel());
       kit.reset();
       kit.closeState();
       setItem("old");
+      setFilter(false);
+      gs.scrollTop = 0;
       rows.forEach((el) => el.classList.remove("on", "sel", "flash", "slow"));
       tags.forEach((el) => el.classList.remove("on"));
-      Object.values(C).forEach((el) => el.classList.remove("hot"));
+      [...cards, ...frs, sel].forEach((el) => el.classList.remove("hot"));
     }
 
     const fwd = { fill: "forwards" as const };
+    const EASE = "cubic-bezier(.32,.72,0,1)";
     async function loop(id: number) {
       const ok = () => id === S.run;
       const t = tag(ROWS[SEL]);
@@ -201,30 +299,48 @@ export default function ItemSchedule() {
         await wait(1000); if (!ok()) return;
         await E.click(); if (!ok()) return;
 
-        /* The Catalog. */
+        /* The Catalog flies in. */
         modal = true;
         btns.forEach((b) => b.classList.remove("hot"));
-        mscrim.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240, ...fwd });
-        cat.animate([{ opacity: 0, transform: "translateY(8px) scale(.98)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: "cubic-bezier(.32,.72,0,1)", ...fwd });
-        await wait(320); if (!ok()) return;
-        hit = { row: box(C.row), pick: box(C.pick) };
-        await E.moveTo(hit.row.x + 260, hit.row.y + 40, { arc: 0.16, dur: 1000 }); if (!ok()) return;
+        mscrim.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, ...fwd });
+        cat.animate([{ transform: "translateX(102%)" }, { transform: "translateX(0)" }], { duration: 560, easing: EASE, ...fwd });
+        await wait(620); if (!ok()) return;
+
+        /* Browse: into the grid, scroll down and back. */
+        await E.moveTo(760, 420, { arc: 0.14, dur: 900 }); if (!ok()) return;
+        await wait(500); if (!ok()) return;
+        await scrollGrid(300, 1400); if (!ok()) return;
+        await wait(900); if (!ok()) return;
+        await E.moveTo(1010, 470, { arc: 0.1, dur: 700 }); if (!ok()) return;
         await wait(700); if (!ok()) return;
-        await E.reach(hit.pick.x + hit.pick.w / 2, hit.pick.y + hit.pick.h / 2 + 1, { arc: -0.08 }); if (!ok()) return;
-        await wait(450); if (!ok()) return;
+        await scrollGrid(0, 900); if (!ok()) return;
+
+        /* Filter to Shower Heads. */
+        { const b = box(fPick); await E.reach(b.x + 14, b.y + b.h / 2, { arc: 0.12 }); } if (!ok()) return;
+        await wait(400); if (!ok()) return;
+        await E.click(); if (!ok()) return;
+        const grid = q(".bk-grid");
+        await grid.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, fill: "forwards" }).finished; if (!ok()) return;
+        setFilter(true);
+        grid.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 260, easing: "ease-out", fill: "forwards" });
+        await wait(800); if (!ok()) return;
+
+        /* Pick the Kohler showerhead. */
+        { const b = box(kohler); await E.reach(b.x + b.w * 0.45, b.y + b.h * 0.35, { arc: 0.14 }); } if (!ok()) return;
+        await wait(800); if (!ok()) return;
+        { const b = box(sel); await E.reach(b.x + b.w / 2, b.y + b.h / 2 + 1, { arc: -0.1 }); } if (!ok()) return;
+        await wait(400); if (!ok()) return;
         await E.click(); if (!ok()) return;
 
-        /* Picked: the Catalog closes, the panel and both locations change. */
-        cat.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "scale(.98)" }], { duration: 200, ...fwd });
-        mscrim.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, ...fwd });
+        /* The Catalog closes, the panel and both locations change. */
         modal = false;
-        C.pick.classList.remove("hot");
-        body.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: "forwards" });
-        await wait(170); if (!ok()) return;
+        [...cards, ...frs, sel].forEach((el) => el.classList.remove("hot"));
+        cat.animate([{ transform: "translateX(0)" }, { transform: "translateX(102%)" }], { duration: 380, easing: "cubic-bezier(.4,0,1,1)", ...fwd });
+        mscrim.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 320, ...fwd });
         setItem("new");
-        body.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, fill: "forwards" });
-        cells.forEach((c) => c.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 420, ...fwd }));
-        toast.animate([{ opacity: 0, transform: "translate(-50%,8px)" }, { opacity: 1, transform: "translate(-50%,0)" }], { duration: 260, easing: "ease-out", ...fwd });
+        body.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 200, fill: "backwards" });
+        cells.forEach((c) => c.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 420, delay: 200, ...fwd }));
+        toast.animate([{ opacity: 0, transform: "translate(-50%,8px)" }, { opacity: 1, transform: "translate(-50%,0)" }], { duration: 260, delay: 300, easing: "ease-out", ...fwd });
         await E.moveTo(kit.P + 200, 420, { arc: 0.12, dur: 700 }); if (!ok()) return;
         await wait(1600); if (!ok()) return;
 
