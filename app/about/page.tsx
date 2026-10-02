@@ -21,7 +21,6 @@ export default function AboutPage() {
 
       <section className="section" style={{ marginTop: "5rem" }}>
         <div className="rail">
-          <div className="label reveal">About</div>
           <div className="sidelist rail-side reveal" style={{ "--d": ".14s" } as React.CSSProperties}>
             <img
               className="about-photo"
