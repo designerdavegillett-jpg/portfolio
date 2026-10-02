@@ -10,12 +10,15 @@ import { PANEL, panelCss, panelKit } from "@/components/book/details";
  * 55056:99609), exported at 2x. The hand clicks the PL-02 tag on LOC 3, the
  * Book's details panel slides in from the right, and Replace flies the
  * Catalog in over 8/9 of the screen: search across the top, filters down the
- * left, a scrolling grid of item cards. The hand scrolls the grid, filters to
- * Shower Heads and selects the Kohler showerhead. The panel and both
+ * left, a scrolling grid of item cards. It opens already filtered to the
+ * item's own division and type (Plumbing, Shower Heads), since nothing else
+ * would be a valid replacement. The hand scrolls and selects the Kohler. The panel and both
  * locations that use PL-02 (LOC 3 and LOC 4) change to the new item.
  *
- * Card images come from the item photos in the Figma file (Book page tiles,
- * room list thumbnails and the Kohler item at 54642:109696), cut to 436x328.
+ * Card images: the item photos in the Figma file (Book page tiles, room list
+ * thumbnails, the Kohler item at 54642:109696) plus eight showerheads from
+ * Pexels and Unsplash (free licenses, no attribution required), cut to
+ * 436x328. Their brand names are invented.
  * Row hover, the tag ring, the Catalog and the toast are designs, not
  * captures: the Figma file has no frame for them. Same contract as the other
  * figures. See components/book/engine.ts and components/book/details.ts.
@@ -32,6 +35,15 @@ type Card = { k: string; brand: string; name: string; style: string; finish: str
 /* Catalog results, in "Relevance" order. */
 const CARDS: Card[] = [
   { k: "elysian", brand: "Elysian", name: `Transitional 12" Rain Shower Head`, style: "ELY-2190", finish: "Brushed Silver", sw: "#c9cdd2", cat: "Shower Heads" },
+  { k: "noir", brand: "Noir", name: `10" Round Rain Shower Head`, style: "NR-1040", finish: "Matte Black", sw: "#2b2b2b", cat: "Shower Heads" },
+  { k: "arc", brand: "Arc", name: "Multifunction Hand Shower on Slide Bar", style: "ARC-520", finish: "Chrome · White", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "metro", brand: "Metro", name: `12" Wall Mount Rain Head`, style: "MTR-1208", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "halo", brand: "Halo", name: `9" Rain Shower Head`, style: "HAL-0907", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "verde", brand: "Verde", name: `10" Round Rain Head`, style: "VRD-1010", finish: "Brushed Nickel", sw: "#9a9a96", cat: "Shower Heads" },
+  { k: "linea", brand: "Linea", name: "Slide Bar Hand Shower", style: "LIN-300", finish: "Chrome · White", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "cascade", brand: "Cascade", name: `14" Ceiling Rain Head`, style: "CSC-1400", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "kohler", brand: "Kohler", name: "Statement Multifunction Showerhead", style: "26290-BN", finish: "Vibrant Brushed Nickel", sw: "#9a9a96", cat: "Shower Heads" },
+  { k: "heritage", brand: "Heritage", name: "Lever Hand Shower", style: "HRT-210", finish: "Antique Brass", sw: "#a87a45", cat: "Shower Heads" },
   { k: "lyra", brand: "Lyra", name: "Wall Faucet", style: "LYR-7356", finish: "Solid Brass", sw: "#c8a265", cat: "Faucets" },
   { k: "aurelia", brand: "Aurelia", name: "Freestanding Tub", style: "AUR-4821", finish: "Calacatta Marble", sw: "#e8e4dc", cat: "Tubs" },
   { k: "vita", brand: "Vita", name: "Vessel Sink", style: "VTA-3278", finish: "Travertine Stone", sw: "#cdb79a", cat: "Sinks" },
@@ -39,7 +51,6 @@ const CARDS: Card[] = [
   { k: "finot", brand: "Finot", name: "Pressure Balance Control Valve Trim", style: "NPB160", finish: "Polished Nickel", sw: "#d9d6d0", cat: "Valves & Trim" },
   { k: "solo", brand: "Solo", name: "Towel Ring · Seamless Hoop", style: "LD15G1", finish: "Brushed Brass", sw: "#b8955a", cat: "Bath Accessories" },
   { k: "serena", brand: "Serena", name: "Double Vanity", style: "SRN-5043", finish: "Fluted Oak", sw: "#b98e62", cat: "Vanities" },
-  { k: "kohler", brand: "Kohler", name: "Statement Multifunction Showerhead", style: "26290-BN", finish: "Vibrant Brushed Nickel", sw: "#9a9a96", cat: "Shower Heads" },
   { k: "saddle", brand: "Saddle", name: "Porcelain Wood Tile", style: "FN-02", finish: "Natural Oak", sw: "#c2a887", cat: "Tile" },
 ];
 const PICK = "Shower Heads";
@@ -65,7 +76,7 @@ const CATS = [...new Set(CARDS.map((c) => c.cat))];
 const FILTERS = `<div class="bk-fl">
 <div class="bk-fh"><b>Filters</b><span>Clear all</span></div>
 <div class="bk-fs"><div class="bk-label">Source</div>${box("Efficiently Catalog", "4M+", true)}${box("My items", 37, true)}</div>
-<div class="bk-fs"><div class="bk-label">Division</div>${box("Plumbing", 8)}${box("Finishes", 1)}${box("Casework", 1)}</div>
+<div class="bk-fs"><div class="bk-label">Division</div>${box("Plumbing", CARDS.length - 2, false, "div")}${box("Finishes", 1)}${box("Casework", 1)}</div>
 <div class="bk-fs"><div class="bk-label">Category</div>${CATS.map((c) => box(c, count(c), false, c === PICK ? "pick" : "")).join("")}</div>
 <div class="bk-fs"><div class="bk-label">Finish</div><div class="bk-sws">${FINISHES.map(([n, c]) => `<span class="bk-swc"><i style="background:${c}"></i>${n}</span>`).join("")}</div></div>
 <div class="bk-fs"><div class="bk-label">Brand</div>${box("Aurelia", 1)}${box("Elysian", 1)}${box("Finot", 1)}${box("Kohler", 1)}</div>
@@ -85,7 +96,7 @@ const CATALOG = `<div class="bk-cat">
 <div class="bk-cb2">
 ${FILTERS}
 <div class="bk-gw">
-<div class="bk-gt"><b class="bk-cnt">${CARDS.length} results</b><span class="bk-chip">${PICK}${XS}</span><span class="bk-sort">Sort: <b>Relevance</b>${CARET}</span><span class="bk-view"><i class="on">${GRID}</i><i>${LIST}</i></span></div>
+<div class="bk-gt"><b class="bk-cnt">${count(PICK)} results</b><span class="bk-chip">Plumbing${XS}</span><span class="bk-chip">${PICK}${XS}</span><span class="bk-sort">Sort: <b>Relevance</b>${CARET}</span><span class="bk-view"><i class="on">${GRID}</i><i>${LIST}</i></span></div>
 <div class="bk-gs"><div class="bk-grid">${CARDS.map(CARD).join("")}</div></div>
 </div>
 </div>
@@ -156,7 +167,7 @@ ${panelCss(".item-schedule", "right")}
 .item-schedule .bk-toast{position:absolute;left:497px;top:690px;display:flex;align-items:center;gap:8px;height:38px;padding:0 16px 0 12px;border-radius:8px;background:#1c1e20;color:#fff;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.35);white-space:nowrap;opacity:0;transform:translate(-50%,8px)}
 .item-schedule .bk-toast svg{color:#5fd394}`;
 
-const MARKUP = `<div class="bk-stage" role="img" aria-label="The Item Schedule for the primary bathroom and shower. The PL-02 Item ID on a shower head row is clicked and its details slide in from the right. Replace item flies the Catalog in over most of the screen, with search across the top, filters down the left and a grid of item cards. The grid is scrolled, filtered to Shower Heads, and a different showerhead is selected. The panel and both shower head rows that use PL-02 change to the new item.">
+const MARKUP = `<div class="bk-stage" role="img" aria-label="The Item Schedule for the primary bathroom and shower. The PL-02 Item ID on a shower head row is clicked and its details slide in from the right. Replace item flies the Catalog in over most of the screen, with search across the top, filters down the left and a grid of item cards. The Catalog opens filtered to plumbing shower heads; the grid is scrolled and a different showerhead is selected. The panel and both shower head rows that use PL-02 change to the new item.">
 <div class="bk-inner">
 <img class="bk-full" src="${IMG}schedule.webp" alt="">
 ${SAME.map((i) => `<img class="bk-cell" style="top:${ROWS[i] + 1}px" src="${IMG}cell-kohler.webp" alt="">`).join("")}
@@ -190,8 +201,8 @@ export default function ItemSchedule() {
     const rows = qa(".bk-row"), tags = qa(".bk-tag"), cells = qa(".bk-cell");
     const kit = panelKit(host, stage, "right");
     const cat = q(".bk-cat"), mscrim = q(".bk-mscrim"), toast = q(".bk-toast"), body = q(".bk-body");
-    const gs = q(".bk-gs"), cards = qa(".bk-card"), frs = qa(".bk-fr"), chip = q(".bk-chip"), cnt = q(".bk-cnt");
-    const fPick = q('[data-f="pick"]'), kohler = q('[data-k="kohler"]'), sel = kohler.querySelector<HTMLElement>(".bk-sel")!;
+    const gs = q(".bk-gs"), cards = qa(".bk-card"), frs = qa(".bk-fr"), chips = qa(".bk-chip"), cnt = q(".bk-cnt");
+    const fPick = q('[data-f="pick"]'), fDiv = q('[data-f="div"]'), kohler = q('[data-k="kohler"]'), sel = kohler.querySelector<HTMLElement>(".bk-sel")!;
     const btns = qa(".bk-btn");
     let modal = false;
 
@@ -219,12 +230,13 @@ export default function ItemSchedule() {
         };
         requestAnimationFrame(step);
       });
+    /* Replace opens on the item's own division and type: Plumbing, Shower Heads. */
     const setFilter = (on: boolean) => {
-      fPick.classList.toggle("on", on);
-      chip.classList.toggle("on", on);
+      [fPick, fDiv, ...chips].forEach((el) => el.classList.toggle("on", on));
       cnt.textContent = `${on ? count(PICK) : CARDS.length} results`;
       cards.forEach((c) => c.classList.toggle("out", on && c.dataset.cat !== PICK));
     };
+    setFilter(true);
 
     const E = engine(stage, {
       home: HOME,
@@ -263,7 +275,7 @@ export default function ItemSchedule() {
       kit.reset();
       kit.closeState();
       setItem("old");
-      setFilter(false);
+      setFilter(true);
       gs.scrollTop = 0;
       rows.forEach((el) => el.classList.remove("on", "sel", "flash", "slow"));
       tags.forEach((el) => el.classList.remove("on"));
@@ -306,24 +318,13 @@ export default function ItemSchedule() {
         cat.animate([{ transform: "translateX(102%)" }, { transform: "translateX(0)" }], { duration: 560, easing: EASE, ...fwd });
         await wait(620); if (!ok()) return;
 
-        /* Browse: into the grid, scroll down and back. */
+        /* Browse the shower heads: into the grid and down to the third row. */
         await E.moveTo(760, 420, { arc: 0.14, dur: 900 }); if (!ok()) return;
-        await wait(500); if (!ok()) return;
-        await scrollGrid(300, 1400); if (!ok()) return;
-        await wait(900); if (!ok()) return;
-        await E.moveTo(1010, 470, { arc: 0.1, dur: 700 }); if (!ok()) return;
-        await wait(700); if (!ok()) return;
-        await scrollGrid(0, 900); if (!ok()) return;
-
-        /* Filter to Shower Heads. */
-        { const b = box(fPick); await E.reach(b.x + 14, b.y + b.h / 2, { arc: 0.12 }); } if (!ok()) return;
+        await wait(600); if (!ok()) return;
+        await E.moveTo(1010, 380, { arc: 0.1, dur: 800 }); if (!ok()) return;
         await wait(400); if (!ok()) return;
-        await E.click(); if (!ok()) return;
-        const grid = q(".bk-grid");
-        await grid.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, fill: "forwards" }).finished; if (!ok()) return;
-        setFilter(true);
-        grid.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 260, easing: "ease-out", fill: "forwards" });
-        await wait(800); if (!ok()) return;
+        await scrollGrid(300, 1500); if (!ok()) return;
+        await wait(700); if (!ok()) return;
 
         /* Pick the Kohler showerhead. */
         { const b = box(kohler); await E.reach(b.x + b.w * 0.45, b.y + b.h * 0.35, { arc: 0.14 }); } if (!ok()) return;
