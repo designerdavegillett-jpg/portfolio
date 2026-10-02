@@ -93,16 +93,13 @@ export const STYLES = `.bk{--hi:#0071E3;--app:var(--font-eff-sans,"Open Sans"),s
 .bk .bk-guide.on{display:flex}
 .bk .bk-guide i{width:9px;height:9px;border-radius:50%;background:#ff6a3d;flex:none}
 .bk .bk-guide button{margin-left:auto;font:inherit;color:inherit;background:transparent;border:1px solid rgba(29,29,31,.16);border-radius:999px;padding:.35rem .7rem;cursor:pointer}
-.bk .bk-cd{position:absolute;inset:0;z-index:30;display:grid;place-items:center;background:rgba(15,16,18,.45);opacity:0;pointer-events:none;transition:opacity .25s;cursor:default}
-.bk .bk-cd.on{opacity:1;pointer-events:auto}
-.bk .bk-cd>div{display:grid;justify-items:center;gap:.8rem;padding:1.1rem 1.4rem;border-radius:14px;background:rgba(29,29,31,.88);color:#fff;font:500 .85rem/1.3 var(--font-body),"Inter Tight",system-ui,sans-serif;box-shadow:0 12px 36px rgba(0,0,0,.35)}
-.bk .bk-cd b{display:inline-block;min-width:1.2em;text-align:center;font-variant-numeric:tabular-nums}
-.bk .bk-cd p{display:flex;gap:.5rem;margin:0}
-.bk .bk-cd button{font:600 .75rem/1 var(--font-body),"Inter Tight",system-ui,sans-serif;border-radius:999px;padding:.55rem .95rem;cursor:pointer;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff}
-.bk .bk-cd button[data-c="play"]{background:#fff;color:#1d1d1f;border-color:#fff}
 .bk .bk-pz{position:absolute;inset:0;z-index:29;display:grid;place-items:center;background:rgba(15,16,18,.25);opacity:0;pointer-events:none;transition:opacity .2s}
 .bk .bk-pz.on{opacity:1}
 .bk .bk-pz span{display:flex;align-items:center;gap:.5rem;padding:.7rem 1.1rem .7rem .85rem;border-radius:999px;background:rgba(29,29,31,.88);color:#fff;font:600 .8rem/1 var(--font-body),"Inter Tight",system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.bk .bk-mode button{position:relative;overflow:hidden}
+.bk .bk-mode button.counting{font-variant-numeric:tabular-nums}
+.bk .bk-mode button.counting::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:currentColor;opacity:.55;transform-origin:0 50%;animation:bkcount 8s linear forwards}
+@keyframes bkcount{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){.bk *{transition:none!important}.bk .bk-replay,.bk .bk-ctl{display:none}}`;
 
 const HAND_OPEN = `<path d="M18 11V6a2 2 0 0 0-4 0"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>`;
@@ -421,17 +418,16 @@ export function controller(
   E.G.onStep = (label) => { guide.querySelector("span")!.textContent = label ? `Next: ${label}` : "Watch what happens…"; };
 
   /* Coming into view, the figure waits 8 seconds before the demo plays, so
-     the viewer can choose to try it instead. */
+     the viewer can choose to try it instead. The wait shows quietly in the
+     Play demo button: a countdown and a fill, nothing over the figure. */
   const COUNT = 8;
-  const cd = document.createElement("div");
-  cd.className = "bk-cd";
-  cd.innerHTML = `<div><span>Demo starts in <b>${COUNT}</b></span><p><button type="button" data-c="play">Play demo</button><button type="button" data-c="try">Try it yourself</button></p></div>`;
-  stage.appendChild(cd);
+  const playBtn = ctl.querySelector<HTMLButtonElement>('button[data-m="watch"]')!;
   let timer = 0;
   const stopCount = () => {
     window.clearInterval(timer);
     timer = 0;
-    cd.classList.remove("on");
+    playBtn.classList.remove("counting");
+    playBtn.textContent = "Play demo";
   };
   const countdown = () => {
     E.halt();
@@ -439,20 +435,16 @@ export function controller(
     E.setGuided(false);
     reset();
     let n = COUNT;
-    cd.querySelector("b")!.textContent = String(n);
-    cd.classList.add("on");
+    playBtn.classList.remove("counting");
+    void playBtn.offsetWidth;
+    playBtn.classList.add("counting");
+    playBtn.textContent = `Play demo in ${n}`;
     window.clearInterval(timer);
     timer = window.setInterval(() => {
       n--;
-      cd.querySelector("b")!.textContent = String(n);
+      playBtn.textContent = `Play demo in ${n}`;
       if (n <= 0) { stopCount(); start(); }
     }, 1000);
-  };
-  const onCd = (e: Event) => {
-    e.stopPropagation();
-    const c = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-c]")?.dataset.c;
-    if (c === "play") setMode("watch");
-    else if (c === "try") setMode("try");
   };
 
   const setMode = (m: "watch" | "try") => {
@@ -470,7 +462,6 @@ export function controller(
   };
   const onSkip = () => E.advance();
   ctl.addEventListener("click", onMode);
-  cd.addEventListener("click", onCd);
   guide.querySelector("button")!.addEventListener("click", onSkip);
   const start = () => {
     E.halt();
@@ -529,7 +520,6 @@ export function controller(
     stage.removeEventListener("click", onStage);
     replay.removeEventListener("click", onReplay);
     guide.remove();
-    cd.remove();
     pz.remove();
     ctl.removeEventListener("click", onMode);
   };
