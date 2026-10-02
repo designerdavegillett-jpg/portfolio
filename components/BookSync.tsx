@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { IMG, STYLES as BASE, CURSOR, RAIL, engine, controller, inside, wait, type Rect } from "@/components/book/engine";
+import { IMG, STYLES as BASE, CURSOR, RAIL, engine, controller, inside, type Rect } from "@/components/book/engine";
 
 /**
  * The Design Book after PL-02 is replaced in the Item Schedule (the
@@ -83,6 +83,7 @@ export default function BookSync() {
       },
     });
     const S = E.S;
+    const wait = E.wait;
     const fwd = { fill: "forwards" as const };
 
     function reset() {
@@ -118,6 +119,7 @@ export default function BookSync() {
         await wait(2000); if (!ok()) return;
         await E.moveTo(HOME.x, HOME.y, { arc: 0.15 }); if (!ok()) return;
         await wait(1400); if (!ok()) return;
+        E.lap();
         reset();
       }
     }

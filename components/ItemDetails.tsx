@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { IMG, STYLES as BASE, CURSOR, RAIL, rail, engine, controller, wait, type Rect } from "@/components/book/engine";
+import { IMG, STYLES as BASE, CURSOR, RAIL, rail, engine, controller, type Rect } from "@/components/book/engine";
 import { PANEL, panelCss, panelKit } from "@/components/book/details";
 
 /**
@@ -56,6 +56,7 @@ export default function ItemDetails() {
       onFrame: (_dt, pt) => kit.hover(pt),
     });
     const S = E.S;
+    const wait = E.wait;
 
     const closeState = () => {
       kit.closeState();
@@ -90,6 +91,7 @@ export default function ItemDetails() {
         closeState();
         await E.moveTo(760, 420, { arc: 0.15 }); if (!ok()) return;
         await wait(1200); if (!ok()) return;
+        E.lap();
         reset();
       }
     }

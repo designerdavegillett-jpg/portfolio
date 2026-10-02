@@ -22,7 +22,6 @@ export const W = 1366;
 export type Pt = { x: number; y: number };
 export type Rect = { x: number; y: number; w: number; h: number };
 export const inside = (p: Pt, r: Rect) => p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h;
-export const wait = (ms: number) => new Promise<void>((r) => window.setTimeout(r, ms));
 /* Minimum-jerk: the bell-shaped speed curve of a real hand. */
 export const mj = (t: number) => t * t * t * (10 - 15 * t + 6 * t * t);
 
@@ -72,6 +71,11 @@ export const STYLES = `.bk{--hi:#0071E3;--app:var(--font-eff-sans,"Open Sans"),s
 .bk .bk-replay{flex:none;font:500 .7rem/1 var(--font-body),"Inter Tight",system-ui,sans-serif;color:var(--ink-soft,#424245);background:transparent;border:1px solid rgba(29,29,31,.16);border-radius:999px;padding:.45rem .8rem;cursor:pointer}
 .bk .bk-replay:hover{border-color:rgba(29,29,31,.32)}
 .bk .bk-replay:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
+.bk .bk-rev{display:flex;align-items:center;gap:8px;margin-top:.55rem;padding:6px 8px;border-radius:8px;background:rgba(29,29,31,.05);font:500 .7rem/1 var(--font-body),"Inter Tight",system-ui,sans-serif;color:var(--ink-soft,#424245)}
+.bk .bk-rev button,.bk .bk-rev select{font:inherit;color:inherit;background:#fff;border:1px solid rgba(29,29,31,.16);border-radius:6px;height:26px;padding:0 9px;cursor:pointer}
+.bk .bk-rev button[data-a="play"]{min-width:4.6em}
+.bk .bk-rev input{flex:1;min-width:0;accent-color:var(--hi)}
+.bk .bk-rt{font-variant-numeric:tabular-nums;min-width:7em;text-align:right}
 @media (prefers-reduced-motion:reduce){.bk *{transition:none!important}.bk .bk-replay{display:none}}`;
 
 const HAND_OPEN = `<path d="M18 11V6a2 2 0 0 0-4 0"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>`;
@@ -130,6 +134,14 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
   const cur = inner.querySelector<HTMLElement>(".bk-cur")!;
   const S = { cx: opts.home.x, cy: opts.home.y, mode: "arrow" as "arrow" | "open" | "grab" | "point", lock: false, run: 0 };
   let tween: { t0: number; d: number; res: () => void; f: (u: number) => Pt } | null = null;
+  /* A clock of its own, so review mode can pause, slow down and seek. Every
+     wait, tween and scroll in a figure runs on it; Web Animations and CSS
+     transitions inside the figure are paused and rate-matched each frame. */
+  const C = { t: 0, rate: 1, user: 1, paused: false, ffTo: -1, ffPause: false, cycleStart: 0, cycleLen: 0 };
+  let timers: { at: number; res: () => void }[] = [];
+  const held = new WeakSet<Animation>();
+  const now = () => C.t;
+  const wait = (ms: number) => new Promise<void>((res) => timers.push({ at: C.t + ms, res }));
   let last = 0;
   let raf = 0;
   let live = true;
@@ -149,7 +161,7 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
       const c1 = { x: x0 + dx * 0.3 + nx * b, y: y0 + dy * 0.3 + ny * b };
       const c2 = { x: x0 + dx * 0.75 + nx * b * 0.5, y: y0 + dy * 0.75 + ny * b * 0.5 };
       tween = {
-        t0: performance.now(),
+        t0: C.t,
         d,
         res,
         f: (u) => {
@@ -174,12 +186,32 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
     await wait(110);
     cur.classList.remove("click");
   }
-  function frame(now: number) {
+  function frame(real: number) {
     if (!live) return;
-    const dt = Math.min(0.034, (now - (last || now)) / 1000);
-    last = now;
+    const rdt = Math.min(50, real - (last || real));
+    last = real;
+    let vms = C.paused ? 0 : rdt * C.rate;
+    if (C.ffTo >= 0) vms = Math.min(vms, Math.max(0, C.cycleStart + C.ffTo - C.t)); // land on the seek point
+    C.t += vms;
+    if (C.ffTo >= 0 && C.t - C.cycleStart >= C.ffTo) {
+      C.ffTo = -1;
+      C.rate = C.user;
+      C.paused = C.ffPause;
+    }
+    if (timers.length) {
+      const due = timers.filter((x) => x.at <= C.t);
+      if (due.length) {
+        timers = timers.filter((x) => x.at > C.t);
+        due.forEach((x) => x.res());
+      }
+    }
+    inner.getAnimations({ subtree: true }).forEach((a) => {
+      if (a.playbackRate !== C.rate) a.playbackRate = C.rate;
+      if (C.paused && a.playState === "running") { a.pause(); held.add(a); }
+      else if (!C.paused && held.has(a)) { held.delete(a); if (a.playState === "paused") a.play(); }
+    });
     if (tween) {
-      const u = Math.min(1, (now - tween.t0) / tween.d), p = tween.f(mj(u));
+      const u = Math.min(1, (C.t - tween.t0) / tween.d), p = tween.f(mj(u));
       S.cx = p.x;
       S.cy = p.y;
       if (u >= 1) {
@@ -198,7 +230,9 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
       });
       S.mode = over ? "open" : "arrow";
     }
-    opts.onFrame?.(dt, pt);
+    /* Physics in small steps, so fast-forward stays stable. */
+    const steps = Math.min(40, Math.max(1, Math.ceil(vms / 20)));
+    for (let i = 0; i < steps; i++) opts.onFrame?.(vms / 1000 / steps, pt);
     /* Hotspot per cursor: arrow tip, fingertip, or palm centre. */
     const [hx, hy] = S.mode === "arrow" ? [3, 2] : S.mode === "point" ? [9, 3] : [11, 10];
     cur.style.transform = `translate(${S.cx - hx}px,${S.cy - hy}px)`;
@@ -217,7 +251,18 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
     cancelAnimationFrame(raf);
     ro.disconnect();
   };
-  return { S, moveTo, reach, click, halt, destroy, inner, cur };
+  /* Review controls. */
+  const lap = () => {
+    C.cycleLen = C.t - C.cycleStart;
+    C.cycleStart = C.t;
+  };
+  const ff = (to: number, thenPause: boolean) => {
+    C.ffTo = to;
+    C.ffPause = thenPause;
+    C.paused = false;
+    C.rate = 40;
+  };
+  return { S, C, now, wait, moveTo, reach, click, halt, destroy, inner, cur, lap, ff };
 }
 export type Engine = ReturnType<typeof engine>;
 
@@ -229,11 +274,14 @@ export function controller(
   { reset, loop, reduced }: { reset: () => void; loop: (id: number) => void; reduced: boolean },
 ) {
   let playing = false, stopped = false, started = false;
+  const review = !reduced && /[?&]review\b/.test(location.search);
   const start = () => {
     E.halt();
     reset();
+    E.C.cycleStart = E.now();
     playing = true;
     loop(E.S.run);
+    if (measuring) E.ff(1e9, false);
   };
   const io = new IntersectionObserver(
     (es) =>
@@ -251,6 +299,7 @@ export function controller(
     { threshold: 0.35 },
   );
   const onStage = () => {
+    if (review) return void togglePause();
     if (playing) {
       stopped = true;
       playing = false;
@@ -262,6 +311,62 @@ export function controller(
     started = true;
     start();
   };
+  /* Review bar: only with ?review in the URL. Pause, back 5s, restart,
+     speed and a timeline to drag. Seeking replays the loop at 40x to the
+     chosen point, so every state is exactly what the script produces. */
+  let bar: HTMLDivElement | null = null, tick = 0;
+  const togglePause = () => {
+    if (E.C.ffTo >= 0) E.C.ffPause = !E.C.ffPause;
+    else E.C.paused = !E.C.paused;
+    sync();
+  };
+  const pos = () => Math.max(0, E.now() - E.C.cycleStart);
+  const len = () => E.C.cycleLen || Math.max(pos(), 1000);
+  const seek = (to: number) => {
+    const p = E.C.ffTo >= 0 ? E.C.ffPause : E.C.paused;
+    stopped = false;
+    started = true;
+    start();
+    E.ff(Math.max(0, to), p);
+  };
+  let dragging = false;
+  /* First run in review mode plays one loop at 40x to learn its length. */
+  let measuring = review;
+  const sync = () => {
+    if (!bar) return;
+    if (measuring && E.C.cycleLen > 0) {
+      measuring = false;
+      E.C.ffTo = -1;
+      E.C.rate = E.C.user;
+      seek(0);
+    }
+    const paused = E.C.ffTo >= 0 ? E.C.ffPause : E.C.paused;
+    bar.querySelector<HTMLButtonElement>('[data-a="play"]')!.textContent = paused ? "Play" : "Pause";
+    const r = bar.querySelector<HTMLInputElement>("input")!;
+    if (!dragging) r.value = String(Math.round((pos() / len()) * 1000));
+    if (measuring) return void (bar.querySelector(".bk-rt")!.textContent = "measuring…");
+    bar.querySelector(".bk-rt")!.textContent = `${(pos() / 1000).toFixed(1)} / ${E.C.cycleLen ? (E.C.cycleLen / 1000).toFixed(1) + "s" : "…"}`;
+  };
+  if (review) {
+    bar = document.createElement("div");
+    bar.className = "bk-rev";
+    bar.innerHTML = `<button type="button" data-a="restart" title="Restart">Restart</button><button type="button" data-a="back" title="Back 5 seconds">-5s</button><button type="button" data-a="play">Pause</button><input type="range" min="0" max="1000" value="0" aria-label="Timeline"><span class="bk-rt"></span><select aria-label="Speed"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option></select>`;
+    (replay.parentElement ?? stage).insertAdjacentElement("afterend", bar);
+    bar.addEventListener("click", (e) => {
+      const a = (e.target as HTMLElement).closest("button")?.dataset.a;
+      if (a === "play") togglePause();
+      else if (a === "back") seek(pos() - 5000);
+      else if (a === "restart") seek(0);
+    });
+    const r = bar.querySelector<HTMLInputElement>("input")!;
+    r.addEventListener("input", () => { dragging = true; });
+    r.addEventListener("change", () => { dragging = false; seek((Number(r.value) / 1000) * len()); });
+    bar.querySelector("select")!.addEventListener("change", (e) => {
+      E.C.user = Number((e.target as HTMLSelectElement).value);
+      if (E.C.ffTo < 0) E.C.rate = E.C.user;
+    });
+    tick = window.setInterval(sync, 100);
+  }
   if (!reduced) {
     io.observe(stage);
     stage.addEventListener("click", onStage);
@@ -271,5 +376,7 @@ export function controller(
     io.disconnect();
     stage.removeEventListener("click", onStage);
     replay.removeEventListener("click", onReplay);
+    window.clearInterval(tick);
+    bar?.remove();
   };
 }

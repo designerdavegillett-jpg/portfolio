@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { IMG, STYLES as BASE, CURSOR, engine, controller, inside, wait, mj, type Rect } from "@/components/book/engine";
+import { IMG, STYLES as BASE, CURSOR, engine, controller, inside, mj, type Rect } from "@/components/book/engine";
 import { PANEL, panelCss, panelKit } from "@/components/book/details";
 
 /**
@@ -221,9 +221,9 @@ export default function ItemSchedule() {
     const gsBox = () => box(gs);
     const scrollGrid = (to: number, dur: number) =>
       new Promise<void>((res) => {
-        const from = gs.scrollTop, t0 = performance.now();
-        const step = (now: number) => {
-          const u = Math.min(1, (now - t0) / dur);
+        const from = gs.scrollTop, t0 = E.now();
+        const step = () => {
+          const u = Math.min(1, (E.now() - t0) / dur);
           gs.scrollTop = from + (to - from) * mj(u);
           if (u < 1) requestAnimationFrame(step);
           else res();
@@ -260,6 +260,7 @@ export default function ItemSchedule() {
       },
     });
     const S = E.S;
+    const wait = E.wait;
 
     const select = (on: boolean) => {
       rows[SEL].classList.toggle("sel", on);
@@ -349,7 +350,7 @@ export default function ItemSchedule() {
         await E.reach(kit.X.x, kit.X.y, { arc: 0.12 }); if (!ok()) return;
         await wait(300); if (!ok()) return;
         await E.click(); if (!ok()) return;
-        await kit.hide(); if (!ok()) return;
+        await kit.hide(E); if (!ok()) return;
         kit.closeState();
         select(false);
         S.lock = true; // no hover while the rows flash
@@ -361,6 +362,7 @@ export default function ItemSchedule() {
         await wait(1600); if (!ok()) return;
         await E.moveTo(HOME.x, HOME.y, { arc: 0.15 }); if (!ok()) return;
         await wait(600); if (!ok()) return;
+        E.lap();
         reset();
       }
     }

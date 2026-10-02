@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { IMG, STYLES as BASE, CURSOR, RAIL, rail, engine, controller, inside, wait, type Rect } from "@/components/book/engine";
+import { IMG, STYLES as BASE, CURSOR, RAIL, rail, engine, controller, inside, type Rect } from "@/components/book/engine";
 
 /**
  * Drag to place. Efficiently's Books screen with two empty slots on the page.
@@ -104,6 +104,7 @@ export default function BookDrop() {
       },
     });
     const S = E.S;
+    const wait = E.wait;
 
     function reset() {
       drag = null;
@@ -170,14 +171,14 @@ export default function BookDrop() {
       it.trace.animate([{ opacity: 0.6 }, { opacity: 0 }], { duration: 160, fill: "forwards" });
       it.row.set("on", false);
       rl.classList.remove("bk-lift");
-      window.setTimeout(() => {
+      wait(380).then(() => {
         if (!ok()) return;
         it.pin.classList.add("on");
         it.pin.animate([{ opacity: 0, transform: "scale(.6)" }, { opacity: 1, offset: 0.6 }, { opacity: 1 }], {
           duration: 320,
           easing: "cubic-bezier(.2,.8,.2,1.2)",
         });
-      }, 380);
+      });
       await wait(200);
       it.target.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 420, easing: "ease-out", fill: "forwards" });
       await wait(420);
@@ -197,6 +198,7 @@ export default function BookDrop() {
         await wait(2000); if (id !== S.run) return;
         await Promise.all(ITEMS.map((it) => it.fill.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, fill: "forwards" }).finished));
         if (id !== S.run) return;
+        E.lap();
         reset();
         S.cx = 1180;
         S.cy = 700;

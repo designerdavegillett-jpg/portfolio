@@ -1,4 +1,4 @@
-import { IMG, inside, wait, mj, type Engine, type Rect } from "@/components/book/engine";
+import { IMG, inside, mj, type Engine, type Rect } from "@/components/book/engine";
 
 /**
  * The item details panel, shared by ItemDetails (the Design Book, panel slides
@@ -118,11 +118,11 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     head.classList.toggle("scrolled", scroller.scrollTop > 2);
     fade.classList.toggle("off", scroller.scrollTop >= scroller.scrollHeight - scroller.clientHeight - 2);
   };
-  const scrollTo = (to: number, dur: number) =>
+  const scrollTo = (E: Engine, to: number, dur: number) =>
     new Promise<void>((res) => {
-      const from = scroller.scrollTop, t0 = performance.now();
-      const step = (now: number) => {
-        const u = Math.min(1, (now - t0) / dur);
+      const from = scroller.scrollTop, t0 = E.now();
+      const step = () => {
+        const u = Math.min(1, (E.now() - t0) / dur);
         scroller.scrollTop = from + (to - from) * mj(u);
         setScrollState();
         if (u < 1) requestAnimationFrame(step);
@@ -150,6 +150,7 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
   /* After show(): read, try both actions, scroll to the documents, close.
      Resolves false if the run was stopped part way. */
   async function tour(E: Engine, ok: () => boolean) {
+    const wait = E.wait;
     await wait(480); if (!ok()) return false;
     measure();
     /* The hand drifts aside to read, then tries both actions. */
@@ -162,7 +163,7 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     /* Scroll down to the documents. */
     await E.reach(P + 224, 520, { arc: 0.1 }); if (!ok()) return false;
     await wait(250); if (!ok()) return false;
-    await scrollTo(scroller.scrollHeight - scroller.clientHeight, 1100); if (!ok()) return false;
+    await scrollTo(E, scroller.scrollHeight - scroller.clientHeight, 1100); if (!ok()) return false;
     measure();
     await wait(500); if (!ok()) return false;
     { const r = HOT[0].r!; await E.reach(r.x + r.w - 60, r.y + r.h / 2, { arc: -0.14 }); } if (!ok()) return false;
@@ -171,15 +172,15 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     await E.reach(X.x, X.y, { arc: 0.12 }); if (!ok()) return false;
     await wait(380); if (!ok()) return false;
     await E.click(); if (!ok()) return false;
-    await hide();
+    await hide(E);
     return true;
   }
 
   /* Slide the panel away and lift the scrim. */
-  const hide = async () => {
+  const hide = async (E: Engine) => {
     panel.animate([{ transform: "translateX(0)" }, { transform: OFF }], { duration: 300, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" });
     scrim.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, fill: "forwards" });
-    await wait(300);
+    await E.wait(300);
   };
 
   const closeState = () => {
