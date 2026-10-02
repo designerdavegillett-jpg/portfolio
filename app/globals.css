@@ -2,15 +2,18 @@
 
 /* ============================================================
    THE SIZING ENGINE
-   One root unit scales with the viewport. Every dimension is a
-   multiple of it, so the page breathes as a single object
-   instead of snapping between breakpoints.
-   16px at a 1512px viewport. Clamped at both ends.
+   One root unit, set per breakpoint. Every dimension is a
+   multiple of it. Text holds its size while the window resizes
+   and only steps at the breakpoints below.
    ============================================================ */
 html {
-  font-size: clamp(11.5px, 1.058vw, 19px);
+  font-size: 16px;
   -webkit-text-size-adjust: 100%;
 }
+/* Type and spacing step at breakpoints instead of scaling with the window. */
+@media (min-width: 1800px) { html { font-size: 18px; } }
+@media (max-width: 1439px) { html { font-size: 14.5px; } }
+@media (max-width: 1199px) { html { font-size: 13px; } }
 
 :root {
   /* palette — Apple system: cool white / sharp dark grey */
@@ -726,7 +729,7 @@ strong {
    ============================================================ */
 @media (max-width: 900px) {
   html {
-    font-size: clamp(14px, 3.6vw, 17px);
+    font-size: 15px;
   }
   :root {
     --gutter: 1.6rem;
