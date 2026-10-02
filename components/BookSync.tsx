@@ -19,6 +19,8 @@ import { IMG, STYLES as BASE, CURSOR, RAIL, engine, controller, inside, type Rec
  */
 
 const WARN = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 21h20Z"/><path d="M12 10v4M12 17.5v.5"/></svg>`;
+const CHECK_ICON = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+const SYNC_S = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg>`;
 const SYNC = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg>`;
 
 /* In design px. */
@@ -28,6 +30,7 @@ const HOME = { x: 900, y: 330 };
 
 const STYLES = `${BASE}
 .book-sync .bk-rl .bk-new{left:24px;top:12px;width:272px;height:48px;opacity:0}
+.book-sync .bk-rl .bk-pin{z-index:2}
 .book-sync .bk-rl .bk-sweep{left:24px;top:12px;width:288px;height:48px;border-radius:8px;background:rgba(41,151,255,.22);opacity:0}
 .book-sync .bk-rl .bk-flag{left:120px;top:13px;height:16px;display:flex;align-items:center;gap:4px;padding:0 6px 0 4px;border-radius:4px;background:rgba(224,148,32,.2);color:#ffc56b;font:600 10px/1 var(--app);white-space:nowrap;opacity:0;transition:background-color .14s}
 .book-sync .bk-rl .bk-flag.hot{background:rgba(224,148,32,.34)}
@@ -37,26 +40,34 @@ const STYLES = `${BASE}
 .book-sync .bk-ftip::after{content:"";position:absolute;bottom:100%;left:74px;border:5px solid transparent;border-bottom-color:#3e4146}
 .book-sync .bk-ftip.on{opacity:1;transform:none}
 .book-sync .bk-ftip b{font-weight:700}
-.book-sync .bk-stale{position:absolute;left:${TILE.x}px;top:${TILE.y}px;width:${TILE.w}px;height:${TILE.h}px;border-radius:4px;box-shadow:0 0 0 2px #e0941f,0 0 0 6px rgba(224,148,32,.18);opacity:0;transition:opacity .2s ease;pointer-events:none}
+.book-sync .bk-tnew{position:absolute;left:430px;top:470px;width:200px;height:186px;opacity:0}
+.book-sync .bk-stale{position:absolute;left:${TILE.x}px;top:${TILE.y}px;width:${TILE.w}px;height:${TILE.h}px;border-radius:4px;box-shadow:0 0 0 2px #e0941f;opacity:0;transition:opacity .2s ease,box-shadow .2s ease;pointer-events:none}
 .book-sync .bk-stale.on{opacity:1}
-.book-sync .bk-stale span{position:absolute;left:-2px;bottom:100%;margin-bottom:6px;height:20px;display:flex;align-items:center;gap:4px;padding:0 7px 0 6px;border-radius:4px;background:#e0941f;color:#1c1e20;font:700 10.5px/1 var(--app);white-space:nowrap}`;
+.book-sync .bk-stale.hot{box-shadow:0 0 0 2px #e0941f,0 0 0 6px rgba(224,148,32,.2)}
+.book-sync .bk-stale.done{box-shadow:0 0 0 2px #2e9e63,0 0 0 6px rgba(46,158,99,.18)}
+.book-sync .bk-stag{position:absolute;left:-2px;bottom:100%;margin-bottom:6px;height:22px;display:flex;align-items:stretch;border-radius:4px;overflow:hidden;background:#e0941f;color:#1c1e20;font:700 10.5px/1 var(--app);white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.book-sync .bk-stag>span{display:flex;align-items:center;gap:4px;padding:0 8px 0 6px}
+.book-sync .bk-upd{border-left:1px solid rgba(28,30,32,.25);transition:background-color .12s,color .12s}
+.book-sync .bk-upd.hot{background:#c97f12;color:#fff}
+.book-sync .bk-stale.done .bk-stag{background:#2e9e63;color:#fff}`;
 
 const RAIL_PLUS = RAIL.replace(
   /<\/div>$/,
-  `<div class="bk-sweep"></div><img class="bk-new" src="${IMG}row-1-kohler.webp" alt=""><div class="bk-flag">${WARN}Pg 4 out of date</div></div>`,
+  `<div class="bk-sweep"></div><img class="bk-new" src="${IMG}row-1-kohler.webp" alt=""><div class="bk-flag">${WARN}Pg 4 outdated</div></div>`,
 );
 
-const MARKUP = `<div class="bk-stage" role="img" aria-label="The Design Book. After the showerhead is replaced in the Item Schedule, the room list shows the new Kohler showerhead, while page 4 still shows the Elysian showerhead it was laid out with. The row is flagged Pg 4 out of date, and hovering the flag outlines the old item on the page.">
+const MARKUP = `<div class="bk-stage" role="img" aria-label="The Design Book. After the showerhead is replaced in the Item Schedule, the room list shows the new Kohler showerhead, while page 4 still shows the Elysian showerhead it was laid out with. The row is flagged Pg 4 outdated and the old item on the page is marked Outdated. Update on that tag swaps the new showerhead onto the page and the row goes back to On Pg 4.">
 <div class="bk-inner">
 <img class="bk-full" src="${IMG}screen.webp" alt="">
 ${RAIL_PLUS}
 <div class="bk-note">${SYNC}PL-02 changed in the Item Schedule</div>
-<div class="bk-ftip">Page 4 still shows the <b>Elysian</b> Transitional 12" Rain Shower Head. Replace it on the page to update the layout.</div>
-<div class="bk-stale"><span>${WARN}Previous item</span></div>
+<div class="bk-ftip">Page 4 still shows the <b>Elysian</b> Transitional 12" Rain Shower Head. Use Update on the page to swap in the new item.</div>
+<img class="bk-tnew" src="${IMG}tile-kohler.webp" alt="">
+<div class="bk-stale"><div class="bk-stag"><span class="bk-sl">${WARN}Outdated</span><span class="bk-upd">${SYNC_S}Update</span></div></div>
 ${CURSOR}
 </div>
 </div>
-<div class="bk-bar"><div class="bk-cap">The room list shows the new item as soon as it changes in the schedule. The page keeps the item it was laid out with, and the row is flagged until the page is updated.</div><button type="button" class="bk-replay">Replay</button></div>`;
+<div class="bk-bar"><div class="bk-cap">The room list shows the new item as soon as it changes in the schedule. The page keeps the item it was laid out with and marks it Outdated, and Update on the page swaps the new one in.</div><button type="button" class="bk-replay">Replay</button></div>`;
 
 export default function BookSync() {
   const root = useRef<HTMLDivElement>(null);
@@ -68,8 +79,13 @@ export default function BookSync() {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const stage = q(".bk-stage");
     const pin = q(".bk-pin.i1"), nu = q(".bk-new"), sweep = q(".bk-sweep"), flag = q(".bk-flag");
-    const note = q(".bk-note"), tip = q(".bk-ftip"), stale = q(".bk-stale");
+    const note = q(".bk-note"), tip = q(".bk-ftip"), stale = q(".bk-stale"), upd = q(".bk-upd"), tnew = q(".bk-tnew"), sl = q(".bk-sl");
     let flagged = false;
+    /* Design px box of an element, read from layout. */
+    const box = (el: HTMLElement): Rect => {
+      const s = stage.clientWidth / 1366, a = stage.getBoundingClientRect(), b = el.getBoundingClientRect();
+      return { x: (b.left - a.left) / s, y: (b.top - a.top) / s, w: b.width / s, h: b.height / s };
+    };
 
     const E = engine(stage, {
       home: HOME,
@@ -79,7 +95,10 @@ export default function BookSync() {
         const onFlag = flagged && inside(pt, { x: FLAG.x - 2, y: FLAG.y - 3, w: FLAG.w + 4, h: FLAG.h + 6 });
         flag.classList.toggle("hot", onFlag);
         tip.classList.toggle("on", onFlag);
-        stale.classList.toggle("on", onFlag || (flagged && inside(pt, TILE)));
+        stale.classList.toggle("hot", flagged && (onFlag || inside(pt, TILE)));
+        const onUpd = flagged && inside(pt, box(upd));
+        upd.classList.toggle("hot", onUpd);
+        if (onUpd) E.S.mode = "point";
       },
     });
     const S = E.S;
@@ -92,8 +111,10 @@ export default function BookSync() {
       S.cy = HOME.y;
       flagged = false;
       E.inner.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+      upd.style.display = "";
       pin.classList.add("on");
-      [flag, tip, stale].forEach((el) => el.classList.remove("hot", "on"));
+      [flag, tip, stale, upd].forEach((el) => el.classList.remove("hot", "on", "done"));
+      sl.innerHTML = `${WARN}Outdated`;
     }
 
     async function loop(id: number) {
@@ -109,6 +130,7 @@ export default function BookSync() {
         await wait(260); if (!ok()) return;
         flag.animate([{ opacity: 0, transform: "scale(.9)" }, { opacity: 1, transform: "none" }], { duration: 240, easing: "ease-out", ...fwd });
         flagged = true;
+        stale.classList.add("on");
         await wait(1500); if (!ok()) return;
         note.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, ...fwd });
 
@@ -116,7 +138,26 @@ export default function BookSync() {
         await E.reach(FLAG.x + 60, FLAG.y + 9, { arc: 0.14 }); if (!ok()) return;
         await wait(2600); if (!ok()) return;
         await E.reach(TILE.x + TILE.w / 2, TILE.y + 70, { arc: -0.12 }); if (!ok()) return;
-        await wait(2000); if (!ok()) return;
+        await wait(1200); if (!ok()) return;
+
+        /* Update from the tag: the new item drops into the page. */
+        { const b = box(upd); await E.reach(b.x + b.w / 2, b.y + b.h / 2 + 1, { arc: 0.1 }); } if (!ok()) return;
+        await wait(700); if (!ok()) return;
+        await E.click(); if (!ok()) return;
+        flagged = false;
+        upd.classList.remove("hot");
+        S.mode = "arrow";
+        tnew.animate([{ opacity: 0, transform: "scale(.97)" }, { opacity: 1, transform: "none" }], { duration: 420, easing: "cubic-bezier(.2,.8,.2,1)", ...fwd });
+        stale.classList.remove("hot");
+        stale.classList.add("done");
+        sl.innerHTML = `${CHECK_ICON}Updated`;
+        upd.style.display = "none";
+        flag.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, ...fwd });
+        pin.getAnimations().forEach((x) => x.cancel());
+        pin.animate([{ opacity: 0, transform: "scale(.6)" }, { opacity: 1, offset: 0.6 }, { opacity: 1 }], { duration: 320, delay: 200, easing: "cubic-bezier(.2,.8,.2,1.2)", fill: "backwards" });
+        await wait(1400); if (!ok()) return;
+        stale.classList.remove("on");
+        await wait(1200); if (!ok()) return;
         await E.moveTo(HOME.x, HOME.y, { arc: 0.15 }); if (!ok()) return;
         await wait(1400); if (!ok()) return;
         E.lap();
