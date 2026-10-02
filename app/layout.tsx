@@ -4,6 +4,7 @@ import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import MotionLayer from "@/components/MotionLayer";
 import LocalTime from "@/components/LocalTime";
+import ContactModal from "@/components/ContactModal";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/site";
 
@@ -86,6 +87,8 @@ export default function RootLayout({
         <MotionLayer />
 
         <main>{children}</main>
+
+        <ContactModal />
 
         <footer className="site-footer">
           <div className="label">Dave Gillett</div>

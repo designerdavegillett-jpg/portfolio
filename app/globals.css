@@ -1050,3 +1050,156 @@ strong {
   width: 100%;
   margin-top: 0;
 }
+
+/* ============================================================
+   CONTACT — floating button + modal (components/ContactModal)
+   ============================================================ */
+.contact-fab {
+  position: fixed;
+  right: var(--s5);
+  bottom: var(--s5);
+  z-index: 60;
+  background: var(--ink);
+  color: var(--paper);
+  font: 500 0.78rem/1 var(--body);
+  padding: 0.9rem 1.3rem;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.contact-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+}
+.contact-fab:focus-visible,
+.contact-send:focus-visible,
+.contact-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.contact-modal {
+  margin: auto;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  width: min(30rem, calc(100vw - 2rem));
+  max-height: calc(100svh - 2rem);
+  overflow: auto;
+}
+.contact-modal::backdrop {
+  background: rgba(29, 29, 31, 0.45);
+  backdrop-filter: blur(3px);
+}
+.contact-modal[open] .contact-panel {
+  animation: contact-in 0.45s var(--ease);
+}
+@keyframes contact-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+}
+.contact-panel {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: var(--s5);
+}
+.contact-close {
+  position: absolute;
+  top: var(--s3);
+  right: var(--s3);
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.contact-close:hover { background: var(--paper-sunk); color: var(--ink); }
+.contact-title {
+  font: 600 1.15rem/1.2 var(--body);
+  margin-bottom: var(--s1);
+}
+.contact-sub,
+.contact-done p {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  margin-bottom: var(--s4);
+}
+.contact-field {
+  display: block;
+  margin-bottom: var(--s4);
+}
+.contact-field > span {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-bottom: var(--s1);
+}
+.contact-field em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 0.3rem;
+}
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  font: 400 0.86rem/1.5 var(--body);
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.8rem;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.contact-field input:focus,
+.contact-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(43, 95, 90, 0.15);
+}
+.contact-field [aria-invalid="true"] { border-color: #c4314b; }
+.contact-count,
+.contact-err {
+  display: block;
+  font-size: 0.7rem;
+  margin-top: 0.35rem;
+  color: var(--muted);
+}
+.contact-count.is-short,
+.contact-err { color: #c4314b; }
+.contact-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.contact-send {
+  width: 100%;
+  background: var(--ink);
+  color: var(--paper);
+  font: 500 0.82rem/1 var(--body);
+  padding: 0.9rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-top: var(--s2);
+}
+.contact-send:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+@media (max-width: 900px) {
+  .contact-fab { right: var(--s3); bottom: var(--s3); }
+  .contact-panel { padding: var(--s4); }
+}
+@media print {
+  .contact-fab { display: none; }
+}
