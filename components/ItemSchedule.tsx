@@ -43,6 +43,7 @@ const CATALOG = catalogMarkup({
 
 const STYLES = `${BASE}
 .item-schedule .bk-cell{position:absolute;left:369px;width:277px;height:46px;opacity:0}
+.item-schedule .bk-stat{position:absolute;left:649px;width:151px;height:46px;opacity:0}
 .item-schedule .bk-row{position:absolute;left:24px;width:1318px;height:48px;background:rgba(0,113,227,.05);opacity:0;transition:opacity .14s ease,background-color .14s ease;pointer-events:none}
 .item-schedule .bk-row.on{opacity:1}
 .item-schedule .bk-row.sel{opacity:1;background:rgba(0,113,227,.09)}
@@ -56,20 +57,21 @@ ${catalogCss(".item-schedule")}
 .item-schedule .bk-toast{position:absolute;left:683px;top:690px;display:flex;align-items:center;gap:8px;height:38px;padding:0 16px 0 12px;border-radius:8px;background:#1c1e20;color:#fff;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.35);white-space:nowrap;opacity:0;transform:translate(-50%,8px)}
 .item-schedule .bk-toast svg{color:#5fd394}`;
 
-const MARKUP = `<div class="bk-stage" role="img" aria-label="The Item Schedule for the primary bathroom and shower. The PL-02 Item ID on a shower head row is clicked and its details slide in from the right. Replace item flies the Catalog in over most of the screen, with search across the top, filters down the left and a grid of item cards. The Catalog opens filtered to plumbing shower heads; the grid is scrolled and a different showerhead is selected. The panel and both shower head rows that use PL-02 change to the new item.">
+const MARKUP = `<div class="bk-stage" role="img" aria-label="The Item Schedule for the primary bathroom and shower. The PL-02 Item ID on a shower head row is clicked and its details slide in from the right. Replace item flies the Catalog in over most of the screen, with search across the top, filters down the left and a grid of item cards. The Catalog opens filtered to plumbing shower heads; the grid is scrolled and a different showerhead is selected. The panel and both shower head rows that use PL-02 change to the new item, and their status changes from Approved to Change Request.">
 <div class="bk-inner">
 <img class="bk-full" src="${IMG}schedule.webp" alt="">
 ${SAME.map((i) => `<img class="bk-cell" style="top:${ROWS[i] + 1}px" src="${IMG}cell-kohler.webp" alt="">`).join("")}
+${SAME.map((i) => `<img class="bk-stat" style="top:${ROWS[i] + 1}px" src="${IMG}status-cr.webp" alt="">`).join("")}
 ${ROWS.map((y) => `<div class="bk-row" style="top:${y}px"></div>`).join("")}
 ${ROWS.map((y) => `<div class="bk-tag" style="top:${y + 9.5}px"></div>`).join("")}
-<div class="bk-toast">${CHECK}PL-02 updated in 2 locations</div>
+<div class="bk-toast">${CHECK}PL-02 updated in 2 locations, now in Change Request</div>
 ${PANEL}
 <div class="bk-mscrim"></div>
 ${CATALOG}
 ${CURSOR}
 </div>
 </div>
-<div class="bk-bar"><div class="bk-cap">Replace on an Item ID opens the Catalog. Search, filter, pick the new item, and everything using that ID changes with it, the details panel and both shower head locations, LOC 3 and LOC 4.</div><button type="button" class="bk-replay">Replay</button></div>`;
+<div class="bk-bar"><div class="bk-cap">Replace on an Item ID opens the Catalog. Search, filter, pick the new item, and everything using that ID changes with it, the details panel and both shower head locations, LOC 3 and LOC 4. Both were approved, so they go back to Change Request.</div><button type="button" class="bk-replay">Replay</button></div>`;
 
 /* The panel before and after the swap. */
 const ITEM = {
@@ -87,7 +89,7 @@ export default function ItemSchedule() {
     const qa = <T extends HTMLElement = HTMLElement>(s: string) => [...host.querySelectorAll<T>(s)];
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const stage = q(".bk-stage");
-    const rows = qa(".bk-row"), tags = qa(".bk-tag"), cells = qa(".bk-cell");
+    const rows = qa(".bk-row"), tags = qa(".bk-tag"), cells = qa(".bk-cell, .bk-stat");
     const kit = panelKit(host, stage, "right");
     const cat = q(".bk-cat"), mscrim = q(".bk-mscrim"), toast = q(".bk-toast"), body = q(".bk-body");
     const gs = q(".bk-gs"), cards = qa(".bk-card"), frs = qa(".bk-fr"), chips = qa(".bk-chip"), cnt = q(".bk-cnt");
