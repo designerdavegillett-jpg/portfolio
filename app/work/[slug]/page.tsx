@@ -9,6 +9,7 @@ import RailIndex from "@/components/RailIndex";
 import Clip from "@/components/Clip";
 import { splitWords } from "@/lib/type";
 import type { Metadata } from "next";
+import type { Interactive } from "@/content/case-studies/types";
 import { SITE_URL } from "@/lib/site";
 import CaptureAnatomy from "@/components/CaptureAnatomy";
 import ComplianceStates from "@/components/ComplianceStates";
@@ -22,6 +23,22 @@ import ItemDetails from "@/components/ItemDetails";
 import ItemSchedule from "@/components/ItemSchedule";
 import BookSync from "@/components/BookSync";
 import CatalogAdd from "@/components/CatalogAdd";
+
+/* Every interactive figure, keyed by its Interactive id. */
+const INTERACTIVES: Record<Interactive, React.ComponentType> = {
+  "capture-anatomy": CaptureAnatomy,
+  "compliance-states": ComplianceStates,
+  "persona-cards": PersonaCards,
+  "script-flow": ScriptFlow,
+  "caption-placement": CaptionPlacement,
+  "post-everywhere": PostEverywhere,
+  "app-store": AppStoreListing,
+  "book-drop": BookDrop,
+  "item-details": ItemDetails,
+  "item-schedule": ItemSchedule,
+  "book-sync": BookSync,
+  "catalog-add": CatalogAdd,
+};
 
 /**
  * Serialise structured data for a <script> tag. A "<" anywhere in a case
@@ -220,18 +237,11 @@ export default async function CaseStudyPage({
                     <>
                       <p>{intro}</p>
 
-                      {[section.interactive].flat().includes("capture-anatomy") && <CaptureAnatomy />}
-                      {[section.interactive].flat().includes("compliance-states") && <ComplianceStates />}
-                      {[section.interactive].flat().includes("persona-cards") && <PersonaCards />}
-                      {[section.interactive].flat().includes("script-flow") && <ScriptFlow />}
-                      {[section.interactive].flat().includes("caption-placement") && <CaptionPlacement />}
-                      {[section.interactive].flat().includes("post-everywhere") && <PostEverywhere />}
-                      {[section.interactive].flat().includes("app-store") && <AppStoreListing />}
-                      {[section.interactive].flat().includes("book-drop") && <BookDrop />}
-                      {[section.interactive].flat().includes("item-details") && <ItemDetails />}
-                      {[section.interactive].flat().includes("item-schedule") && <ItemSchedule />}
-                      {[section.interactive].flat().includes("book-sync") && <BookSync />}
-                      {[section.interactive].flat().includes("catalog-add") && <CatalogAdd />}
+                      {/* Interactives render in the order the section lists them. */}
+                      {[section.interactive].flat().map((k) => {
+                        const C = k ? INTERACTIVES[k] : null;
+                        return C ? <C key={k} /> : null;
+                      })}
                       {section.figures && section.figures.length > 0 && (
                         <div className="figures">
                           {section.figures.map((fig) => (
