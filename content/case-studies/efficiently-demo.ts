@@ -67,7 +67,7 @@ export const efficientlyDemo: CaseStudy[] = [
           },
           "item-schedule": {
             title: "Replacing an item from the schedule",
-            body: "The Item Schedule holds the same items as the Design Book. Replace opens the catalog already filtered to the item's division and type, since nothing else would be a valid replacement. Picking a new item updates every location that uses that Item ID.",
+            body: "The Item Schedule holds the same items as the Design Book. Replace opens the catalog already filtered to the item's division and type, since nothing else would be a valid replacement. Picking a new item updates every location that uses that Item ID. If the item was already approved, replacing it puts it back into Change Request status.",
           },
           "book-sync": {
             title: "Keeping the book in sync",
