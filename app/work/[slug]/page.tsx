@@ -21,6 +21,7 @@ import BookDrop from "@/components/BookDrop";
 import ItemDetails from "@/components/ItemDetails";
 import ItemSchedule from "@/components/ItemSchedule";
 import BookSync from "@/components/BookSync";
+import CatalogAdd from "@/components/CatalogAdd";
 
 /**
  * Serialise structured data for a <script> tag. A "<" anywhere in a case
@@ -230,6 +231,7 @@ export default async function CaseStudyPage({
                       {[section.interactive].flat().includes("item-details") && <ItemDetails />}
                       {[section.interactive].flat().includes("item-schedule") && <ItemSchedule />}
                       {[section.interactive].flat().includes("book-sync") && <BookSync />}
+                      {[section.interactive].flat().includes("catalog-add") && <CatalogAdd />}
                       {section.figures && section.figures.length > 0 && (
                         <div className="figures">
                           {section.figures.map((fig) => (
