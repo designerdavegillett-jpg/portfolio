@@ -688,6 +688,16 @@ strong {
   grid-template-columns: 1fr 12rem;
   gap: var(--s6);
 }
+.about-photo {
+  display: block;
+  width: 100%;
+  max-width: 12rem;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1.6rem;
+}
 .sidelist h4 {
   font-size: 0.7rem;
   font-weight: 600;

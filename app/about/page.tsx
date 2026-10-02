@@ -57,6 +57,13 @@ export default function AboutPage() {
           </div>
 
           <div className="sidelist reveal" style={{ "--d": ".14s" } as React.CSSProperties}>
+            <img
+              className="about-photo"
+              src="/about/dave.webp"
+              width={512}
+              height={512}
+              alt="Dave Gillett in his studio"
+            />
             <h4>Practice</h4>
             <ul>
               <li>Product Design</li>
