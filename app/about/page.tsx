@@ -22,9 +22,32 @@ export default function AboutPage() {
       <section className="section" style={{ marginTop: "5rem" }}>
         <div className="rail">
           <div className="label reveal">About</div>
+          <div className="sidelist rail-side reveal" style={{ "--d": ".14s" } as React.CSSProperties}>
+            <img
+              className="about-photo"
+              src="/about/dave.webp"
+              width={512}
+              height={512}
+              alt="Dave Gillett in his studio"
+            />
+            <h4>Practice</h4>
+            <ul>
+              <li>Product Design</li>
+              <li>Design Systems</li>
+              <li>Interaction Design</li>
+              <li>Design Direction</li>
+              <li>Prototyping in code</li>
+            </ul>
+            <h4>Recently</h4>
+            <ul>
+              <li>Efficiently, 2020-2026</li>
+              <li>Passport Unlimited</li>
+              <li>Soro Software</li>
+            </ul>
+            </div>
         </div>
 
-        <div className="about-grid" style={{ paddingBottom: "4rem" }}>
+        <div style={{ paddingBottom: "4rem" }}>
           <div className="prose">
             <p className="reveal">
               Hey there, I&apos;m Dave Gillett, a senior product designer in Seattle. I design
@@ -56,29 +79,6 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="sidelist reveal" style={{ "--d": ".14s" } as React.CSSProperties}>
-            <img
-              className="about-photo"
-              src="/about/dave.webp"
-              width={512}
-              height={512}
-              alt="Dave Gillett in his studio"
-            />
-            <h4>Practice</h4>
-            <ul>
-              <li>Product Design</li>
-              <li>Design Systems</li>
-              <li>Interaction Design</li>
-              <li>Design Direction</li>
-              <li>Prototyping in code</li>
-            </ul>
-            <h4>Recently</h4>
-            <ul>
-              <li>Efficiently, 2020-2026</li>
-              <li>Passport Unlimited</li>
-              <li>Soro Software</li>
-            </ul>
-          </div>
         </div>
       </section>
     </>

@@ -688,6 +688,9 @@ strong {
   grid-template-columns: 1fr 12rem;
   gap: var(--s6);
 }
+.rail-side {
+  margin-top: var(--s4);
+}
 .about-photo {
   display: block;
   width: 100%;
