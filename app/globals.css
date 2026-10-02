@@ -688,6 +688,12 @@ strong {
   grid-template-columns: 1fr 12rem;
   gap: var(--s6);
 }
+/* About: the h1 (48rem) and rail + prose (14rem + 34rem) form one 48rem
+   column, centered in the window. Text stays left-aligned inside it. */
+.about-center {
+  max-width: calc(48rem + 2 * var(--gutter));
+  margin-inline: auto;
+}
 .about-photo {
   display: block;
   width: 100%;

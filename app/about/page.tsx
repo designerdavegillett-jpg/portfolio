@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <div className="page">
+      <div className="page about-center">
         <h1 className="display d-xl" style={{ maxWidth: "48rem" }}>
           {splitWords(
             "I came to product design from street work and corporate marketing, obsessed with why people behave *predictably* in some contexts and surprise you in others.",
@@ -19,7 +19,7 @@ export default function AboutPage() {
         </h1>
       </div>
 
-      <section className="section" style={{ marginTop: "5rem" }}>
+      <section className="section about-center" style={{ marginTop: "5rem" }}>
         <div className="rail">
           <div className="sidelist rail-side reveal" style={{ "--d": ".14s" } as React.CSSProperties}>
             <img
