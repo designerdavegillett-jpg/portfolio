@@ -30,7 +30,7 @@ html {
   --gutter: 5rem;
   --radius: 0.75rem;
   --header-h: 4rem;
-  --banner-h: 2.4rem;
+  --banner-h: 0rem; /* banner removed 2026-10-02; offsets kept for reuse */
 
   /* SPACE — one ratio (1.5) all the way up, so vertical rhythm is a scale
      rather than a pile of one-off values. Use these, not raw rem. */
@@ -748,7 +748,7 @@ strong {
     --gutter: 1.6rem;
     --rail: 0;
     --header-h: 3.2rem;
-    --banner-h: 3.4rem;
+    --banner-h: 0rem;
   }
   .site-banner {
     font-size: 0.68rem;

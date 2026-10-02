@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Fraunces, Inter_Tight, Archivo, Geist, Geist_Mono, Merriweather, Merriweather_Sans, Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
-import SiteBanner from "@/components/SiteBanner";
 import MotionLayer from "@/components/MotionLayer";
 import LocalTime from "@/components/LocalTime";
 import Link from "next/link";
@@ -83,7 +82,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${interTight.variable} ${archivo.variable} ${geist.variable} ${geistMono.variable} ${merriweather.variable} ${merriweatherSans.variable} ${montserrat.variable} ${openSans.variable}`}>
       <body>
-        <SiteBanner />
         <SiteHeader />
         <MotionLayer />
 
