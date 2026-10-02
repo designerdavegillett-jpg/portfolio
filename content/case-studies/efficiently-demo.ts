@@ -52,6 +52,28 @@ export const efficientlyDemo: CaseStudy[] = [
         heading: "Catalog & Item Management",
         body: "The company already had an aggregated item catalog consisting of 4 million+ finish items that we would use as a data source and a system that we could use to allow designers to cultivate their own catalog should we not have the item they are looking for. I added an item management system that used the current catalog as a database so users could create or upload their curated items as well.",
         interactive: ["catalog-add", "book-drop", "item-details", "item-schedule", "book-sync"],
+        interactiveCopy: {
+          "catalog-add": {
+            title: "Adding your own item",
+            body: "When a designer couldn't find an item in the catalog, they could add it themselves with a photo, the details they had and the item's documents. It went into My items and could be used on any project like any catalog item.",
+          },
+          "book-drop": {
+            title: "Placing items on the page",
+            body: "Every item assigned to the room shows up in the list beside the page. A designer drags an item onto a spot on the page and it lands formatted, image and details included, and the list marks which page it's on.",
+          },
+          "item-details": {
+            title: "Item details without leaving the page",
+            body: "Clicking an item opens its details beside the list so the page stays in view. Replace and Remove sit at the top, followed by the photo, specs, every location using that Item ID and the item's documents.",
+          },
+          "item-schedule": {
+            title: "Replacing an item from the schedule",
+            body: "The Item Schedule holds the same items as the Design Book. Replace opens the catalog already filtered to the item's division and type, since nothing else would be a valid replacement. Picking a new item updates every location that uses that Item ID.",
+          },
+          "book-sync": {
+            title: "Keeping the book in sync",
+            body: "When an item changes in the schedule, the room list in the book updates right away. The page keeps the item it was laid out with and marks it Outdated, and Update on that tag swaps the new item in.",
+          },
+        },
       },
     ],
   },

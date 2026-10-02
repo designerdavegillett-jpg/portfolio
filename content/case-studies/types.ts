@@ -114,6 +114,8 @@ export type Section = {
    * page keeps the only import.
    */
   interactive?: Interactive | Interactive[];
+  /** Optional heading and paragraph shown above each interactive figure. */
+  interactiveCopy?: Partial<Record<Interactive, { title: string; body: string }>>;
 };
 
 /** Short rows under "Also" on the home page. Add an href once a page exists. */

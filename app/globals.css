@@ -1015,3 +1015,15 @@ strong {
   border-radius: var(--radius);
   background: var(--paper-sunk);
 }
+
+/* A heading and paragraph above an interactive figure (interactiveCopy). */
+.prose .cs-ix {
+  margin-top: var(--s6);
+}
+.prose .cs-ix-h {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 var(--s2);
+}

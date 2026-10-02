@@ -240,7 +240,17 @@ export default async function CaseStudyPage({
                       {/* Interactives render in the order the section lists them. */}
                       {[section.interactive].flat().map((k) => {
                         const C = k ? INTERACTIVES[k] : null;
-                        return C ? <C key={k} /> : null;
+                        if (!k || !C) return null;
+                        const copy = section.interactiveCopy?.[k];
+                        return copy ? (
+                          <div className="cs-ix" key={k}>
+                            <h3 className="cs-ix-h">{copy.title}</h3>
+                            <p>{copy.body}</p>
+                            <C />
+                          </div>
+                        ) : (
+                          <C key={k} />
+                        );
                       })}
                       {section.figures && section.figures.length > 0 && (
                         <div className="figures">
