@@ -27,10 +27,14 @@ export default function AboutPage() {
         <div className="about-grid" style={{ paddingBottom: "4rem" }}>
           <div className="prose">
             <p className="reveal">
-              I&apos;m a Senior Product Designer in Seattle. I&apos;ve spent sixteen years designing
-              the systems people work inside, most recently on a construction-tech platform
-              where I owned UI and UX across eight modules and twenty-six-plus releases,
-              directing a team of nine.
+              Hey there, I&apos;m Dave Gillett, a senior product designer in Seattle. I design
+              platforms that take complex systems and turn them into intuitive, user-centered
+              applications. I use AI hand in hand with my work to improve the process, not to
+              replace the experience behind great product design.
+            </p>
+            <p className="reveal" style={{ "--d": ".04s" } as React.CSSProperties}>
+              Most recently I designed a construction-tech platform where I owned UI and UX
+              across eight modules and twenty-six-plus releases, directing a team of nine.
             </p>
             <p className="reveal" style={{ "--d": ".08s" } as React.CSSProperties}>
               Before that I designed benefits software reaching over 500,000 employees across 80+
