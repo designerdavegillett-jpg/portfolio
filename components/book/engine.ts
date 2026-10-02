@@ -415,12 +415,19 @@ export function controller(
   (replay.closest(".bk-bar") ?? stage).insertAdjacentElement("afterend", guide);
   E.G.onStep = (label) => { guide.querySelector("span")!.textContent = label ? `Next: ${label}` : "Watch what happens…"; };
 
+  /* While the demo plays, its button reads Pause demo and pauses it. */
+  const playBtn = ctl.querySelector<HTMLButtonElement>('button[data-m="watch"]')!;
+  const sync = () => {
+    playBtn.textContent = mode === "watch" && playing && !timer && !E.C.paused ? "Pause demo" : "Play demo";
+  };
+
   /* Coming into view, the figure waits 3 seconds, then the demo plays. */
   const DELAY = 3000;
   let timer = 0;
   const stopCount = () => {
     window.clearTimeout(timer);
     timer = 0;
+    sync();
   };
   const countdown = () => {
     E.halt();
@@ -429,6 +436,7 @@ export function controller(
     reset();
     stopCount();
     timer = window.setTimeout(() => { timer = 0; start(); }, DELAY);
+    sync();
   };
 
   const setMode = (m: "watch" | "try") => {
@@ -442,7 +450,8 @@ export function controller(
   };
   const onMode = (e: Event) => {
     const m = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-m]")?.dataset.m as "watch" | "try" | undefined;
-    if (m) setMode(m);
+    if (m === "watch" && mode === "watch" && playing && !timer) setPaused(!E.C.paused);
+    else if (m) setMode(m);
   };
   const onSkip = () => E.advance();
   ctl.addEventListener("click", onMode);
@@ -454,6 +463,7 @@ export function controller(
     reset();
     E.C.cycleStart = E.now();
     playing = true;
+    sync();
     loop(E.S.run);
   };
   const io = new IntersectionObserver(
@@ -470,6 +480,7 @@ export function controller(
           started = false;
           E.halt();
           reset();
+          sync();
         }
       }),
     { threshold: 0.35 },
@@ -482,6 +493,7 @@ export function controller(
   const setPaused = (on: boolean) => {
     E.C.paused = on;
     pz.classList.toggle("on", on);
+    sync();
   };
   const onStage = () => {
     if (mode === "try" || timer || !playing) return;
