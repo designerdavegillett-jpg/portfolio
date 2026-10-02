@@ -497,8 +497,7 @@ strong {
 .card-text {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 23rem;
+  justify-content: flex-start;
 }
 /* Card headlines are descriptive sentences now, not short fragments, so they
    wrap. Balance evens the rag instead of leaving an orphan word on the last
