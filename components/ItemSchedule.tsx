@@ -176,7 +176,7 @@ ${panelCss(".item-schedule", "right")}
 .item-schedule .bk-ct .t{font-size:13px;line-height:1.35;height:35px;overflow:hidden}
 .item-schedule .bk-ct .s{font-size:11.5px;color:#a9acb0}
 .item-schedule .bk-ct .f{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#c3c5c9;margin-top:2px}
-.item-schedule .bk-toast{position:absolute;left:497px;top:690px;display:flex;align-items:center;gap:8px;height:38px;padding:0 16px 0 12px;border-radius:8px;background:#1c1e20;color:#fff;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.35);white-space:nowrap;opacity:0;transform:translate(-50%,8px)}
+.item-schedule .bk-toast{position:absolute;left:683px;top:690px;display:flex;align-items:center;gap:8px;height:38px;padding:0 16px 0 12px;border-radius:8px;background:#1c1e20;color:#fff;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.35);white-space:nowrap;opacity:0;transform:translate(-50%,8px)}
 .item-schedule .bk-toast svg{color:#5fd394}`;
 
 const MARKUP = `<div class="bk-stage" role="img" aria-label="The Item Schedule for the primary bathroom and shower. The PL-02 Item ID on a shower head row is clicked and its details slide in from the right. Replace item flies the Catalog in over most of the screen, with search across the top, filters down the left and a grid of item cards. The Catalog opens filtered to plumbing shower heads; the grid is scrolled and a different showerhead is selected. The panel and both shower head rows that use PL-02 change to the new item.">
