@@ -5,7 +5,7 @@ import { splitWords } from "@/lib/type";
 import { SITE_URL } from "@/lib/site";
 
 const HERO =
-  "I've spent sixteen years designing the systems people work inside, building teams from the ground up, most recently designing a full scale end to end construction management system, and now using AI to move faster without moving anyone out of the room.";
+  "Hey there, I'm Dave Gillett, a senior product designer. I design platforms that take complex systems and turn them into intuitive, user-centered applications. I use AI hand in hand with my work to improve the process, not to replace the experience behind great product design.";
 
 /* The identity of the site, in the form a search engine can resolve. This is
    what ties "Dave Gillett" the string to a person with a role and a body of
