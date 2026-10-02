@@ -184,7 +184,7 @@ export default function ItemSchedule() {
         await wait(350); if (!ok()) return;
         await E.reach(t.x + t.w / 2, t.y + t.h / 2, { arc: 0.12 }); if (!ok()) return;
         await wait(450); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Click the PL-02 Item ID"); if (!ok()) return;
 
         S.lock = true;
         S.mode = "arrow";
@@ -199,7 +199,7 @@ export default function ItemSchedule() {
         await wait(600); if (!ok()) return;
         { const p = kit.at(1, 0.55); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
         await wait(1000); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Replace the item"); if (!ok()) return;
 
         /* The Catalog flies in. */
         modal = true;
@@ -221,7 +221,7 @@ export default function ItemSchedule() {
         await wait(800); if (!ok()) return;
         { const b = box(sel); await E.reach(b.x + b.w / 2, b.y + b.h / 2 + 1, { arc: -0.1 }); } if (!ok()) return;
         await wait(400); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Select the Kohler showerhead"); if (!ok()) return;
 
         /* The Catalog closes, the panel and both locations change. */
         modal = false;
@@ -238,7 +238,7 @@ export default function ItemSchedule() {
         /* Close the panel to show the schedule. */
         await E.reach(kit.X.x, kit.X.y, { arc: 0.12 }); if (!ok()) return;
         await wait(300); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Close the panel"); if (!ok()) return;
         await kit.hide(E); if (!ok()) return;
         kit.closeState();
         select(false);

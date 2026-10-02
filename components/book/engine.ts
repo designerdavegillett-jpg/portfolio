@@ -77,7 +77,28 @@ export const STYLES = `.bk{--hi:#0071E3;--app:var(--font-eff-sans,"Open Sans"),s
 .bk .bk-rev button[data-a="play"]{min-width:4.6em}
 .bk .bk-rev input{flex:1;min-width:0;accent-color:var(--hi)}
 .bk .bk-rt{font-variant-numeric:tabular-nums;min-width:7em;text-align:right}
-@media (prefers-reduced-motion:reduce){.bk *{transition:none!important}.bk .bk-replay{display:none}}`;
+
+/* try it yourself: the next thing to click */
+.bk .bk-hot{position:absolute;left:0;top:0;width:0;height:0;opacity:0;pointer-events:none;z-index:20;transition:opacity .2s}
+.bk .bk-hot.on{opacity:1}
+.bk .bk-hot i{position:absolute;left:-15px;top:-15px;width:30px;height:30px;border-radius:50%;border:2.5px solid #ff6a3d;background:rgba(255,106,61,.16);animation:bkping 1.6s ease-out infinite}
+.bk .bk-hot i+i{animation-delay:.8s}
+.bk .bk-hot b{position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:#ff6a3d;box-shadow:0 0 0 3px #fff,0 2px 6px rgba(0,0,0,.35)}
+.bk .bk-hot span{position:absolute;left:20px;top:-40px;white-space:nowrap;background:#1d1d1f;color:#fff;font:600 14px/1 var(--app);padding:9px 12px;border-radius:7px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.bk .bk-hot.flip span{left:auto;right:20px}
+.bk .bk-hot.low span{top:22px}
+.bk .bk-hot.miss b{animation:bkshake .35s}
+@keyframes bkping{0%{transform:scale(.55);opacity:1}100%{transform:scale(2.3);opacity:0}}
+@keyframes bkshake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.bk .bk-ctl{flex:none;display:flex;gap:.5rem;align-items:center}
+.bk .bk-mode{display:inline-flex;padding:2px;border-radius:999px;border:1px solid rgba(29,29,31,.16)}
+.bk .bk-mode button{font:500 .7rem/1 var(--font-body),"Inter Tight",system-ui,sans-serif;color:var(--ink-soft,#424245);background:transparent;border:0;border-radius:999px;padding:.4rem .75rem;cursor:pointer}
+.bk .bk-mode button.on{background:var(--ink,#1d1d1f);color:#fff}
+.bk .bk-guide{display:none;align-items:center;gap:.6rem;margin-top:.5rem;font:500 .72rem/1.4 var(--font-body),"Inter Tight",system-ui,sans-serif;color:var(--ink-soft,#424245)}
+.bk .bk-guide.on{display:flex}
+.bk .bk-guide i{width:9px;height:9px;border-radius:50%;background:#ff6a3d;flex:none}
+.bk .bk-guide button{margin-left:auto;font:inherit;color:inherit;background:transparent;border:1px solid rgba(29,29,31,.16);border-radius:999px;padding:.35rem .7rem;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.bk *{transition:none!important}.bk .bk-replay,.bk .bk-ctl{display:none}}`;
 
 const HAND_OPEN = `<path d="M18 11V6a2 2 0 0 0-4 0"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>`;
 const HAND_GRAB = `<path d="M18 11.5V9a2 2 0 0 0-4 0v1.4"/><path d="M14 10V8a2 2 0 0 0-4 0v2"/><path d="M10 9.9V9a2 2 0 0 0-4 0v5"/><path d="M6 14a2 2 0 0 0-4 0"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8 2 2 0 1 1 4 0"/>`;
@@ -144,6 +165,46 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
   const held = new WeakSet<Animation>();
   const now = () => C.t;
   const wait = (ms: number) => new Promise<void>((res) => timers.push({ at: C.t + ms, res }));
+
+  /* Try it yourself: the script stops at every click and waits for the
+     viewer's own click on the marked spot. Moves resolve at once and the
+     pointer drives hover, so the figure reacts to the real mouse. */
+  const G = { on: false, x: opts.home.x, y: opts.home.y, pending: null as null | { res: () => void; x: number; y: number }, onStep: null as null | ((label: string | null) => void) };
+  const hot = document.createElement("div");
+  hot.className = "bk-hot";
+  hot.innerHTML = "<i></i><i></i><b></b><span></span>";
+  inner.insertBefore(hot, cur);
+  const toDesign = (e: MouseEvent) => {
+    const s = stage.clientWidth / W, a = stage.getBoundingClientRect();
+    return { x: (e.clientX - a.left) / s, y: (e.clientY - a.top) / s };
+  };
+  const onMove = (e: PointerEvent) => {
+    if (!G.on) return;
+    const p = toDesign(e);
+    S.cx = p.x;
+    S.cy = p.y;
+  };
+  const onDown = (e: MouseEvent) => {
+    if (!G.on || !G.pending) return;
+    const p = toDesign(e), t = G.pending;
+    if (Math.hypot(p.x - t.x, p.y - t.y) <= 46) advance();
+    else { hot.classList.remove("miss"); void hot.offsetWidth; hot.classList.add("miss"); }
+  };
+  const advance = () => {
+    const t = G.pending;
+    if (!t) return;
+    G.pending = null;
+    hot.classList.remove("on");
+    G.onStep?.(null);
+    t.res();
+  };
+  const setGuided = (on: boolean) => {
+    G.on = on;
+    cur.style.display = on ? "none" : "";
+    stage.style.cursor = on ? "default" : "";
+  };
+  stage.addEventListener("pointermove", onMove);
+  stage.addEventListener("click", onDown);
   let last = 0;
   let raf = 0;
   let live = true;
@@ -156,6 +217,9 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
   fit();
 
   function moveTo(x: number, y: number, { arc = 0.18, dur }: { arc?: number; dur?: number } = {}) {
+    G.x = x;
+    G.y = y;
+    if (G.on) return Promise.resolve();
     return new Promise<void>((res) => {
       const x0 = S.cx, y0 = S.cy, dx = x - x0, dy = y - y0, dist = Math.hypot(dx, dy);
       const d = dur ?? 260 + dist * 0.95;
@@ -178,12 +242,24 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
   }
   /* Overshoot a touch, then correct. */
   async function reach(x: number, y: number, o: { arc?: number; dur?: number } = {}) {
+    if (G.on) return void (await moveTo(x, y));
     const id = S.run, dx = x - S.cx, dy = y - S.cy, dist = Math.hypot(dx, dy) || 1, ov = Math.min(16, dist * 0.025);
     await moveTo(x + (dx / dist) * ov, y + (dy / dist) * ov * 0.6, o);
     if (id !== S.run) return;
     await moveTo(x, y, { arc: 0, dur: 200 });
   }
-  async function click() {
+  async function click(label = "Click here") {
+    if (G.on) {
+      const x = G.x, y = G.y;
+      hot.style.transform = `translate(${x}px,${y}px)`;
+      hot.classList.toggle("flip", x > W - 260);
+      hot.classList.toggle("low", y < 90);
+      hot.querySelector("span")!.textContent = label;
+      hot.classList.add("on");
+      G.onStep?.(label);
+      await new Promise<void>((res) => (G.pending = { res, x, y }));
+      return;
+    }
     cur.classList.add("click");
     await wait(110);
     cur.classList.remove("click");
@@ -232,6 +308,7 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
     if (!live) return;
     const rdt = Math.min(50, real - (last || real));
     last = real;
+    if (G.on) stage.style.cursor = S.mode === "point" ? "pointer" : S.mode === "text" ? "text" : S.mode === "grab" ? "grabbing" : S.mode === "open" ? "grab" : "default";
     if (C.ffTo < 0) {
       step(C.paused ? 0 : rdt * C.rate);
       resolveDue();
@@ -289,12 +366,17 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
   const halt = () => {
     S.run++;
     tween = null;
+    G.pending = null;
+    hot.classList.remove("on");
+    G.onStep?.(null);
   };
   const destroy = () => {
     live = false;
     halt();
     cancelAnimationFrame(raf);
     mc.port1.close();
+    stage.removeEventListener("pointermove", onMove);
+    stage.removeEventListener("click", onDown);
     ro.disconnect();
   };
   /* Review controls. */
@@ -308,7 +390,7 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
     C.ffPause = thenPause;
     if (!running) mc.port1.postMessage(0);
   };
-  return { S, C, now, wait, moveTo, reach, click, halt, destroy, inner, cur, lap, ff, endFF };
+  return { S, C, G, now, wait, moveTo, reach, click, halt, destroy, inner, cur, lap, ff, endFF, setGuided, advance };
 }
 export type Engine = ReturnType<typeof engine>;
 
@@ -321,8 +403,37 @@ export function controller(
 ) {
   let playing = false, stopped = false, started = false;
   const review = !reduced && /[?&]review\b/.test(location.search);
+  /* Watch the demo, or try it: the same script, waiting on the viewer's clicks. */
+  let mode: "watch" | "try" = "watch";
+  const ctl = document.createElement("div");
+  ctl.className = "bk-ctl";
+  ctl.innerHTML = `<div class="bk-mode" role="group" aria-label="Demo mode"><button type="button" data-m="watch" class="on">Watch demo</button><button type="button" data-m="try">Try it yourself</button></div>`;
+  replay.parentElement?.insertBefore(ctl, replay);
+  ctl.appendChild(replay);
+  const guide = document.createElement("div");
+  guide.className = "bk-guide";
+  guide.innerHTML = `<i></i><span>Click the marked spot to start</span><button type="button">Skip step</button>`;
+  (replay.closest(".bk-bar") ?? stage).insertAdjacentElement("afterend", guide);
+  E.G.onStep = (label) => { if (label) guide.querySelector("span")!.textContent = `Next: ${label}`; else guide.querySelector("span")!.textContent = "Watch what happens…"; };
+  const setMode = (m: "watch" | "try") => {
+    mode = m;
+    ctl.querySelectorAll<HTMLButtonElement>(".bk-mode button").forEach((b) => b.classList.toggle("on", b.dataset.m === m));
+    guide.classList.toggle("on", m === "try");
+    if (bar) bar.style.display = m === "try" ? "none" : "";
+    stopped = false;
+    started = true;
+    start();
+  };
+  const onMode = (e: Event) => {
+    const m = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-m]")?.dataset.m as "watch" | "try" | undefined;
+    if (m && m !== mode) setMode(m);
+  };
+  const onSkip = () => E.advance();
+  ctl.addEventListener("click", onMode);
+  guide.querySelector("button")!.addEventListener("click", onSkip);
   const start = () => {
     E.halt();
+    E.setGuided(mode === "try");
     reset();
     E.C.cycleStart = E.now();
     playing = true;
@@ -335,7 +446,7 @@ export function controller(
         if (e.isIntersecting && !started && !stopped) {
           started = true;
           start();
-        } else if (!e.isIntersecting && playing) {
+        } else if (!e.isIntersecting && playing && mode === "watch") {
           playing = false;
           started = false;
           E.halt();
@@ -345,6 +456,7 @@ export function controller(
     { threshold: 0.35 },
   );
   const onStage = () => {
+    if (mode === "try") return;
     if (review) return void togglePause();
     if (playing) {
       stopped = true;
@@ -423,5 +535,7 @@ export function controller(
     replay.removeEventListener("click", onReplay);
     window.clearInterval(tick);
     bar?.remove();
+    guide.remove();
+    ctl.removeEventListener("click", onMode);
   };
 }

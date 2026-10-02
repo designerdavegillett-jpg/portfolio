@@ -169,7 +169,7 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     /* Close. */
     await E.reach(X.x, X.y, { arc: 0.12 }); if (!ok()) return false;
     await wait(380); if (!ok()) return false;
-    await E.click(); if (!ok()) return false;
+    await E.click("Close the panel"); if (!ok()) return false;
     await hide(E);
     return true;
   }

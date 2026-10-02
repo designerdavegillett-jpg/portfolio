@@ -29,6 +29,7 @@ const ATTRS = [
   { k: "finish", cell: "F6", text: "Polished Chrome" },
   { k: "flow", cell: "G6", text: "1.2 gpm" },
 ];
+const WHAT: Record<string, string> = { name: "product name", model: "model number", finish: "finish", flow: "flow rate" };
 /* Excel cell -> caption line on the page. */
 const LINES = [
   { cell: "D6", line: 0, text: "PURIST WIDESPREAD FAUCET" },
@@ -296,6 +297,7 @@ export default function CopyPaste() {
       S.mode = "text";
       S.lock = true;
       await E.reach(b.x - 2, b.y + b.h / 2, { arc: 0.1, dur: fast ? 420 : undefined }); if (!ok()) return;
+      await E.click(`Select the ${WHAT[k]}`); if (!ok()) return;
       await wait(fast ? 80 : 200); if (!ok()) return;
       const dur = Math.min(900, 200 + b.w * 1.2) * (fast ? 0.6 : 1);
       hl.animate([{ width: "0px" }, { width: `${b.w / 1 + 2}px` }], { duration: dur, easing: "ease-in-out", ...fwd });
@@ -307,7 +309,7 @@ export default function CopyPaste() {
       const c = cell(id), b = box(c);
       S.mode = "arrow";
       await E.reach(b.x + 30, b.y + b.h / 2, { arc: 0.12, dur: fast ? 480 : undefined }); if (!ok()) return;
-      await E.click(); if (!ok()) return;
+      await E.click(`Click cell ${id} to paste`); if (!ok()) return;
       placeAct(xact, c);
       xname.textContent = id;
       xval.textContent = c.textContent ?? "";
@@ -321,7 +323,7 @@ export default function CopyPaste() {
       const c = cell(id), b = box(c);
       S.mode = "arrow";
       await E.reach(b.x + 30, b.y + b.h / 2, { arc: 0.12, dur: 500 }); if (!ok()) return;
-      await E.click(); if (!ok()) return;
+      await E.click(`Click cell ${id} to copy it`); if (!ok()) return;
       placeAct(xact, c);
       xname.textContent = id;
       xval.textContent = c.textContent ?? "";
@@ -336,7 +338,7 @@ export default function CopyPaste() {
       const x = p.x + 676 + (append ? el.getBoundingClientRect().width / scale() : 0) + 1, y = p.y + [274, 288, 300][line];
       S.mode = "text";
       await E.reach(x, y, { arc: 0.12, dur: 560 }); if (!ok()) return;
-      await E.click(); if (!ok()) return;
+      await E.click("Click into the caption to paste"); if (!ok()) return;
       frame.style.opacity = "1";
       Object.assign(caret.style, { left: `${x - p.x}px`, top: `${y - p.y - 6}px`, opacity: "1" });
       await keys("⌘V"); if (!ok()) return;

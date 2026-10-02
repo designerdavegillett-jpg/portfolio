@@ -131,6 +131,7 @@ export default function BookDrop() {
       await E.reach(it.grab.x + 6, it.grab.y + 4, { arc: 0.12 }); if (!ok()) return;
       await E.moveTo(it.grab.x, it.grab.y, { arc: 0, dur: 420 }); if (!ok()) return;
       await wait(340); if (!ok()) return;
+      await E.click("Pick up the item"); if (!ok()) return;
 
       /* Grab: the hover card lifts off as a floating card; a dimmed copy stays behind. */
       S.lock = true;
@@ -151,6 +152,7 @@ export default function BookDrop() {
       await E.moveTo(S.cx + 14, S.cy - 4, { arc: 0, dur: 180 }); if (!ok()) return;
       await E.reach(it.slot.x + it.slot.w / 2 + 8, it.slot.y + it.slot.h / 2 + 6, { arc: -0.16 }); if (!ok()) return;
       await wait(420); if (!ok()) return;
+      await E.click("Drop it on the page"); if (!ok()) return;
 
       /* Release: the card tucks into the slot and the tile settles in. */
       drag = null;

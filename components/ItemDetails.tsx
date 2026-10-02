@@ -80,7 +80,7 @@ export default function ItemDetails() {
         await wait(600); if (!ok()) return;
         await E.reach(150, 272, { arc: 0.14 }); if (!ok()) return;
         await wait(500); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Open the item's details"); if (!ok()) return;
 
         S.lock = true;
         S.mode = "arrow";

@@ -213,7 +213,7 @@ export default function CatalogAdd() {
         /* Open New item. */
         { const p = mid(add); await E.reach(p.x, p.y, { arc: 0.14 }); } if (!ok()) return;
         await wait(500); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Add your own item"); if (!ok()) return;
         mscrim.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 280, ...fwd });
         form.animate([{ transform: "translateX(102%)" }, { transform: "translateX(0)" }], { duration: 480, easing: "cubic-bezier(.32,.72,0,1)", ...fwd });
         await wait(560); if (!ok()) return;
@@ -221,7 +221,7 @@ export default function CatalogAdd() {
         /* Photo: drop it in, a short upload. */
         { const p = mid(drop); await E.reach(p.x, p.y + 10, { arc: 0.12 }); } if (!ok()) return;
         await wait(400); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Add a photo"); if (!ok()) return;
         drop.classList.add("has");
         dimg.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, ...fwd });
         prog.animate([{ opacity: 1 }, { opacity: 1, offset: 0.85 }, { opacity: 0 }], { duration: 1100, ...fwd });
@@ -230,24 +230,24 @@ export default function CatalogAdd() {
 
         /* Details. */
         { const p = mid(ip("name"), 0.2); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Click Name"); if (!ok()) return;
         await type("name", FIELDS.name, ok); if (!ok()) return;
         { const p = mid(ip("vendor"), 0.25); await E.reach(p.x, p.y, { arc: 0.08 }); } if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Click Vendor"); if (!ok()) return;
         await type("vendor", FIELDS.vendor, ok); if (!ok()) return;
         { const p = mid(ip("sku"), 0.25); await E.reach(p.x, p.y, { arc: 0.08 }); } if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Click Style / SKU"); if (!ok()) return;
         await type("sku", FIELDS.sku, ok); if (!ok()) return;
 
         /* Category sets the division. */
         { const p = mid(catSel, 0.4); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
         await wait(250); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Choose a category"); if (!ok()) return;
         menu.classList.add("on");
         await wait(500); if (!ok()) return;
         { const p = mid(opt, 0.3); await E.reach(p.x, p.y, { arc: 0.06 }); } if (!ok()) return;
         await wait(300); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Pick Shower Heads"); if (!ok()) return;
         menu.classList.remove("on");
         { const ce = catSel.querySelector("em")!; ce.textContent = NEW.cat; ce.className = ""; }
         await wait(260); if (!ok()) return;
@@ -258,12 +258,12 @@ export default function CatalogAdd() {
         /* Finish and documents. */
         { const p = mid(sw, 0.4); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
         await wait(300); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Pick a finish"); if (!ok()) return;
         sw.classList.add("on");
         await wait(400); if (!ok()) return;
         { const p = mid(att); await E.reach(p.x, p.y, { arc: 0.08 }); } if (!ok()) return;
         await wait(300); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Attach a document"); if (!ok()) return;
         chipd.classList.add("on");
         chipd.animate([{ opacity: 0, transform: "scale(.94)" }, { opacity: 1, transform: "none" }], { duration: 240, easing: "ease-out" });
         save.classList.add("ready");
@@ -272,7 +272,7 @@ export default function CatalogAdd() {
         /* Save: the panel closes and the item joins the grid, up front. */
         { const p = mid(save); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
         await wait(400); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Save to My items"); if (!ok()) return;
         live = false;
         HOT.forEach((el) => el.classList.remove("hot"));
         S.mode = "arrow";

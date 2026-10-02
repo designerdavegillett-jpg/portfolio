@@ -136,6 +136,7 @@ export default function BookSync() {
 
         /* What the flag means: the page still has the old item. */
         await E.reach(FLAG.x + 60, FLAG.y + 9, { arc: 0.14 }); if (!ok()) return;
+        await E.click("Check the outdated flag"); if (!ok()) return;
         await wait(2600); if (!ok()) return;
         await E.reach(TILE.x + TILE.w / 2, TILE.y + 70, { arc: -0.12 }); if (!ok()) return;
         await wait(1200); if (!ok()) return;
@@ -143,7 +144,7 @@ export default function BookSync() {
         /* Update from the tag: the new item drops into the page. */
         { const b = box(upd); await E.reach(b.x + b.w / 2, b.y + b.h / 2 + 1, { arc: 0.1 }); } if (!ok()) return;
         await wait(700); if (!ok()) return;
-        await E.click(); if (!ok()) return;
+        await E.click("Update the page"); if (!ok()) return;
         flagged = false;
         upd.classList.remove("hot");
         S.mode = "arrow";
