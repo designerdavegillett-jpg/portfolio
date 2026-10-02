@@ -60,7 +60,16 @@ ${catalogCss(".catalog-add")}
 .catalog-add .bk-add{transition:background-color .14s}
 .catalog-add .bk-add.hot{background:var(--hi)}
 .catalog-add .bk-mine{position:absolute;left:8px;top:8px;height:22px;display:flex;align-items:center;padding:0 8px;border-radius:5px;background:#7a5af8;color:#fff;font-size:11px;font-weight:600}
-.catalog-add .bk-card.new{box-shadow:0 0 0 2px #7a5af8}
+.catalog-add .bk-card.new{position:relative;box-shadow:0 0 0 2px #7a5af8}
+.catalog-add .bk-skel{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;background:#26282b;border-radius:8px;overflow:hidden}
+.catalog-add .bk-card.loading .bk-skel{display:flex}
+.catalog-add .bk-skel .im{position:relative;aspect-ratio:436/328;background:#303236;display:grid;place-items:center}
+.catalog-add .bk-skel .im i{width:22px;height:22px;border-radius:50%;border:2.5px solid rgba(255,255,255,.18);border-top-color:#a48bfa;animation:bkskspin .8s linear infinite}
+.catalog-add .bk-skel .ln{height:10px;border-radius:5px;background:#303236;margin:12px 12px 0}
+.catalog-add .bk-skel .ln.a{width:72%;margin-top:14px}.catalog-add .bk-skel .ln.b{width:48%}.catalog-add .bk-skel .ln.c{width:58%}
+.catalog-add .bk-skel::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.07) 50%,transparent 70%);transform:translateX(-100%);animation:bkshim 1.1s ease-in-out infinite}
+@keyframes bkshim{to{transform:translateX(100%)}}
+@keyframes bkskspin{to{transform:rotate(360deg)}}
 .catalog-add .bk-fr.bump .n{color:#c9b8ff;font-weight:700}
 .catalog-add .bk-mscrim{position:absolute;left:0;top:48px;right:0;bottom:0;background:rgba(10,11,12,.42);opacity:0;pointer-events:none}
 .catalog-add .bk-nf{position:absolute;left:846px;top:48px;width:520px;height:720px;display:flex;flex-direction:column;background:#1c1e20;border-left:1px solid #000;box-shadow:-24px 0 48px rgba(0,0,0,.4);color:#fff;transform:translateX(102%)}
@@ -142,6 +151,7 @@ export default function CatalogAdd() {
     const catSel = q('[data-c="cat"]'), menu = q(".bk-menu"), opt = q('[data-c="opt"]'), sw = q('[data-c="sw"]');
     const att = q('[data-c="att"]'), chipd = q(".bk-chipd"), save = q('[data-c="save"]');
     const grid = q(".bk-grid"), newCard = q(".bk-card.new"), mine = q('[data-f="src:mine"]'), mycnt = q(".bk-mycnt");
+    if (!newCard.querySelector(".bk-skel")) newCard.insertAdjacentHTML("beforeend", `<div class="bk-skel" aria-hidden="true"><div class="im"><i></i></div><div class="ln a"></div><div class="ln b"></div><div class="ln c"></div></div>`);
     const HOT = [add, drop, catSel, opt, sw, att, save];
 
     /* Design px box of an element, read from layout. */
@@ -192,6 +202,7 @@ export default function CatalogAdd() {
       E.inner.getAnimations({ subtree: true }).forEach((a) => a.cancel());
       HOT.forEach((el) => el.classList.remove("hot"));
       drop.classList.remove("has");
+      newCard.classList.remove("loading");
       bar.style.width = "0";
       ["name", "vendor", "sku"].forEach((k) => { ip(k).querySelector("em")!.textContent = ""; ip(k).classList.remove("focus"); });
       const ce = catSel.querySelector("em")!; ce.textContent = "Choose a category"; ce.className = "ph";
@@ -283,6 +294,7 @@ export default function CatalogAdd() {
         const s = scale();
         const cards = qa(".bk-card").filter((c) => c !== newCard).slice(0, 15);
         const before = cards.map((c) => c.getBoundingClientRect());
+        newCard.classList.add("loading");
         newCard.classList.remove("out");
         cards.forEach((c, i) => {
           const a = before[i], b = c.getBoundingClientRect();
@@ -290,11 +302,19 @@ export default function CatalogAdd() {
         });
         newCard.animate([{ opacity: 0, transform: "scale(.9)" }, { opacity: 1, transform: "none" }], { duration: 420, delay: 120, easing: "cubic-bezier(.2,.8,.2,1.1)", fill: "backwards" });
         grid.parentElement!.scrollTop = 0;
+        /* The new card loads as a skeleton before it shows as created. */
+        await E.moveTo(560, 560, { arc: 0.15 }); if (!ok()) return;
+        await wait(1500); if (!ok()) return;
+        const sk = newCard.querySelector<HTMLElement>(".bk-skel")!;
+        sk.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 320, easing: "ease-out", ...fwd });
+        newCard.querySelectorAll(".bk-ci img,.bk-ct").forEach((el) => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: 80, easing: "ease-out", fill: "backwards" }));
+        await wait(340); if (!ok()) return;
+        newCard.classList.remove("loading");
+        sk.getAnimations().forEach((a) => a.cancel());
         mine.classList.add("bump");
         mine.querySelector(".n")!.textContent = "38";
         mycnt.textContent = "38";
         toast.animate([{ opacity: 0, transform: "translate(-50%,8px)" }, { opacity: 1, transform: "translate(-50%,0)" }], { duration: 260, delay: 200, easing: "ease-out", ...fwd });
-        await E.moveTo(560, 560, { arc: 0.15 }); if (!ok()) return;
         await wait(2600); if (!ok()) return;
         toast.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, ...fwd });
         await wait(800); if (!ok()) return;
