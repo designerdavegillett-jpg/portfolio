@@ -50,7 +50,7 @@ export const efficientlyDemo: CaseStudy[] = [
         body: "Build a cloud-based platform that serves as a single source of item information, allowing interior designers to build beautifully formatted, luxury-level presentations and maintain pervasive item data throughout the project’s item schedule. We also introduced an approval management system concept that all designers validated as highly valuable.",
       },
       {
-        heading: "Catalog & Item Management",
+        heading: "The Platform Design",
         body: "The company already had an aggregated item catalog consisting of 4 million+ finish items that we would use as a data source and a system that we could use to allow designers to cultivate their own catalog should we not have the item they are looking for. I added an item management system that used the current catalog as a database so users could create or upload their curated items as well.",
         interactive: ["catalog-add", "book-drop", "item-details", "item-schedule", "book-sync"],
         interactiveCopy: {
