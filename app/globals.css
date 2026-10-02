@@ -693,9 +693,6 @@ strong {
   width: 100%;
   max-width: 12rem;
   height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: 50% 40%;
   border-radius: 4px;
   margin-bottom: 1.6rem;
 }
