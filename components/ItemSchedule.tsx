@@ -16,9 +16,9 @@ import { PANEL, panelCss, panelKit } from "@/components/book/details";
  * locations that use PL-02 (LOC 3 and LOC 4) change to the new item.
  *
  * Card images: the item photos in the Figma file (Book page tiles, room list
- * thumbnails, the Kohler item at 54642:109696) plus eight showerheads from
- * Pexels and Unsplash (free licenses, no attribution required), cut to
- * 436x328. Their brand names are invented.
+ * thumbnails, the Kohler item at 54642:109696) plus twenty showerhead
+ * product shots Dave supplied (Kohler, Moen, Delta), fitted on white at
+ * 436x328 under invented demo names.
  * Row hover, the tag ring, the Catalog and the toast are designs, not
  * captures: the Figma file has no frame for them. Same contract as the other
  * figures. See components/book/engine.ts and components/book/details.ts.
@@ -35,15 +35,27 @@ type Card = { k: string; brand: string; name: string; style: string; finish: str
 /* Catalog results, in "Relevance" order. */
 const CARDS: Card[] = [
   { k: "elysian", brand: "Elysian", name: `Transitional 12" Rain Shower Head`, style: "ELY-2190", finish: "Brushed Silver", sw: "#c9cdd2", cat: "Shower Heads" },
-  { k: "noir", brand: "Noir", name: `10" Round Rain Shower Head`, style: "NR-1040", finish: "Matte Black", sw: "#2b2b2b", cat: "Shower Heads" },
-  { k: "arc", brand: "Arc", name: "Multifunction Hand Shower on Slide Bar", style: "ARC-520", finish: "Chrome · White", sw: "#e6e8ea", cat: "Shower Heads" },
-  { k: "metro", brand: "Metro", name: `12" Wall Mount Rain Head`, style: "MTR-1208", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
-  { k: "halo", brand: "Halo", name: `9" Rain Shower Head`, style: "HAL-0907", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
-  { k: "verde", brand: "Verde", name: `10" Round Rain Head`, style: "VRD-1010", finish: "Brushed Nickel", sw: "#9a9a96", cat: "Shower Heads" },
-  { k: "linea", brand: "Linea", name: "Slide Bar Hand Shower", style: "LIN-300", finish: "Chrome · White", sw: "#e6e8ea", cat: "Shower Heads" },
-  { k: "cascade", brand: "Cascade", name: `14" Ceiling Rain Head`, style: "CSC-1400", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
-  { k: "kohler", brand: "Kohler", name: "Statement Multifunction Showerhead", style: "26290-BN", finish: "Vibrant Brushed Nickel", sw: "#9a9a96", cat: "Shower Heads" },
-  { k: "heritage", brand: "Heritage", name: "Lever Hand Shower", style: "HRT-210", finish: "Antique Brass", sw: "#a87a45", cat: "Shower Heads" },
+  { k: "orbis", brand: "Orbis", name: `12" Round Rain Head`, style: "ORB-1200", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "fenn", brand: "Fenn", name: `Single-Function Shower Head`, style: "FEN-210", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "radiant", brand: "Radiant", name: `8" Rain Shower Head`, style: "RAD-0800", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "plano", brand: "Plano", name: `12" Rectangular Rain Head`, style: "PLN-1210", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "bell", brand: "Bell", name: `Eco-Performance Shower Head`, style: "BEL-150", finish: "Matte Black", sw: "#2b2b2b", cat: "Shower Heads" },
+  { k: "bellmont", brand: "Bellmont", name: `10" Ceiling Rain Head`, style: "BMT-1010", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "rivet", brand: "Rivet", name: `5-Setting Shower Head`, style: "RVT-500", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "kohler", brand: "Kohler", name: `Statement Multifunction Showerhead`, style: "26290-BN", finish: "Vibrant Brushed Nickel", sw: "#9a9a96", cat: "Shower Heads" },
+  { k: "edge", brand: "Edge", name: `Square Handheld Shower`, style: "EDG-340", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "pebble", brand: "Pebble", name: `Oblong Ceiling Rain Head`, style: "PBL-1400", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "quadra", brand: "Quadra", name: `10" Square Rain Head`, style: "QDR-1000", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "halcyon", brand: "Halcyon", name: `5-Function Shower Head`, style: "HLC-505", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "ardent", brand: "Ardent", name: `Multifunction Shower Head`, style: "ARD-330", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "tessa", brand: "Tessa", name: `Square Shower Head`, style: "TSA-220", finish: "Chrome · White", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "belfry", brand: "Belfry", name: `Single-Function Shower Head`, style: "BFY-110", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "stellar", brand: "Stellar", name: `8" Ceiling Rain Head`, style: "STL-0808", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "glide", brand: "Glide", name: `Handheld Shower`, style: "GLD-260", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "lumen", brand: "Lumen", name: `14" Soft-Square Rain Head`, style: "LMN-1400", finish: "Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "cirrus", brand: "Cirrus", name: `10" Ceiling Rain Head`, style: "CRS-1010", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
+  { k: "arlo", brand: "Arlo", name: `Handheld Shower with Hose`, style: "ARL-420", finish: "Matte Black", sw: "#2b2b2b", cat: "Shower Heads" },
+  { k: "nimbus", brand: "Nimbus", name: `12" Ceiling Rain Head`, style: "NMB-1212", finish: "Polished Chrome", sw: "#e6e8ea", cat: "Shower Heads" },
   { k: "lyra", brand: "Lyra", name: "Wall Faucet", style: "LYR-7356", finish: "Solid Brass", sw: "#c8a265", cat: "Faucets" },
   { k: "aurelia", brand: "Aurelia", name: "Freestanding Tub", style: "AUR-4821", finish: "Calacatta Marble", sw: "#e8e4dc", cat: "Tubs" },
   { k: "vita", brand: "Vita", name: "Vessel Sink", style: "VTA-3278", finish: "Travertine Stone", sw: "#cdb79a", cat: "Sinks" },
@@ -219,17 +231,15 @@ export default function ItemSchedule() {
       return { x: (b.left - a.left) / s, y: (b.top - a.top) / s, w: b.width / s, h: b.height / s };
     };
     const gsBox = () => box(gs);
-    const scrollGrid = (to: number, dur: number) =>
-      new Promise<void>((res) => {
-        const from = gs.scrollTop, t0 = E.now();
-        const step = () => {
-          const u = Math.min(1, (E.now() - t0) / dur);
-          gs.scrollTop = from + (to - from) * mj(u);
-          if (u < 1) requestAnimationFrame(step);
-          else res();
-        };
-        requestAnimationFrame(step);
-      });
+    const scrollGrid = async (to: number, dur: number) => {
+      const from = gs.scrollTop, t0 = E.now();
+      for (let u = 0; u < 1; ) {
+        await E.wait(16);
+        u = Math.min(1, (E.now() - t0) / dur);
+        gs.scrollTop = from + (to - from) * mj(u);
+      }
+    };
+
     /* Replace opens on the item's own division and type: Plumbing, Shower Heads. */
     const setFilter = (on: boolean) => {
       [fPick, fDiv, ...chips].forEach((el) => el.classList.toggle("on", on));

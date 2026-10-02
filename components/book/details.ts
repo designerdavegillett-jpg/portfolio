@@ -118,18 +118,16 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     head.classList.toggle("scrolled", scroller.scrollTop > 2);
     fade.classList.toggle("off", scroller.scrollTop >= scroller.scrollHeight - scroller.clientHeight - 2);
   };
-  const scrollTo = (E: Engine, to: number, dur: number) =>
-    new Promise<void>((res) => {
-      const from = scroller.scrollTop, t0 = E.now();
-      const step = () => {
-        const u = Math.min(1, (E.now() - t0) / dur);
-        scroller.scrollTop = from + (to - from) * mj(u);
-        setScrollState();
-        if (u < 1) requestAnimationFrame(step);
-        else res();
-      };
-      requestAnimationFrame(step);
-    });
+  /* Steps on the figure's clock, so pause, slow motion and seeking apply. */
+  const scrollTo = async (E: Engine, to: number, dur: number) => {
+    const from = scroller.scrollTop, t0 = E.now();
+    for (let u = 0; u < 1; ) {
+      await E.wait(16);
+      u = Math.min(1, (E.now() - t0) / dur);
+      scroller.scrollTop = from + (to - from) * mj(u);
+      setScrollState();
+    }
+  };
 
   const hover = (pt: { x: number; y: number }) => {
     closeX.classList.toggle("hot", K.open && Math.hypot(pt.x - X.x, pt.y - X.y) < 16);

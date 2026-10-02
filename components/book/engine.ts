@@ -186,32 +186,12 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
     await wait(110);
     cur.classList.remove("click");
   }
-  function frame(real: number) {
-    if (!live) return;
-    const rdt = Math.min(50, real - (last || real));
-    last = real;
-    let vms = C.paused ? 0 : rdt * C.rate;
-    if (C.ffTo >= 0) vms = Math.min(vms, Math.max(0, C.cycleStart + C.ffTo - C.t)); // land on the seek point
-    C.t += vms;
-    if (C.ffTo >= 0 && C.t - C.cycleStart >= C.ffTo) {
-      C.ffTo = -1;
-      C.rate = C.user;
-      C.paused = C.ffPause;
-    }
-    if (timers.length) {
-      const due = timers.filter((x) => x.at <= C.t);
-      if (due.length) {
-        timers = timers.filter((x) => x.at > C.t);
-        due.forEach((x) => x.res());
-      }
-    }
-    inner.getAnimations({ subtree: true }).forEach((a) => {
-      if (a.playbackRate !== C.rate) a.playbackRate = C.rate;
-      if (C.paused && a.playState === "running") { a.pause(); held.add(a); }
-      else if (!C.paused && held.has(a)) { held.delete(a); if (a.playState === "paused") a.play(); }
-    });
+  /* Advance the figure's clock by ms and draw. */
+  function step(ms: number) {
+    C.t += ms;
     if (tween) {
-      const u = Math.min(1, (C.t - tween.t0) / tween.d), p = tween.f(mj(u));
+      /* Epsilon: fast-forward lands exactly on the end, give or take float error. */
+      const u = C.t >= tween.t0 + tween.d - 1e-6 ? 1 : Math.min(1, (C.t - tween.t0) / tween.d), p = tween.f(mj(u));
       S.cx = p.x;
       S.cy = p.y;
       if (u >= 1) {
@@ -230,15 +210,78 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
       });
       S.mode = over ? "open" : "arrow";
     }
-    /* Physics in small steps, so fast-forward stays stable. */
-    const steps = Math.min(40, Math.max(1, Math.ceil(vms / 20)));
-    for (let i = 0; i < steps; i++) opts.onFrame?.(vms / 1000 / steps, pt);
+    /* Physics in small steps so it stays stable at any speed. */
+    const n = Math.min(40, Math.max(1, Math.ceil(ms / 20)));
+    for (let i = 0; i < n; i++) opts.onFrame?.(ms / 1000 / n, pt);
     /* Hotspot per cursor: arrow tip, fingertip, or palm centre. */
     const [hx, hy] = S.mode === "arrow" ? [3, 2] : S.mode === "point" ? [9, 3] : [11, 10];
     cur.style.transform = `translate(${S.cx - hx}px,${S.cy - hy}px)`;
     cur.dataset.m = S.mode;
+  }
+  function resolveDue() {
+    if (!timers.length) return;
+    const due = timers.filter((x) => x.at <= C.t + 1e-6);
+    if (due.length) {
+      timers = timers.filter((x) => x.at > C.t + 1e-6);
+      due.forEach((x) => x.res());
+    }
+  }
+  function frame(real: number) {
+    if (!live) return;
+    const rdt = Math.min(50, real - (last || real));
+    last = real;
+    if (C.ffTo < 0) {
+      step(C.paused ? 0 : rdt * C.rate);
+      resolveDue();
+      inner.getAnimations({ subtree: true }).forEach((a) => {
+        if (a.playbackRate !== C.rate) a.playbackRate = C.rate;
+        if (C.paused && a.playState === "running") { a.pause(); held.add(a); }
+        else if (!C.paused && held.has(a)) { held.delete(a); if (a.playState === "paused") a.play(); }
+      });
+    }
     raf = requestAnimationFrame(frame);
   }
+
+  /* Fast-forward for seeking: steps the clock event by event (never more
+     than 16ms at a time), yielding between steps so the script's awaits run
+     in order, and drives every animation's currentTime by hand. The result
+     is the exact state the script produces at that time. */
+  const ffHeld = new Set<Animation>();
+  const driveAnims = (ms: number) => {
+    inner.getAnimations({ subtree: true }).forEach((a) => {
+      if (a.playState === "finished") return;
+      if (a.playState !== "paused") a.pause();
+      ffHeld.add(a);
+      const end = Number(a.effect?.getComputedTiming().endTime ?? 0), ct = Number(a.currentTime ?? 0);
+      if (Number.isFinite(end) && ct + ms >= end) { a.finish(); ffHeld.delete(a); }
+      else a.currentTime = ct + ms;
+    });
+  };
+  const endFF = () => {
+    C.ffTo = -1;
+    C.rate = C.user;
+    C.paused = C.ffPause;
+    ffHeld.forEach((a) => {
+      if (a.playState !== "paused") return;
+      if (C.paused) held.add(a);
+      else a.play();
+    });
+    ffHeld.clear();
+  };
+  const mc = new MessageChannel();
+  mc.port2.onmessage = () => {
+    if (!live || C.ffTo < 0) return;
+    const target = C.cycleStart + C.ffTo;
+    let next = Math.min(target, C.t + 16);
+    for (const x of timers) next = Math.min(next, x.at);
+    if (tween) next = Math.min(next, tween.t0 + tween.d);
+    const ms = Math.max(0, next - C.t);
+    step(ms);
+    driveAnims(ms);
+    resolveDue();
+    if (C.t >= target) return endFF();
+    mc.port1.postMessage(0);
+  };
   if (!opts.reduced) raf = requestAnimationFrame(frame);
 
   const halt = () => {
@@ -249,6 +292,7 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
     live = false;
     halt();
     cancelAnimationFrame(raf);
+    mc.port1.close();
     ro.disconnect();
   };
   /* Review controls. */
@@ -257,12 +301,12 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
     C.cycleStart = C.t;
   };
   const ff = (to: number, thenPause: boolean) => {
+    const running = C.ffTo >= 0;
     C.ffTo = to;
     C.ffPause = thenPause;
-    C.paused = false;
-    C.rate = 40;
+    if (!running) mc.port1.postMessage(0);
   };
-  return { S, C, now, wait, moveTo, reach, click, halt, destroy, inner, cur, lap, ff };
+  return { S, C, now, wait, moveTo, reach, click, halt, destroy, inner, cur, lap, ff, endFF };
 }
 export type Engine = ReturnType<typeof engine>;
 
@@ -312,7 +356,7 @@ export function controller(
     start();
   };
   /* Review bar: only with ?review in the URL. Pause, back 5s, restart,
-     speed and a timeline to drag. Seeking replays the loop at 40x to the
+     speed and a timeline to drag. Seeking replays the loop at full speed to the
      chosen point, so every state is exactly what the script produces. */
   let bar: HTMLDivElement | null = null, tick = 0;
   const togglePause = () => {
@@ -330,14 +374,13 @@ export function controller(
     E.ff(Math.max(0, to), p);
   };
   let dragging = false;
-  /* First run in review mode plays one loop at 40x to learn its length. */
+  /* First run in review mode fast-forwards one loop to learn its length. */
   let measuring = review;
   const sync = () => {
     if (!bar) return;
     if (measuring && E.C.cycleLen > 0) {
       measuring = false;
-      E.C.ffTo = -1;
-      E.C.rate = E.C.user;
+      E.endFF();
       seek(0);
     }
     const paused = E.C.ffTo >= 0 ? E.C.ffPause : E.C.paused;
