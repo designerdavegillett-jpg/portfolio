@@ -820,6 +820,7 @@ strong {
 .resume {
   font-family: var(--font-resume), system-ui, sans-serif;
   max-width: 62rem;
+  margin-inline: auto;
   padding-bottom: 5rem;
 }
 .resume-mono {
