@@ -98,10 +98,6 @@ export const STYLES = `.bk{--hi:#0071E3;--app:var(--font-eff-sans,"Open Sans"),s
 .bk .bk-pz span{display:flex;align-items:center;gap:.5rem;padding:.7rem 1.1rem .7rem .85rem;border-radius:999px;background:rgba(29,29,31,.88);color:#fff;font:600 .8rem/1 var(--font-body),"Inter Tight",system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .bk .bk-mode button{position:relative;overflow:hidden}
 .bk .bk-mode button[data-m="watch"].on{background:#0071e3;color:#fff}
-.bk .bk-mode button.counting{display:inline-flex;align-items:center;gap:.4rem;font-variant-numeric:tabular-nums}
-.bk .bk-spin{position:relative;display:inline-grid;place-items:center;width:1.1rem;height:1.1rem;font-size:.6rem;line-height:1}
-.bk .bk-spin::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:bkspin .8s linear infinite}
-@keyframes bkspin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.bk *{transition:none!important}.bk .bk-replay,.bk .bk-ctl{display:none}}`;
 
 const HAND_OPEN = `<path d="M18 11V6a2 2 0 0 0-4 0"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>`;
@@ -419,34 +415,20 @@ export function controller(
   (replay.closest(".bk-bar") ?? stage).insertAdjacentElement("afterend", guide);
   E.G.onStep = (label) => { guide.querySelector("span")!.textContent = label ? `Next: ${label}` : "Watch what happens…"; };
 
-  /* Coming into view, the figure waits 5 seconds before the demo plays, so
-     the viewer can choose to try it instead. The wait shows quietly in the
-     Play demo button: a spinning countdown, nothing over the figure. */
-  const COUNT = 5;
-  const playBtn = ctl.querySelector<HTMLButtonElement>('button[data-m="watch"]')!;
+  /* Coming into view, the figure waits 3 seconds, then the demo plays. */
+  const DELAY = 3000;
   let timer = 0;
   const stopCount = () => {
-    window.clearInterval(timer);
+    window.clearTimeout(timer);
     timer = 0;
-    playBtn.classList.remove("counting");
-    playBtn.textContent = "Play demo";
   };
   const countdown = () => {
     E.halt();
     setPaused(false);
     E.setGuided(false);
     reset();
-    let n = COUNT;
-    playBtn.classList.remove("counting");
-    void playBtn.offsetWidth;
-    playBtn.classList.add("counting");
-    playBtn.innerHTML = `<span class="bk-spin">${n}</span>Play demo`;
-    window.clearInterval(timer);
-    timer = window.setInterval(() => {
-      n--;
-      playBtn.querySelector(".bk-spin")!.textContent = String(n);
-      if (n <= 0) { stopCount(); start(); }
-    }, 1000);
+    stopCount();
+    timer = window.setTimeout(() => { timer = 0; start(); }, DELAY);
   };
 
   const setMode = (m: "watch" | "try") => {
