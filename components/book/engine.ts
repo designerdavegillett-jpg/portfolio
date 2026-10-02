@@ -63,7 +63,7 @@ export const STYLES = `.bk{--hi:#0071E3;--app:var(--font-eff-sans,"Open Sans"),s
 /* cursor */
 .bk .bk-cur{position:absolute;left:0;top:0;width:26px;height:26px;pointer-events:none;will-change:transform}
 .bk .bk-cur svg{position:absolute;inset:0;width:26px;height:26px;opacity:0;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.45));transition:transform .09s ease}
-.bk .bk-cur[data-m="arrow"] .c-arrow,.bk .bk-cur[data-m="open"] .c-open,.bk .bk-cur[data-m="grab"] .c-grab,.bk .bk-cur[data-m="point"] .c-point{opacity:1}
+.bk .bk-cur[data-m="arrow"] .c-arrow,.bk .bk-cur[data-m="open"] .c-open,.bk .bk-cur[data-m="grab"] .c-grab,.bk .bk-cur[data-m="point"] .c-point,.bk .bk-cur[data-m="text"] .c-text{opacity:1}
 .bk .bk-cur.click svg{transform:scale(.86)}
 
 /* caption and replay */
@@ -89,6 +89,7 @@ export const CURSOR = `<div class="bk-cur" data-m="arrow">
 <svg class="c-arrow" viewBox="0 0 26 26"><path d="M3 2 L3 21 L8.2 16.4 L11.6 24.2 L15 22.8 L11.7 15.2 L18.6 15.2 Z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg>
 ${hand("c-open", HAND_OPEN, "M7 15V6a2 2 0 0 1 4 0V4a2 2 0 0 1 4 0v2a2 2 0 0 1 4 0v2a2 2 0 0 1 3 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.3l-3.6-3.6a2 2 0 0 1 2.8-2.8Z")}
 ${hand("c-point", HAND_POINT, "M6 14V4a2 2 0 0 1 4 0v5a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.3l-3.6-3.6a2 2 0 0 1 2.8-2.8Z")}
+<svg class="c-text" viewBox="-1 -1 26 26" fill="none" stroke-linecap="round"><path d="M8.5 3.5c2 0 3.5.6 3.5 2v13c0 1.4-1.5 2-3.5 2M15.5 3.5c-2 0-3.5.6-3.5 2v13c0 1.4 1.5 2 3.5 2M10 12h4" stroke="#fff" stroke-width="4"/><path d="M8.5 3.5c2 0 3.5.6 3.5 2v13c0 1.4-1.5 2-3.5 2M15.5 3.5c-2 0-3.5.6-3.5 2v13c0 1.4 1.5 2 3.5 2M10 12h4" stroke="#111" stroke-width="1.5"/></svg>
 ${hand("c-grab", HAND_GRAB, "M2 14a2 2 0 0 1 4 0V9a2 2 0 0 1 4 0V8a2 2 0 0 1 4 0V9a2 2 0 0 1 4 0v2a2 2 0 0 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8Z")}
 </div>`;
 
@@ -133,7 +134,7 @@ type EngineOpts = {
 export function engine(stage: HTMLElement, opts: EngineOpts) {
   const inner = stage.querySelector<HTMLElement>(".bk-inner")!;
   const cur = inner.querySelector<HTMLElement>(".bk-cur")!;
-  const S = { cx: opts.home.x, cy: opts.home.y, mode: "arrow" as "arrow" | "open" | "grab" | "point", lock: false, run: 0 };
+  const S = { cx: opts.home.x, cy: opts.home.y, mode: "arrow" as "arrow" | "open" | "grab" | "point" | "text", lock: false, run: 0 };
   let tween: { t0: number; d: number; res: () => void; f: (u: number) => Pt } | null = null;
   /* A clock of its own, so review mode can pause, slow down and seek. Every
      wait, tween and scroll in a figure runs on it; Web Animations and CSS
@@ -215,7 +216,7 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
     const n = Math.min(40, Math.max(1, Math.ceil(ms / 20)));
     for (let i = 0; i < n; i++) opts.onFrame?.(ms / 1000 / n, pt);
     /* Hotspot per cursor: arrow tip, fingertip, or palm centre. */
-    const [hx, hy] = S.mode === "arrow" ? [3, 2] : S.mode === "point" ? [9, 3] : [11, 10];
+    const [hx, hy] = S.mode === "arrow" ? [3, 2] : S.mode === "point" ? [9, 3] : S.mode === "text" ? [13, 13] : [11, 10];
     cur.style.transform = `translate(${S.cx - hx}px,${S.cy - hy}px)`;
     cur.dataset.m = S.mode;
   }

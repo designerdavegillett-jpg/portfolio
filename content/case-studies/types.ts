@@ -1,7 +1,7 @@
 import type { ThumbKind } from "@/components/Thumb";
 
 /** An image inside a case study section. Files live in /public. */
-export type Interactive = "capture-anatomy" | "compliance-states" | "script-flow" | "persona-cards" | "caption-placement" | "post-everywhere" | "app-store" | "book-drop" | "item-details" | "item-schedule" | "book-sync" | "catalog-add";
+export type Interactive = "capture-anatomy" | "compliance-states" | "script-flow" | "persona-cards" | "caption-placement" | "post-everywhere" | "app-store" | "book-drop" | "item-details" | "item-schedule" | "book-sync" | "catalog-add" | "copy-paste";
 
 export type Figure = {
   /** Path from /public, e.g. "/work/design-finish-selection/item-id-model.png" */
@@ -69,6 +69,8 @@ export type CaseStudy = {
    * section opens with an interactive figure that is the hero.
    */
   hideHero?: boolean;
+  /** Show this interactive figure in the hero slot instead of the image. */
+  heroInteractive?: Interactive;
   /** Abstract placeholder visual. Ignored once `image` is set. */
   visual?: ThumbKind;
   /** Real screenshot for the thumbnail, once you have one. Takes priority over `visual`. */

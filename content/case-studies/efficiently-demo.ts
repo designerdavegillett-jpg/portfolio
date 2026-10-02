@@ -17,6 +17,7 @@ export const efficientlyDemo: CaseStudy[] = [
       "Efficiently: A single-source-of-truth SaaS platform for residential construction.",
     status: "Shipped",
     visual: "canvas",
+    heroInteractive: "copy-paste",
     image: {
       src: "/work/design-finish-selection/three-surfaces.webp",
       alt: "Three Efficiently screens overlapping: the plans canvas with a room highlighted on a floor plan, the design book laying out primary bathroom selections, and the item schedule listing locations with approval statuses.",

@@ -23,6 +23,7 @@ import ItemDetails from "@/components/ItemDetails";
 import ItemSchedule from "@/components/ItemSchedule";
 import BookSync from "@/components/BookSync";
 import CatalogAdd from "@/components/CatalogAdd";
+import CopyPaste from "@/components/CopyPaste";
 
 /* Every interactive figure, keyed by its Interactive id. */
 const INTERACTIVES: Record<Interactive, React.ComponentType> = {
@@ -38,6 +39,7 @@ const INTERACTIVES: Record<Interactive, React.ComponentType> = {
   "item-schedule": ItemSchedule,
   "book-sync": BookSync,
   "catalog-add": CatalogAdd,
+  "copy-paste": CopyPaste,
 };
 
 /**
@@ -195,7 +197,15 @@ export default async function CaseStudyPage({
           {study.year && <span>{study.year}</span>}
         </div>
 
-        {!study.hideHero && (
+        {!study.hideHero && study.heroInteractive && (() => {
+          const Hero = INTERACTIVES[study.heroInteractive];
+          return (
+            <div className="cs-hero-ix" style={{ marginTop: "3rem", maxWidth: "52rem" }}>
+              <Hero />
+            </div>
+          );
+        })()}
+        {!study.hideHero && !study.heroInteractive && (
           <div style={{ marginTop: "3rem", maxWidth: "52rem" }}>
             {/* The largest above-the-fold element on this page, so it is the one
                 image that loads eagerly. Everything below stays lazy. */}

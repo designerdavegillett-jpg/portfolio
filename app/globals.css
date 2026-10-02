@@ -1027,3 +1027,9 @@ strong {
   color: var(--ink);
   margin: 0 0 var(--s2);
 }
+
+/* An interactive figure in the hero slot takes the slot's full width. */
+.cs-hero-ix .bk {
+  width: 100%;
+  margin-top: 0;
+}
