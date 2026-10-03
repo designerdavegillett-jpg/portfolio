@@ -50,7 +50,7 @@ export default function AboutPage() {
           <div className="prose">
             <p className="reveal">
               Hey there, I&apos;m Dave Gillett, a senior product designer in Seattle. I design
-              platforms that take complex systems and turn them into intuitive, user-centered
+              platforms that take complex systems and turn them into intuitive, user-centric
               applications. I use AI hand in hand with my work to improve the process, not to
               replace the experience behind great product design.
             </p>
