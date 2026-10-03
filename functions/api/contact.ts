@@ -45,8 +45,8 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
       from: env.CONTACT_FROM || "Portfolio <onboarding@resend.dev>",
       to: [env.CONTACT_TO || "designerdavegillett@gmail.com"],
       reply_to: email,
-      subject: `Portfolio message from ${name || email}`,
-      text: `${message}\n\n---\nFrom: ${name ? `${name} <${email}>` : email}\nSent from portfolio.nifli.design (${country} ${ip})`,
+      subject: `Portfolio message from ${name}`,
+      text: `${message}\n\n---\nFrom: ${name} <${email}>\nSent from portfolio.nifli.design (${country} ${ip})`,
     }),
   });
 

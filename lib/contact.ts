@@ -13,6 +13,7 @@ export function validateContact(input: ContactInput): string | null {
   const email = (input.email ?? "").trim();
   const message = (input.message ?? "").trim();
   const name = (input.name ?? "").trim();
+  if (!name) return "Please enter your name.";
   if (!EMAIL_RE.test(email) || email.length > 254) return "Please enter a valid email address.";
   if (message.length < MIN_MESSAGE) return `Your message needs at least ${MIN_MESSAGE} characters.`;
   if (message.length > MAX_MESSAGE) return `Please keep your message under ${MAX_MESSAGE} characters.`;

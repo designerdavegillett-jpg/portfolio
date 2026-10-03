@@ -14,7 +14,7 @@ export default function ContactModal() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState(""); // honeypot
-  const [touched, setTouched] = useState({ email: false, message: false });
+  const [touched, setTouched] = useState({ name: false, email: false, message: false });
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 
@@ -25,7 +25,7 @@ export default function ContactModal() {
   const close = () => dialog.current?.close();
   const reset = () => {
     setName(""); setEmail(""); setMessage(""); setWebsite("");
-    setTouched({ email: false, message: false });
+    setTouched({ name: false, email: false, message: false });
     setStatus("idle"); setError("");
   };
 
@@ -42,12 +42,13 @@ export default function ContactModal() {
 
   const count = message.trim().length;
   const problem = validateContact({ name, email, message });
-  const emailBad = touched.email && validateContact({ email, message: "x".repeat(MIN_MESSAGE) }) !== null;
+  const nameBad = touched.name && !name.trim();
+  const emailBad = touched.email && validateContact({ name: "x", email, message: "x".repeat(MIN_MESSAGE) }) !== null;
   const messageShort = touched.message && count < MIN_MESSAGE;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    setTouched({ email: true, message: true });
+    setTouched({ name: true, email: true, message: true });
     if (problem) { setError(problem); return; }
     setStatus("sending"); setError("");
     try {
@@ -92,8 +93,14 @@ export default function ContactModal() {
               <p className="contact-sub">Send me a note and I&apos;ll reply by email.</p>
 
               <label className="contact-field">
-                <span>Name <em>optional</em></span>
-                <input value={name} onChange={(e) => setName(e.target.value)} maxLength={MAX_NAME} autoComplete="name" />
+                <span>Name</span>
+                <input
+                  required value={name} maxLength={MAX_NAME} autoComplete="name"
+                  onChange={(e) => setName(e.target.value)}
+                  onBlur={() => setTouched((t) => ({ ...t, name: true }))}
+                  aria-invalid={nameBad}
+                />
+                {nameBad && <small className="contact-err">Please enter your name.</small>}
               </label>
 
               <label className="contact-field">
