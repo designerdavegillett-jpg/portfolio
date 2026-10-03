@@ -112,7 +112,6 @@ export default function ResumePage() {
         <header className="rsm-head reveal" style={stagger(1)}>
           <h1 className="rsm-name">Dave Gillett</h1>
           <ul className="rsm-contact resume-mono">
-            <li><a href="tel:+12063539956">206.353.9956</a></li>
             <li><a href="mailto:designerdavegillett@gmail.com">designerdavegillett@gmail.com</a></li>
             <li><a href="https://portfolio.nifli.design">portfolio.nifli.design</a></li>
             <li>
