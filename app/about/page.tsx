@@ -63,11 +63,6 @@ export default function AboutPage() {
               enterprise clients, and a retail CRM that was adopted across Seattle-area
               locations before the company was acquired.
             </p>
-            <p className="reveal" style={{ "--d": ".16s" } as React.CSSProperties}>
-              I&apos;m most useful where the problem is structural: where the interface is
-              fine but the model underneath it isn&apos;t, and someone has to decide what the
-              product should stop doing.
-            </p>
             <p className="reveal" style={{ "--d": ".24s" } as React.CSSProperties}>
               <a
                 href="mailto:designerdavegillett@gmail.com"
