@@ -69,6 +69,7 @@ const RECORDS: Record[] = [
     dates: "2010-2020",
     bullets: [
       "Shipped iOS, Android, and responsive web products reaching 500,000+ employees across 80+ enterprise clients including Google, Microsoft, Oracle, and Apple",
+      "Raised the mobile app\u2019s app store rating from 2.3 to 4.1 stars with a ground-up redesign built around proximity-based offer discovery",
       "Brought design in-house, replacing a months-long agency cycle and reducing $100,000+ in annual agency fees",
       "Unified every public-facing surface, including the corporate site, member site, and mobile app, under one brand",
       "Updated all public-facing properties to meet WCAG accessibility regulations",
