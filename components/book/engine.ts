@@ -399,7 +399,7 @@ export function controller(
   stage: HTMLElement,
   replay: HTMLElement,
   E: Engine,
-  { reset, loop, reduced }: { reset: () => void; loop: (id: number) => void; reduced: boolean },
+  { reset, loop, reduced }: { reset: () => void; loop: (id: number) => void | Promise<void>; reduced: boolean },
 ) {
   let playing = false, stopped = false, started = false;
   /* Play the demo, or try it: the same script, waiting on the viewer's clicks. */
@@ -464,7 +464,11 @@ export function controller(
     E.C.cycleStart = E.now();
     playing = true;
     sync();
-    loop(E.S.run);
+    const id = E.S.run;
+    /* A figure that plays once (CopyPaste) resolves; the button reads Play demo again. */
+    Promise.resolve(loop(id)).then(() => {
+      if (id === E.S.run && playing) { playing = false; sync(); }
+    });
   };
   const io = new IntersectionObserver(
     (es) =>

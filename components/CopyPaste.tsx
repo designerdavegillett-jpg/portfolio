@@ -209,6 +209,7 @@ const STYLES = `${BASE}
 .copy-paste .hud div.on{background:rgba(255,255,255,.18);color:#fff}
 .copy-paste .hud span{width:64px;height:64px;border-radius:15px;display:grid;place-items:center}
 .copy-paste .hud .i-web span{background:#3b6fd8}.copy-paste .hud .i-xl span{background:#2f7d55}.copy-paste .hud .i-id span{background:#6b4fa0}
+.copy-paste .cp-step{font-weight:600;color:var(--ink,#1d1d1f)}
 .copy-paste .key{position:absolute;height:26px;display:flex;align-items:center;padding:0 9px;border-radius:6px;background:#1d1d1f;color:#fff;font:600 13px/1 system-ui,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.35);opacity:0;z-index:7;pointer-events:none}`;
 
 const MARKUP = `<div class="bk-stage" role="img" aria-label="Before Efficiently. A designer copies a faucet's name, model, finish and flow rate one at a time from the manufacturer's web page into a spreadsheet, switching apps for every value, then copies each cell and pastes it line by line into the item's caption on an InDesign page. Counters tally the copies, pastes and app switches.">
@@ -241,6 +242,8 @@ export default function CopyPaste() {
     const xact = q(".xact"), xants = q(".xants"), xname = q(".xname"), xval = q(".xval"), grid = q(".xgrid");
     const frame = q(".idframe"), caret = q(".idcaret"), lines = qa(".idl");
     const n = { c: q('[data-n="c"]'), p: q('[data-n="p"]'), s: q('[data-n="s"]') };
+    /* The caption under the figure narrates each step while the demo plays. */
+    const cap = q(".bk-cap"), INTRO = cap.textContent ?? "";
     const count = { c: 0, p: 0, s: 0 };
     let cur: App = "web";
 
@@ -260,6 +263,13 @@ export default function CopyPaste() {
     const S = E.S;
     const wait = E.wait;
     const fwd = { fill: "forwards" as const };
+    /* Slower than the other figures, so each step can be read as it happens. */
+    E.C.user = E.C.rate = 0.75;
+    const say = async (step: string, text: string, hold = 1800) => {
+      cap.innerHTML = `<b class="cp-step">${step}</b> ${text}`;
+      cap.animate([{ opacity: 0.25 }, { opacity: 1 }], { duration: 300 });
+      await wait(hold);
+    };
 
     /* A key-combo hint beside the hand. */
     const keys = async (label: string) => {
@@ -362,39 +372,45 @@ export default function CopyPaste() {
       xname.textContent = "D6";
       xval.textContent = "";
       (["c", "p", "s"] as const).forEach((k) => { count[k] = 0; n[k].textContent = "0"; });
+      cap.textContent = INTRO;
     }
 
+    /* One full pass, then it holds on the finished page. Replay runs it again. */
     async function loop(id: number) {
       const ok = () => id === S.run;
-      while (ok()) {
-        await wait(900); if (!ok()) return;
-        /* Web page to spreadsheet, one attribute at a time. */
-        for (let i = 0; i < ATTRS.length; i++) {
-          const a = ATTRS[i], fast = i > 1;
-          await copyWeb(a.k, fast, ok); if (!ok()) return;
-          await switchTo("xl", ok); if (!ok()) return;
-          await pasteCell(a.cell, a.text, fast, ok); if (!ok()) return;
-          if (i < ATTRS.length - 1) {
-            await switchTo("web", ok); if (!ok()) return;
-            q(`[data-a="${a.k}"] .hl`).getAnimations().forEach((x) => x.cancel());
-          }
+      await wait(600); if (!ok()) return;
+      await say("Step 1 of 4.", "The designer finds the faucet on the manufacturer's site. Every detail the client will see has to be carried over by hand.", 2600); if (!ok()) return;
+      /* Web page to spreadsheet, one attribute at a time. */
+      for (let i = 0; i < ATTRS.length; i++) {
+        const a = ATTRS[i], fast = false;
+        await say("Step 2 of 4.", `Select the ${WHAT[a.k]} on the product page and copy it.`, i === 0 ? 1400 : 700); if (!ok()) return;
+        await copyWeb(a.k, fast, ok); if (!ok()) return;
+        await say("Step 2 of 4.", `Switch to Excel and paste the ${WHAT[a.k]} into cell ${a.cell} of the item schedule.`, 700); if (!ok()) return;
+        await switchTo("xl", ok); if (!ok()) return;
+        await pasteCell(a.cell, a.text, fast, ok); if (!ok()) return;
+        await wait(500); if (!ok()) return;
+        if (i < ATTRS.length - 1) {
+          await switchTo("web", ok); if (!ok()) return;
+          q(`[data-a="${a.k}"] .hl`).getAnimations().forEach((x) => x.cancel());
         }
-        await wait(600); if (!ok()) return;
-        /* Spreadsheet to the page, one line at a time. */
-        for (const l of LINES) {
-          await copyCell(l.cell, ok); if (!ok()) return;
-          await switchTo("id", ok); if (!ok()) return;
-          await pasteLine(l.line, l.text, !!l.append, ok); if (!ok()) return;
-          if (l !== LINES[LINES.length - 1]) { await switchTo("xl", ok); if (!ok()) return; }
-        }
-        frame.style.opacity = "0";
-        caret.style.opacity = "0";
-        S.mode = "arrow";
-        await E.moveTo(1030, 640, { arc: 0.15 }); if (!ok()) return;
-        await wait(3200); if (!ok()) return;
-        E.lap();
-        reset();
       }
+      await say("Step 3 of 4.", "The schedule row is filled in. Now every value has to make the trip again, this time into the presentation.", 2600); if (!ok()) return;
+      /* Spreadsheet to the page, one line at a time. */
+      for (const l of LINES) {
+        await say("Step 4 of 4.", `Copy cell ${l.cell}, switch to InDesign and paste it into the item's caption${l.append ? " on the same line" : ""}.`, 900); if (!ok()) return;
+        await copyCell(l.cell, ok); if (!ok()) return;
+        await switchTo("id", ok); if (!ok()) return;
+        await pasteLine(l.line, l.text, !!l.append, ok); if (!ok()) return;
+        await wait(500); if (!ok()) return;
+        if (l !== LINES[LINES.length - 1]) { await switchTo("xl", ok); if (!ok()) return; }
+      }
+      frame.style.opacity = "0";
+      caret.style.opacity = "0";
+      S.mode = "arrow";
+      await E.moveTo(1030, 640, { arc: 0.15 }); if (!ok()) return;
+      cap.innerHTML = `<b class="cp-step">Done.</b> One faucet took ${count.c} copies, ${count.p} pastes and ${count.s} app switches. Every item in the project goes through the same routine, and again whenever one changes.`;
+      cap.animate([{ opacity: 0.25 }, { opacity: 1 }], { duration: 300 });
+      E.lap();
     }
 
     reset();
