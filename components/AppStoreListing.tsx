@@ -31,7 +31,7 @@ const SHOTS: [string, string][] = [
 const INFO: [string, string, string][] = [
   ["Status", "In review", "App Store"],
   ["Platform", "iPhone", "iOS"],
-  ["Plans", "$79", "per month"],
+  ["Plans", "$40", "per month"],
   ["Language", "EN", "English"],
 ];
 

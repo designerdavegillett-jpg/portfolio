@@ -149,7 +149,7 @@ const MARKUP = `<figure class="figure" id="fig" style="margin:0 auto">
           <p class="lab">Shows at the end of your video</p>
           <div class="pcard pdisc">
             <div class="row"><i>${CHECK}</i><div><b>NMLS ID</b><small>NMLS #123456789</small></div></div>
-            <div class="row"><i>${CHECK}</i><div><b>NMLS Consumer Access</b><small>https://www.nmlsconsumeraccess.org...</small></div></div>
+            <div class="row"><i>${CHECK}</i><div><b>Equal Housing Opportunity</b><small>Equal Housing logo on the end card</small></div></div>
           </div>
         </div>
       </div>

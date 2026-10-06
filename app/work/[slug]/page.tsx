@@ -220,10 +220,13 @@ export default async function CaseStudyPage({
         <aside className="rail">
           <RailIndex
             label="Contents"
-            items={study.sections.map((section) => ({
-              id: headingId(section.heading),
-              name: section.heading,
-            }))}
+            items={[
+              ...study.sections.map((section) => ({
+                id: headingId(section.heading),
+                name: section.heading,
+              })),
+              ...(study.impact ? [{ id: "impact", name: study.impact.heading }] : []),
+            ]}
           />
         </aside>
 
@@ -327,6 +330,32 @@ export default async function CaseStudyPage({
               </div>
             </section>
           ))}
+
+          {study.impact && (
+            <section className="cs-section" id="impact" data-layout="wide">
+              <h2 className="label reveal">{study.impact.heading}</h2>
+              <div className="prose reveal">
+                {study.impact.intro && <p>{study.impact.intro}</p>}
+                <table className="cs-impact">
+                  <thead>
+                    <tr>
+                      <th scope="col">Metric</th>
+                      <th scope="col">Outcome</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {study.impact.rows.map((r) => (
+                      <tr key={r.metric}>
+                        <th scope="row">{r.metric}</th>
+                        <td>{r.outcome}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {study.impact.note && <p className="cs-impact-note">{study.impact.note}</p>}
+              </div>
+            </section>
+          )}
 
           <section className="cs-section">
             {/* A colophon, not a section: it is not in the rail index, so it should

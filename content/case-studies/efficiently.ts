@@ -75,5 +75,34 @@ export const efficientlyStudies: CaseStudy[] = [
         },
       },
     ],
+    impact: {
+      heading: "Impact, 2020 - 2026",
+      rows: [
+        {
+          metric: "Scale",
+          outcome:
+            "Led a 7-designer team that designed 55,000+ screens across 4,000+ feature flows over 6 years.",
+        },
+        {
+          metric: "Tool consolidation",
+          outcome:
+            "Replaced up to 8 tool categories - spreadsheets, project chat, measurement, photo editing, layout, image management, catalog sourcing and item schedules - with one platform. A typical designer replaces at least 3.",
+        },
+        {
+          metric: "Validation",
+          outcome:
+            "50+ designer interviews. Every designer tested validated the approval management concept as highly valuable.",
+        },
+        {
+          metric: "Catalog",
+          outcome: "Built the item experience on a catalog of 4 million+ finish items.",
+        },
+        {
+          metric: "Delivery",
+          outcome: "Eight modules and 26+ releases across every phase of the product, from discovery through implementation.",
+        },
+      ],
+      note: "These figures cover my full time at Efficiently, across all phases, not only the phase described above. Efficiently did not track product analytics, so these measure scope, validation and consolidation rather than conversion."
+    },
   },
 ];

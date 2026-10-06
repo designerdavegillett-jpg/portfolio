@@ -49,7 +49,7 @@ const RECORDS: Record[] = [
     dates: "2020-2026",
     bullets: [
       "Took design of a B2B construction platform from zero to eight modules, from discovery through implementation",
-      "Led a 9-person team including 6 designers, owned all UI/UX, stayed hands-on, and shortened the time from design to implementation",
+      "Led a 9-person team including 7 designers across 55,000+ screens and 4,000+ feature flows, owned all UI/UX, stayed hands-on, and shortened the time from design to implementation",
       "One of three executives, owning design and the handoff from design to engineering across a multilingual team",
       "Built the design function from one designer to six plus a PM, and set the process and critique",
       "Grew the platform from a finish-selection tool into a full scale construction management system",

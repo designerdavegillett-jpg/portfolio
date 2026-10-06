@@ -89,6 +89,14 @@ export type CaseStudy = {
     transparent?: boolean;
   };
   sections: Section[];
+  /** Optional impact table shown after the sections: a metric and its outcome per row. */
+  impact?: {
+    heading: string;
+    intro?: string;
+    rows: { metric: string; outcome: string }[];
+    /** Small print under the table, e.g. a note on what the numbers are. */
+    note?: string;
+  };
 };
 
 /**
