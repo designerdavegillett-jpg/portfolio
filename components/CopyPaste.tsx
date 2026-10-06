@@ -111,8 +111,15 @@ const STYLES = `${BASE}
 .copy-paste .bk-stage{background:#2b2f36}
 .copy-paste .mbar{position:absolute;left:0;top:0;width:1366px;height:26px;display:flex;align-items:center;gap:18px;padding:0 14px;background:rgba(30,32,36,.92);color:#e9eaeb;font-size:12.5px;z-index:5}
 .copy-paste .mbar b{font-weight:700}
-.copy-paste .mbar .cnt{margin-left:auto;display:flex;gap:14px;color:#c3c5c9}
-.copy-paste .mbar .cnt em{font-style:normal;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+/* closed captions over the screen, with the running tally */
+.copy-paste .cc{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);width:max-content;max-width:1040px;padding:14px 26px 12px;border-radius:12px;background:rgba(12,12,14,.82);color:#fff;text-align:center;opacity:0;z-index:8;pointer-events:none;transition:opacity .3s ease}
+.copy-paste .cc.on{opacity:1}
+.copy-paste .bk-cur{z-index:9}
+.copy-paste .cc-t{font:500 25px/1.38 system-ui,-apple-system,"Segoe UI",sans-serif;text-wrap:balance}
+.copy-paste .cc-t b{font-weight:700;color:#9fd0ff;margin-right:.35em}
+.copy-paste .cc-n{display:flex;justify-content:center;gap:10px;margin-top:8px;font:500 15px/1 system-ui,-apple-system,sans-serif;color:#b9bcc2}
+.copy-paste .cc-n span{opacity:.5}
+.copy-paste .cc-n em{font-style:normal;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;display:inline-block;min-width:1ch}
 .copy-paste .app{position:absolute;left:0;top:26px;width:1366px;height:742px;opacity:0;overflow:hidden}
 .copy-paste .app.on{opacity:1}
 .copy-paste .dots{display:flex;gap:7px;margin-right:12px}
@@ -209,15 +216,15 @@ const STYLES = `${BASE}
 .copy-paste .hud div.on{background:rgba(255,255,255,.18);color:#fff}
 .copy-paste .hud span{width:64px;height:64px;border-radius:15px;display:grid;place-items:center}
 .copy-paste .hud .i-web span{background:#3b6fd8}.copy-paste .hud .i-xl span{background:#2f7d55}.copy-paste .hud .i-id span{background:#6b4fa0}
-.copy-paste .cp-step{font-weight:600;color:var(--ink,#1d1d1f)}
 .copy-paste .key{position:absolute;height:26px;display:flex;align-items:center;padding:0 9px;border-radius:6px;background:#1d1d1f;color:#fff;font:600 13px/1 system-ui,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.35);opacity:0;z-index:7;pointer-events:none}`;
 
 const MARKUP = `<div class="bk-stage" role="img" aria-label="Before Efficiently. A designer copies a faucet's name, model, finish and flow rate one at a time from the manufacturer's web page into a spreadsheet, switching apps for every value, then copies each cell and pastes it line by line into the item's caption on an InDesign page. Counters tally the copies, pastes and app switches.">
 <div class="bk-inner">
 ${BROWSER}${EXCEL}${INDESIGN}
-<div class="mbar"><b class="appname">Browser</b><span>File</span><span>Edit</span><span>View</span><span>Window</span><span class="cnt">Copies <em data-n="c">0</em> Pastes <em data-n="p">0</em> App switches <em data-n="s">0</em></span></div>
+<div class="mbar"><b class="appname">Browser</b><span>File</span><span>Edit</span><span>View</span><span>Window</span></div>
 <div class="hud"><div class="i-web"><span>${GLOBE}</span>Browser</div><div class="i-xl"><span>${SHEET}</span>Excel</div><div class="i-id"><span>${LAYOUT}</span>InDesign</div></div>
 <div class="key"></div>
+<div class="cc" aria-live="polite"><div class="cc-t"></div><div class="cc-n">Clicks <em data-n="k">0</em><span>·</span>Copies <em data-n="c">0</em><span>·</span>Pastes <em data-n="p">0</em><span>·</span>App switches <em data-n="s">0</em></div></div>
 ${CURSOR}
 </div>
 </div>
@@ -241,10 +248,10 @@ export default function CopyPaste() {
     const key = q(".key"), appname = q(".appname");
     const xact = q(".xact"), xants = q(".xants"), xname = q(".xname"), xval = q(".xval"), grid = q(".xgrid");
     const frame = q(".idframe"), caret = q(".idcaret"), lines = qa(".idl");
-    const n = { c: q('[data-n="c"]'), p: q('[data-n="p"]'), s: q('[data-n="s"]') };
-    /* The caption under the figure narrates each step while the demo plays. */
-    const cap = q(".bk-cap"), INTRO = cap.textContent ?? "";
-    const count = { c: 0, p: 0, s: 0 };
+    const n = { k: q('[data-n="k"]'), c: q('[data-n="c"]'), p: q('[data-n="p"]'), s: q('[data-n="s"]') };
+    /* Closed captions over the screen narrate each step and keep the tally. */
+    const cc = q(".cc"), ccT = q(".cc-t");
+    const count = { k: 0, c: 0, p: 0, s: 0 };
     let cur: App = "web";
 
     const scale = () => stage.clientWidth / 1366;
@@ -253,7 +260,7 @@ export default function CopyPaste() {
       return { x: (b.left - a.left) / s, y: (b.top - a.top) / s, w: b.width / s, h: b.height / s };
     };
     const cell = (id: string) => q(`[data-cell="${id}"]`);
-    const bump = (k: "c" | "p" | "s") => {
+    const bump = (k: "k" | "c" | "p" | "s") => {
       count[k]++;
       n[k].textContent = String(count[k]);
       n[k].animate([{ transform: "scale(1.35)", color: "#7fd3a3" }, { transform: "none" }], { duration: 380, easing: "ease-out" });
@@ -266,8 +273,9 @@ export default function CopyPaste() {
     /* Slower than the other figures, so each step can be read as it happens. */
     E.C.user = E.C.rate = 0.75;
     const say = async (step: string, text: string, hold = 1800) => {
-      cap.innerHTML = `<b class="cp-step">${step}</b> ${text}`;
-      cap.animate([{ opacity: 0.25 }, { opacity: 1 }], { duration: 300 });
+      ccT.innerHTML = `<b>${step}</b>${text}`;
+      cc.classList.add("on");
+      ccT.animate([{ opacity: 0.2 }, { opacity: 1 }], { duration: 300 });
       await wait(hold);
     };
 
@@ -308,6 +316,7 @@ export default function CopyPaste() {
       S.lock = true;
       await E.reach(b.x - 2, b.y + b.h / 2, { arc: 0.1, dur: fast ? 420 : undefined }); if (!ok()) return;
       await E.click(`Select the ${WHAT[k]}`); if (!ok()) return;
+      bump("k");
       await wait(fast ? 80 : 200); if (!ok()) return;
       const dur = Math.min(900, 200 + b.w * 1.2) * (fast ? 0.6 : 1);
       hl.animate([{ width: "0px" }, { width: `${b.w / 1 + 2}px` }], { duration: dur, easing: "ease-in-out", ...fwd });
@@ -320,6 +329,7 @@ export default function CopyPaste() {
       S.mode = "arrow";
       await E.reach(b.x + 30, b.y + b.h / 2, { arc: 0.12, dur: fast ? 480 : undefined }); if (!ok()) return;
       await E.click(`Click cell ${id} to paste`); if (!ok()) return;
+      bump("k");
       placeAct(xact, c);
       xname.textContent = id;
       xval.textContent = c.textContent ?? "";
@@ -334,6 +344,7 @@ export default function CopyPaste() {
       S.mode = "arrow";
       await E.reach(b.x + 30, b.y + b.h / 2, { arc: 0.12, dur: 500 }); if (!ok()) return;
       await E.click(`Click cell ${id} to copy it`); if (!ok()) return;
+      bump("k");
       placeAct(xact, c);
       xname.textContent = id;
       xval.textContent = c.textContent ?? "";
@@ -349,6 +360,7 @@ export default function CopyPaste() {
       S.mode = "text";
       await E.reach(x, y, { arc: 0.12, dur: 560 }); if (!ok()) return;
       await E.click("Click into the caption to paste"); if (!ok()) return;
+      bump("k");
       frame.style.opacity = "1";
       Object.assign(caret.style, { left: `${x - p.x}px`, top: `${y - p.y - 6}px`, opacity: "1" });
       await keys("⌘V"); if (!ok()) return;
@@ -371,8 +383,9 @@ export default function CopyPaste() {
       [xact, xants, frame, caret].forEach((el) => (el.style.opacity = "0"));
       xname.textContent = "D6";
       xval.textContent = "";
-      (["c", "p", "s"] as const).forEach((k) => { count[k] = 0; n[k].textContent = "0"; });
-      cap.textContent = INTRO;
+      (["k", "c", "p", "s"] as const).forEach((k) => { count[k] = 0; n[k].textContent = "0"; });
+      cc.classList.remove("on");
+      ccT.textContent = "";
     }
 
     /* One full pass, then it holds on the finished page. Replay runs it again. */
@@ -408,8 +421,8 @@ export default function CopyPaste() {
       caret.style.opacity = "0";
       S.mode = "arrow";
       await E.moveTo(1030, 640, { arc: 0.15 }); if (!ok()) return;
-      cap.innerHTML = `<b class="cp-step">Done.</b> One faucet took ${count.c} copies, ${count.p} pastes and ${count.s} app switches. Every item in the project goes through the same routine, and again whenever one changes.`;
-      cap.animate([{ opacity: 0.25 }, { opacity: 1 }], { duration: 300 });
+      ccT.innerHTML = `<b>Done.</b>One faucet took ${count.k} clicks, ${count.c} copies, ${count.p} pastes and ${count.s} app switches. Every item in the project goes through the same routine, and again whenever one changes.`;
+      ccT.animate([{ opacity: 0.2 }, { opacity: 1 }], { duration: 300 });
       E.lap();
     }
 
