@@ -11,8 +11,8 @@ export type { CaseStudy, SelectedItem };
  * workstream: edit your own file, and only reorder here.
  */
 export const caseStudies: CaseStudy[] = [
-  ...ownTheScriptStudies,
   ...efficientlyStudies,
+  ...ownTheScriptStudies,
   ...passportStudies,
   ...soroStudies,
 ];
