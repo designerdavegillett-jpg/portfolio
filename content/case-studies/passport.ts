@@ -225,10 +225,12 @@ export const passportStudies: CaseStudy[] = [
             "Designed the in-app offer feedback loop that gave the company its first quantitative member satisfaction data.",
         },
         {
-          metric: "Adoption",
-          outcome: "Adoption was meaningfully stronger than the old app.",
+          metric: "Rating",
+          outcome:
+            "App store rating rose from 2.3 to 4.1 stars after the redesign, and adoption was meaningfully stronger than the old app.",
         },
       ],
+      note: "Ratings are from when I left the company in 2020. The app has changed since and no longer reflects my work.",
     },
   },
 ];
