@@ -94,5 +94,44 @@ export const ownTheScriptStudies: CaseStudy[] = [
         body: "Own the Script is in App Store review. Working loan officers outside me are using it on TestFlight.\n\nThe core creation flow is built and device verified end to end, from record to published video. Compliance in the frame is built and guaranteed at a single choke point, which is the clearest defensible claim in the product. Platform standing is real: six permissions approved, tech provider status confirmed, one platform self-serve and two more in progress. Governance and admin are built and proven with a live team policy on a device.\n\nThe gaps are real, and I'd rather name them. There is no billing implementation at all, so the pricing model is locked on paper and the product cannot take a dollar. Android is not shippable, because the caption burn is a 55 line stub blocked on hardware since 3 July. Scheduling has a table and an interface and no worker behind it, so the tile is disabled. Campaigns, the strongest differentiation play on the backlog, is still a coming soon tab. And there is no attorney sign off on the compliance rules, which is required before launch and has been named as such since version one.\n\nThe gap that bothers me most is the audit trail, because it is the differentiator. Twice in July I hand deleted posts after testing and both times the trail still recorded them as published. It is structural: every test cycle where the operator cleans up their own feed creates another false record, and on one platform it cannot self heal, because the granted scope has no read side, so the system cannot ask whether a post still exists. Only the member can say. The fix is a member-initiated retract action writing a distinct event. It is designed but not built.\n\nThe build took ten weeks, with one designer and no engineers. The agents wrote thirty-nine thousand lines of TypeScript, sixteen hundred lines of Swift and forty-two server functions. They also confidently reported work as finished that was not, produced a security defect that put live posting credentials in plaintext, wrote a code comment claiming the opposite, recorded a dangerous API version in project memory, and got the direction of the prompter highlight backwards. I caught every one of those with a verification process I designed for the job: device tests, adversarial review passes, numerically verified geometry, claim by claim audits against source, and a dated written record with a correction ledger for when the record itself rots.\n\nA partner that builds exactly what it's told needs me to know what to tell it, and to prove when it didn't do it. In an AI-built product that process is the design work, and it's the part that doesn't transfer to the next tool.",
       },
     ],
+    impact: {
+      heading: "Impact",
+      rows: [
+        {
+          metric: "Build",
+          outcome:
+            "First commit on 16 June 2026 and running on a physical iPhone 23 days later. 188 commits across 33 working days since, as sole designer and product owner directing the AI agents that wrote the code.",
+        },
+        {
+          metric: "Scope",
+          outcome:
+            "Designed and directed a 43,000+ line codebase: an iOS app, an admin portal and 43 backend functions.",
+        },
+        {
+          metric: "Compliance",
+          outcome:
+            "Designed a 19-rule compliance scan with two tiers: overridable with a logged acknowledgement, or never overridable. The NMLS ID and Equal Housing mark are burned into every export with no path around it.",
+        },
+        {
+          metric: "Market research",
+          outcome:
+            "Checked 5 vendors a top ten US lender contracts with, using their own documentation. None let a loan officer record, caption and publish vertical video from a phone. Re-verified live pricing and moved the plan from $79 to $40 a month.",
+        },
+        {
+          metric: "Cost",
+          outcome:
+            "Avoided a $780 a month aggregator by building direct OAuth for each social platform.",
+        },
+        {
+          metric: "Platform standing",
+          outcome: "Six permissions approved and tech provider status confirmed.",
+        },
+        {
+          metric: "Users",
+          outcome: "Working loan officers other than me are using it on TestFlight.",
+        },
+      ],
+      note: "Own the Script is in App Store review and has no billing yet, so these measure what was designed and built, not business results.",
+    },
   },
 ];
