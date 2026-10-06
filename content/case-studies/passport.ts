@@ -191,5 +191,44 @@ export const passportStudies: CaseStudy[] = [
         body: "Split ownership with no single roadmap authority meant every direction could be reopened, and the project absorbed a lot of avoidable back-and-forth as a result.\n\nIf I ran this again I'd spend the first week establishing who decides (a single product voice, or failing that a written alignment process) before any design work started. I treated that as someone else's problem to solve. It was mine, and the time lost to it was the biggest drag on the project.",
       },
     ],
+    impact: {
+      heading: "Impact",
+      rows: [
+        {
+          metric: "Reach",
+          outcome:
+            "iOS, Android and responsive web products reaching 500,000+ employees across 80+ enterprise clients.",
+        },
+        {
+          metric: "Ownership",
+          outcome:
+            "Moved from in-house graphic designer to solo product designer by making the case to take UI and UX in-house.",
+        },
+        {
+          metric: "Delivery",
+          outcome:
+            "Replaced an outside firm's quarterly, budget-limited release bursts with a continuous cycle, through a developer I sourced.",
+        },
+        {
+          metric: "Cost",
+          outcome:
+            "Saved the company over $100K a year in agency fees by bringing design in-house and sourcing a developer.",
+        },
+        {
+          metric: "Research",
+          outcome:
+            "Cut the central radial-menu button after user testing showed most members preferred browsing.",
+        },
+        {
+          metric: "Data",
+          outcome:
+            "Designed the in-app offer feedback loop that gave the company its first quantitative member satisfaction data.",
+        },
+        {
+          metric: "Adoption",
+          outcome: "Adoption was meaningfully stronger than the old app.",
+        },
+      ],
+    },
   },
 ];
