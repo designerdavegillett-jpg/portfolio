@@ -74,6 +74,9 @@ export const STYLES = `.bk{--hi:#0071E3;--app:var(--font-eff-sans,"Open Sans"),s
 .bk .bk-replay:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
 
 /* try it yourself: the next thing to click */
+.bk .bk-cc{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);width:max-content;max-width:1040px;padding:14px 26px;border-radius:12px;background:rgba(12,12,14,.82);color:#fff;font:500 25px/1.38 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center;text-wrap:balance;opacity:0;z-index:25;pointer-events:none;transition:opacity .3s ease}
+.bk .bk-cc.on{opacity:1}
+.bk .bk-cur{z-index:26}
 .bk .bk-hot{position:absolute;left:0;top:0;width:0;height:0;opacity:0;pointer-events:none;z-index:20;transition:opacity .2s}
 .bk .bk-hot.on{opacity:1}
 .bk .bk-hot i{position:absolute;left:-15px;top:-15px;width:30px;height:30px;border-radius:50%;border:2.5px solid #ff6a3d;background:rgba(255,106,61,.16);animation:bkping 1.6s ease-out infinite}
@@ -155,6 +158,17 @@ type EngineOpts = {
 export function engine(stage: HTMLElement, opts: EngineOpts) {
   const inner = stage.querySelector<HTMLElement>(".bk-inner")!;
   const cur = inner.querySelector<HTMLElement>(".bk-cur")!;
+  /* Closed captions over the screen: what is happening at each step. */
+  const cc = document.createElement("div");
+  cc.className = "bk-cc";
+  cc.setAttribute("aria-live", "polite");
+  inner.appendChild(cc);
+  const say = (text: string) => {
+    if (!text) { cc.classList.remove("on"); return; }
+    cc.textContent = text;
+    cc.classList.add("on");
+    cc.animate([{ opacity: 0.2 }, { opacity: 1 }], { duration: 300 });
+  };
   const S = { cx: opts.home.x, cy: opts.home.y, mode: "arrow" as "arrow" | "open" | "grab" | "point" | "text", lock: false, run: 0 };
   let tween: { t0: number; d: number; res: () => void; f: (u: number) => Pt } | null = null;
   /* A clock of its own, so a figure can pause, slow down and seek. Every
@@ -365,6 +379,7 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
 
   const halt = () => {
     S.run++;
+    say("");
     tween = null;
     G.pending = null;
     hot.classList.remove("on");
@@ -390,7 +405,7 @@ export function engine(stage: HTMLElement, opts: EngineOpts) {
     C.ffPause = thenPause;
     if (!running) mc.port1.postMessage(0);
   };
-  return { S, C, G, now, wait, moveTo, reach, click, halt, destroy, inner, cur, lap, ff, endFF, setGuided, advance };
+  return { S, C, G, now, wait, moveTo, reach, click, say, halt, destroy, inner, cur, lap, ff, endFF, setGuided, advance };
 }
 export type Engine = ReturnType<typeof engine>;
 

@@ -191,13 +191,16 @@ export default function BookDrop() {
 
     async function loop(id: number) {
       while (id === S.run) {
+        E.say("Drag an item from the room list onto an open slot on the page.");
         await wait(500); if (id !== S.run) return;
         for (const it of ITEMS) {
           await dragItem(it, id);
           if (id !== S.run) return;
         }
+        E.say("Each placed item is marked in the list with the page it's on.");
         await E.reach(1180, 700, { arc: 0.1 }); if (id !== S.run) return;
         await wait(2000); if (id !== S.run) return;
+        E.say("");
         await Promise.all(ITEMS.map((it) => it.fill.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, fill: "forwards" }).finished));
         if (id !== S.run) return;
         E.lap();

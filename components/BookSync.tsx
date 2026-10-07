@@ -122,6 +122,7 @@ export default function BookSync() {
       while (ok()) {
         await wait(1200); if (!ok()) return;
         /* The change arrives from the schedule. */
+        E.say("Back in the Book, the change arrives from the schedule and the list updates.");
         note.animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 260, easing: "ease-out", ...fwd });
         await wait(500); if (!ok()) return;
         sweep.animate([{ opacity: 0 }, { opacity: 1, offset: 0.3 }, { opacity: 0 }], { duration: 1100, easing: "ease-out" });
@@ -135,6 +136,7 @@ export default function BookSync() {
         note.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, ...fwd });
 
         /* What the flag means: the page still has the old item. */
+        E.say("The page still shows the old item, so it's flagged as outdated.");
         await E.reach(FLAG.x + 60, FLAG.y + 9, { arc: 0.14 }); if (!ok()) return;
         await E.click("Check the outdated flag"); if (!ok()) return;
         await wait(2600); if (!ok()) return;
@@ -142,6 +144,7 @@ export default function BookSync() {
         await wait(1200); if (!ok()) return;
 
         /* Update from the tag: the new item drops into the page. */
+        E.say("Update straight from the tag and the new item drops into the page.");
         { const b = box(upd); await E.reach(b.x + b.w / 2, b.y + b.h / 2 + 1, { arc: 0.1 }); } if (!ok()) return;
         await wait(700); if (!ok()) return;
         await E.click("Update the page"); if (!ok()) return;
@@ -158,9 +161,11 @@ export default function BookSync() {
         pin.animate([{ opacity: 0, transform: "scale(.6)" }, { opacity: 1, offset: 0.6 }, { opacity: 1 }], { duration: 320, delay: 200, easing: "cubic-bezier(.2,.8,.2,1.2)", fill: "backwards" });
         await wait(1400); if (!ok()) return;
         stale.classList.remove("on");
+        E.say("The page and the schedule match again.");
         await wait(1200); if (!ok()) return;
         await E.moveTo(HOME.x, HOME.y, { arc: 0.15 }); if (!ok()) return;
         await wait(1400); if (!ok()) return;
+        E.say("");
         E.lap();
         reset();
       }

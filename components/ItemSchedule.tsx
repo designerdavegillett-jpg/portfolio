@@ -180,6 +180,7 @@ export default function ItemSchedule() {
       while (ok()) {
         await wait(600); if (!ok()) return;
         /* Down into the table, then the Item ID on LOC 3. */
+        E.say("The item schedule lists every item in the project by location. Click an Item ID to open its details.");
         await E.moveTo(260, 300, { arc: 0.16 }); if (!ok()) return;
         await wait(350); if (!ok()) return;
         await E.reach(t.x + t.w / 2, t.y + t.h / 2, { arc: 0.12 }); if (!ok()) return;
@@ -195,6 +196,7 @@ export default function ItemSchedule() {
         kit.measure();
 
         /* Read, then Replace. */
+        E.say("This item is already approved. Replace it right from the panel.");
         await E.moveTo(kit.P + 200, 300, { arc: 0.18, dur: 800 }); if (!ok()) return;
         await wait(600); if (!ok()) return;
         { const p = kit.at(1, 0.55); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
@@ -202,6 +204,7 @@ export default function ItemSchedule() {
         await E.click("Replace the item"); if (!ok()) return;
 
         /* The Catalog flies in. */
+        E.say("The Catalog opens filtered to shower heads, the only valid replacements for this item.");
         modal = true;
         btns.forEach((b) => b.classList.remove("hot"));
         mscrim.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, ...fwd });
@@ -217,6 +220,7 @@ export default function ItemSchedule() {
         await wait(700); if (!ok()) return;
 
         /* Pick the Kohler showerhead. */
+        E.say("Pick the new shower head.");
         { const b = box(kohler); await E.reach(b.x + b.w * 0.45, b.y + b.h * 0.35, { arc: 0.14 }); } if (!ok()) return;
         await wait(800); if (!ok()) return;
         { const b = box(sel); await E.reach(b.x + b.w / 2, b.y + b.h / 2 + 1, { arc: -0.1 }); } if (!ok()) return;
@@ -224,6 +228,7 @@ export default function ItemSchedule() {
         await E.click("Select the Kohler showerhead"); if (!ok()) return;
 
         /* The Catalog closes, the panel and both locations change. */
+        E.say("Both locations update at once, and the approved item moves to Change Request.");
         modal = false;
         [...cards, ...frs, sel].forEach((el) => el.classList.remove("hot"));
         cat.animate([{ transform: "translateX(0)" }, { transform: "translateX(102%)" }], { duration: 380, easing: "cubic-bezier(.4,0,1,1)", ...fwd });
@@ -236,6 +241,7 @@ export default function ItemSchedule() {
         await wait(1600); if (!ok()) return;
 
         /* Close the panel to show the schedule. */
+        E.say("Close the panel. Every row that uses this item has changed.");
         await E.reach(kit.X.x, kit.X.y, { arc: 0.12 }); if (!ok()) return;
         await wait(300); if (!ok()) return;
         await E.click("Close the panel"); if (!ok()) return;
@@ -249,6 +255,7 @@ export default function ItemSchedule() {
         SAME.forEach((i) => { rows[i].classList.add("slow"); rows[i].classList.remove("flash"); });
         toast.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, ...fwd });
         await wait(1600); if (!ok()) return;
+        E.say("");
         await E.moveTo(HOME.x, HOME.y, { arc: 0.15 }); if (!ok()) return;
         await wait(600); if (!ok()) return;
         E.lap();

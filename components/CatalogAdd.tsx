@@ -222,6 +222,7 @@ export default function CatalogAdd() {
       while (ok()) {
         await wait(800); if (!ok()) return;
         /* Open New item. */
+        E.say("When a product isn't in the Catalog, designers can add their own.");
         { const p = mid(add); await E.reach(p.x, p.y, { arc: 0.14 }); } if (!ok()) return;
         await wait(500); if (!ok()) return;
         await E.click("Add your own item"); if (!ok()) return;
@@ -230,6 +231,7 @@ export default function CatalogAdd() {
         await wait(560); if (!ok()) return;
 
         /* Photo: drop it in, a short upload. */
+        E.say("Drop in a product photo.");
         { const p = mid(drop); await E.reach(p.x, p.y + 10, { arc: 0.12 }); } if (!ok()) return;
         await wait(400); if (!ok()) return;
         await E.click("Add a photo"); if (!ok()) return;
@@ -240,6 +242,7 @@ export default function CatalogAdd() {
         await wait(1000); if (!ok()) return;
 
         /* Details. */
+        E.say("Fill in the name, vendor and style number.");
         { const p = mid(ip("name"), 0.2); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
         await E.click("Click Name"); if (!ok()) return;
         await type("name", FIELDS.name, ok); if (!ok()) return;
@@ -251,6 +254,7 @@ export default function CatalogAdd() {
         await type("sku", FIELDS.sku, ok); if (!ok()) return;
 
         /* Category sets the division. */
+        E.say("Choosing a category fills in the division for you.");
         { const p = mid(catSel, 0.4); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
         await wait(250); if (!ok()) return;
         await E.click("Choose a category"); if (!ok()) return;
@@ -267,6 +271,7 @@ export default function CatalogAdd() {
         await wait(500); if (!ok()) return;
 
         /* Finish and documents. */
+        E.say("Pick the finish and attach the spec sheet.");
         { const p = mid(sw, 0.4); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
         await wait(300); if (!ok()) return;
         await E.click("Pick a finish"); if (!ok()) return;
@@ -281,6 +286,7 @@ export default function CatalogAdd() {
         await wait(700); if (!ok()) return;
 
         /* Save: the panel closes and the item joins the grid, up front. */
+        E.say("Save, and the item joins My items, ready to use in any project.");
         { const p = mid(save); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return;
         await wait(400); if (!ok()) return;
         await E.click("Save to My items"); if (!ok()) return;
@@ -318,6 +324,7 @@ export default function CatalogAdd() {
         await wait(2600); if (!ok()) return;
         toast.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, ...fwd });
         await wait(800); if (!ok()) return;
+        E.say("");
         await E.moveTo(HOME.x, HOME.y, { arc: 0.15 }); if (!ok()) return;
         await wait(800); if (!ok()) return;
         E.lap();

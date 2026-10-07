@@ -78,6 +78,7 @@ export default function ItemDetails() {
       const ok = () => id === S.run;
       while (ok()) {
         await wait(600); if (!ok()) return;
+        E.say("Click any item in the list to open its details.");
         await E.reach(150, 272, { arc: 0.14 }); if (!ok()) return;
         await wait(500); if (!ok()) return;
         await E.click("Open the item's details"); if (!ok()) return;
@@ -89,6 +90,7 @@ export default function ItemDetails() {
         kit.show();
         if (!(await kit.tour(E, ok))) return;
         closeState();
+        E.say("");
         await E.moveTo(760, 420, { arc: 0.15 }); if (!ok()) return;
         await wait(1200); if (!ok()) return;
         E.lap();

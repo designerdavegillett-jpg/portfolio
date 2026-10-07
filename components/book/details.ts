@@ -152,6 +152,7 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     await wait(480); if (!ok()) return false;
     measure();
     /* The hand drifts aside to read, then tries both actions. */
+    E.say("Specs, photo and locations in one panel, with Replace and Remove right at the top.");
     await E.moveTo(P + 224, 330, { arc: 0.2, dur: 900 }); if (!ok()) return false;
     await wait(900); if (!ok()) return false;
     { const p = at(1, 0.55); await E.reach(p.x, p.y, { arc: 0.1 }); } if (!ok()) return false;
@@ -159,6 +160,7 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     { const p = at(2, 0.45); await E.moveTo(p.x, p.y, { arc: 0.06 }); } if (!ok()) return false;
     await wait(1000); if (!ok()) return false;
     /* Scroll down to the documents. */
+    E.say("Scroll down for the item's documents.");
     await E.reach(P + 224, 520, { arc: 0.1 }); if (!ok()) return false;
     await wait(250); if (!ok()) return false;
     await scrollTo(E, scroller.scrollHeight - scroller.clientHeight, 1100); if (!ok()) return false;
@@ -167,6 +169,7 @@ export function panelKit(host: HTMLElement, stage: HTMLElement, side: Side) {
     { const r = HOT[0].r!; await E.reach(r.x + r.w - 60, r.y + r.h / 2, { arc: -0.14 }); } if (!ok()) return false;
     await wait(1300); if (!ok()) return false;
     /* Close. */
+    E.say("Close the panel to get back to the page.");
     await E.reach(X.x, X.y, { arc: 0.12 }); if (!ok()) return false;
     await wait(380); if (!ok()) return false;
     await E.click("Close the panel"); if (!ok()) return false;
