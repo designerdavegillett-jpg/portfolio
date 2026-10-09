@@ -60,8 +60,8 @@ export default function AboutPage() {
             </p>
             <p className="reveal" style={{ "--d": ".08s" } as React.CSSProperties}>
               Before that I designed benefits software reaching over 500,000 employees across 80+
-              enterprise clients, and a retail CRM that was adopted across Seattle-area
-              locations before the company was acquired.
+              enterprise clients, and a sales CRM for a startup that was acquired
+              within about a year of leaving beta.
             </p>
             <p className="reveal" style={{ "--d": ".24s" } as React.CSSProperties}>
               <a

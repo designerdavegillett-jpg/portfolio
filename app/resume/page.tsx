@@ -82,7 +82,7 @@ const RECORDS: Record[] = [
     title: "Product Design Director · Contract",
     dates: "2017-2020",
     bullets: [
-      "Designed a responsive CRM and onboarding flow for users with no prior CRM vocabulary, based on research and journey mapping. It was adopted across Seattle-area retail locations, and the company was acquired",
+      "Designed a responsive CRM and onboarding flow for users with no prior CRM vocabulary, based on research and journey mapping. The company left beta about a year before Dauntless acquired it in March 2019, with about a dozen customers",
       "Designed the CRM’s information architecture: seven areas, My/All views, and five report families",
     ],
   },

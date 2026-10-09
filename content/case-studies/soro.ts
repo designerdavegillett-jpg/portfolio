@@ -20,7 +20,7 @@ export const soroStudies: CaseStudy[] = [
       transparent: true,
     },
     summary:
-      "Soro was a customer relationship tool for a regional wholesale sales team. I designed the brand and the product: the mark, the palette and type system, the information architecture, and the dashboard and account screens the reps used every day. It was adopted across the team's Seattle-area accounts, and the company was later acquired.",
+      "Soro was a customer relationship tool for a regional wholesale sales team. I designed the brand and the product: the mark, the palette and type system, the information architecture, and the dashboard and account screens the reps used every day. Soro came out of beta about a year before Dauntless acquired it in March 2019, with about a dozen customers.",
     year: "2017-2020",
     platform: "Web",
     role: "Product Designer, Brand",
@@ -109,5 +109,28 @@ export const soroStudies: CaseStudy[] = [
         ],
       },
     ],
+    impact: {
+      heading: "Impact",
+      rows: [
+        {
+          metric: "Zero to one",
+          outcome:
+            "Designed the brand, design system, information architecture and CRM for a company that came out of beta within about a year.",
+        },
+        {
+          metric: "Structure",
+          outcome: "Seven areas, My and All views, and five report families.",
+        },
+        {
+          metric: "Customers",
+          outcome: "About a dozen customers at acquisition, joining a platform of about 120.",
+        },
+        {
+          metric: "Outcome",
+          outcome: "Acquired by Dauntless in March 2019.",
+        },
+      ],
+      note: "Customer counts and the acquisition date are from press coverage at the time of the deal.",
+    },
   },
 ];
