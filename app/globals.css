@@ -1263,6 +1263,8 @@ strong {
   gap: var(--s6);
 }
 .hero2-top { align-items: start; }
+.hero2-top > *,
+.hero2-main > * { min-width: 0; }
 .hero2-main { align-items: end; }
 .hero2-h {
   display: flex;
