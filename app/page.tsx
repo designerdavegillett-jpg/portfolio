@@ -1,11 +1,15 @@
 import { caseStudies, selectedWork } from "@/content/case-studies";
 import WorkCard from "@/components/WorkCard";
 import ScrollCue from "@/components/ScrollCue";
+import LogoStrip from "@/components/LogoStrip";
 import { splitWords } from "@/lib/type";
 import { SITE_URL } from "@/lib/site";
 
-const HERO =
-  "Hey there, I'm Dave Gillett, a senior product designer. I design platforms that take complex systems and turn them into intuitive, user-centric applications. I use AI hand in hand with my work to improve the process, not to replace the experience behind great product design.";
+/* The intro, split so the role can carry the emphasis. */
+const HERO_LEAD = "Hey there, I'm a ";
+const HERO_ROLE = "senior product designer";
+const HERO_REST =
+  ". I design platforms that take complex systems and turn them into intuitive, user-centric applications. I use AI hand in hand with my work to improve the process, not to replace the experience behind great product design.";
 
 /* The identity of the site, in the form a search engine can resolve. This is
    what ties "Dave Gillett" the string to a person with a role and a body of
@@ -53,13 +57,28 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSONLD).replace(/</g, "\\u003c") }}
       />
 
-      {/* HERO */}
-      <div className="hero" id="top">
-        <div className="hero-inner">
-          <h1 className="display d-xl">{splitWords(HERO)}</h1>
-          <div className="hero-foot reveal" style={{ "--d": ".9s" } as React.CSSProperties}>
-            <span className="label">Senior Product Designer · Seattle</span>
-            <span className="label">Product · UX · Design Systems</span>
+      {/* HERO: status and past companies on top, name and intro below. */}
+      <div className="hero hero2" id="top">
+        <div className="hero2-top">
+          <div className="hero2-status reveal">
+            <div className="hero2-h">
+              Open to work <i className="hero2-dot" aria-hidden="true" />
+            </div>
+            <p>Senior product design roles and consulting, remote or in Seattle.</p>
+            <a href="#contact" data-contact-open className="underline-link">
+              Get in touch <span className="arrow">↗</span>
+            </a>
+          </div>
+          <div className="hero2-past reveal" style={{ "--d": ".15s" } as React.CSSProperties}>
+            <div className="hero2-h">Previous Work</div>
+            <LogoStrip />
+          </div>
+        </div>
+
+        <div className="hero2-main">
+          <h1 className="display hero2-name">{splitWords("Dave Gillett")}</h1>
+          <div className="hero2-intro reveal" style={{ "--d": ".5s" } as React.CSSProperties}>
+            <p>{HERO_LEAD}<strong>{HERO_ROLE}</strong>{HERO_REST}</p>
           </div>
         </div>
         <ScrollCue />
