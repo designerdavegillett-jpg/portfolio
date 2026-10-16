@@ -56,7 +56,7 @@ export default function AboutPage() {
             </p>
             <p className="reveal" style={{ "--d": ".04s" } as React.CSSProperties}>
               Most recently I designed a construction-tech platform where I owned UI and UX
-              across eight modules and twenty-six-plus releases, directing a team of nine.
+              across eight modules and sixty-five-plus releases, directing a team of nine.
             </p>
             <p className="reveal" style={{ "--d": ".08s" } as React.CSSProperties}>
               Before that I designed benefits software reaching over 500,000 employees across 80+

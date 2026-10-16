@@ -84,6 +84,23 @@ export const efficientlyStudies: CaseStudy[] = [
             "Led a 7-designer team that designed 55,000+ screens across 4,000+ feature flows over 6 years.",
         },
         {
+          metric: "Team growth",
+          outcome:
+            "Built the design function from 1 designer to 7 while the dev team tripled in about 2 years.",
+        },
+        {
+          metric: "Release volume",
+          outcome: "About 500 stories per major release, on a release every 4 months.",
+        },
+        {
+          metric: "Design dependency",
+          outcome: "90% of feature work depended on Figma flows.",
+        },
+        {
+          metric: "User growth",
+          outcome: "Grew from zero to hundreds of users in 2 years, including test users brought in through several soft launches.",
+        },
+        {
           metric: "Tool consolidation",
           outcome:
             "Replaced up to 8 tool categories - spreadsheets, project chat, measurement, photo editing, layout, image management, catalog sourcing and item schedules - with one platform. A typical designer replaces at least 3.",
@@ -99,10 +116,10 @@ export const efficientlyStudies: CaseStudy[] = [
         },
         {
           metric: "Delivery",
-          outcome: "Eight modules and 26+ releases across every phase of the product, from discovery through implementation.",
+          outcome: "Eight modules and 65+ releases across every phase of the product, from discovery through implementation.",
         },
       ],
-      note: "These figures cover my full time at Efficiently, across all phases, not only the phase described above. Efficiently did not track product analytics, so these measure scope, validation and consolidation rather than conversion."
+      note: "These figures cover my full time at Efficiently, across all phases, not only the phase described above. Apart from user growth, Efficiently did not track product analytics, so these measure scope, validation and consolidation rather than conversion."
     },
   },
 ];
