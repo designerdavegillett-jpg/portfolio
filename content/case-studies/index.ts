@@ -2,7 +2,6 @@ import type { CaseStudy, SelectedItem } from "./types";
 import { efficientlyStudies } from "./efficiently";
 import { passportStudies } from "./passport";
 import { ownTheScriptStudies } from "./own-the-script";
-import { soroStudies } from "./soro";
 
 export type { CaseStudy, SelectedItem };
 
@@ -14,7 +13,6 @@ export const caseStudies: CaseStudy[] = [
   ...efficientlyStudies,
   ...ownTheScriptStudies,
   ...passportStudies,
-  ...soroStudies,
 ];
 
 /** Studies that resolve by URL but are not listed, and are marked noindex. */

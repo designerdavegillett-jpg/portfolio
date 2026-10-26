@@ -41,7 +41,6 @@ export default function AboutPage() {
             <ul>
               <li>Efficiently, 2020-2026</li>
               <li>Passport Unlimited</li>
-              <li>Soro Software</li>
             </ul>
             </div>
         </div>

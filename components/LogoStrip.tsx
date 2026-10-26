@@ -4,7 +4,6 @@
 const LOGOS: { name: string; src?: string; h?: number }[] = [
   { name: "Efficiently" },
   { name: "Passport Unlimited" },
-  { name: "Soro Software" },
   { name: "Own the Script" },
 ];
 
